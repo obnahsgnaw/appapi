@@ -1,4 +1,4 @@
-module github.com/obnahsgnaw/frameworkapi
+module github.com/efly/appapi
 
 go 1.19
 
