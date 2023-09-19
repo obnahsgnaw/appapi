@@ -1,6 +1,6 @@
 package doc
 
-import "github.com/efly/appapi/asset"
+import "github.com/obnahsgnaw/appapi/asset"
 
 func FrontendDoc() ([]byte, error) {
 	return asset.Asset("doc/frontend.swagger.json")

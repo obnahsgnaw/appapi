@@ -1,4 +1,4 @@
-module github.com/efly/appapi
+module github.com/obnahsgnaw/appapi
 
 go 1.19
 
