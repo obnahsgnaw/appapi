@@ -18,6 +18,9 @@
     {
       "name": "OptionsService",
       "description": "选项管理"
+    },
+    {
+      "name": "AuthedAppService"
     }
   ],
   "schemes": [
@@ -177,6 +180,39 @@
     }
   },
   "definitions": {
+    "v1AuthedApp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "backend": {
+          "type": "boolean"
+        },
+        "manage": {
+          "type": "boolean"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attrs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "v1ErrorObject": {
       "type": "object",
       "properties": {
@@ -243,6 +279,17 @@
             "$ref": "#/definitions/v1IntOption"
           },
           "description": "启禁用状态"
+        }
+      }
+    },
+    "v1ValidAppResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "app": {
+          "$ref": "#/definitions/v1AuthedApp"
         }
       }
     },
