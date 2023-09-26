@@ -20,6 +20,14 @@
       "description": "选项管理"
     },
     {
+      "name": "AppService",
+      "description": "应用管理"
+    },
+    {
+      "name": "AppVersionService",
+      "description": "版本管理"
+    },
+    {
       "name": "AuthedAppService"
     },
     {
@@ -40,6 +48,1294 @@
     "application/octet-stream"
   ],
   "paths": {
+    "/v1/applications": {
+      "get": {
+        "summary": "列表",
+        "operationId": "AppService_Paginate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AppPaginateResponse"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": "Page number, default=1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "Page size, default=10",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "keyword",
+            "description": "Keyword search, like:keyword=xx，keyword=id=1|name=xxx",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort list, like: sort=+a,-b,+c,-d",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AppService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 1
+      },
+      "post": {
+        "summary": "创建",
+        "operationId": "AppService_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1App"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AppFormData",
+              "description": "data",
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "AppService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 3
+      }
+    },
+    "/v1/applications/{appId}/versions": {
+      "get": {
+        "summary": "列表",
+        "operationId": "AppVersionService_Paginate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AppVersionPaginateResponse"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "description": "app_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "description": "Page number, default=1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "Page size, default=10",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "keyword",
+            "description": "Keyword search, like:keyword=xx，keyword=id=1|name=xxx",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort list, like: sort=+a,-b,+c,-d",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AppVersionService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 1
+      },
+      "post": {
+        "summary": "创建",
+        "operationId": "AppVersionService_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AppVersion"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "description": "app_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AppVersionFormData",
+              "description": "创建应用版本信息",
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "AppVersionService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 3
+      }
+    },
+    "/v1/applications/{appId}/versions/{id}": {
+      "get": {
+        "summary": "详情",
+        "operationId": "AppVersionService_Detail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AppVersion"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "description": "app_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AppVersionService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 2
+      },
+      "delete": {
+        "summary": "删除",
+        "operationId": "AppVersionService_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "description": "app_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "ID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AppVersionService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 5
+      },
+      "put": {
+        "summary": "修改",
+        "operationId": "AppVersionService_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AppVersion"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "description": "app_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AppVersionUpdateData",
+              "description": "data",
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "AppVersionService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 4
+      }
+    },
+    "/v1/applications/{appId}/versions/{id}/publish-state": {
+      "put": {
+        "summary": "发布",
+        "operationId": "AppVersionService_Publish",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AppVersion"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "description": "app_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "ID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "data",
+            "description": "data\n\ndata",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ConflictData",
+              "description": "data",
+              "title": "data",
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "AppVersionService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 6
+      }
+    },
+    "/v1/applications/{id}": {
+      "get": {
+        "summary": "详情",
+        "operationId": "AppService_Detail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1App"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AppService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 2
+      },
+      "delete": {
+        "summary": "删除",
+        "operationId": "AppService_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AppService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 5
+      },
+      "put": {
+        "summary": "修改",
+        "operationId": "AppService_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1App"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "app.id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AppUpdateData",
+              "description": "data",
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "AppService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 4
+      }
+    },
+    "/v1/applications/{id}/disable-state": {
+      "put": {
+        "summary": "禁用",
+        "operationId": "AppService_Disable",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1App"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "data",
+            "description": "data\n\ndata",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ConflictData",
+              "description": "data",
+              "title": "data",
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "AppService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 6
+      }
+    },
+    "/v1/applications/{id}/enable-state": {
+      "put": {
+        "summary": "启用",
+        "operationId": "AppService_Enable",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1App"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "data",
+            "description": "data\n\ndata",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ConflictData",
+              "description": "data",
+              "title": "data",
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "AppService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 7
+      }
+    },
+    "/v1/attr-configs": {
+      "get": {
+        "summary": "属性配置",
+        "operationId": "AppService_Config",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ConfigResponse"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "tags": [
+          "AppService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 8
+      }
+    },
     "/v1/config": {
       "get": {
         "summary": "配置信息",
@@ -335,6 +1631,312 @@
     }
   },
   "definitions": {
+    "v1App": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "app id"
+        },
+        "name": {
+          "type": "string",
+          "description": "应用名称"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AppType",
+          "description": "类型"
+        },
+        "description": {
+          "type": "string",
+          "description": "应用描述"
+        },
+        "scopes": {
+          "type": "string",
+          "description": "作用范围"
+        },
+        "package": {
+          "type": "string",
+          "description": "包名"
+        },
+        "project": {
+          "type": "string",
+          "description": "项目标识"
+        },
+        "manage": {
+          "type": "boolean",
+          "description": "是否管理型应用"
+        },
+        "enabled": {
+          "$ref": "#/definitions/v1EnableState",
+          "description": "启用状态"
+        },
+        "attrs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "应用属性"
+        },
+        "operateinfo": {
+          "$ref": "#/definitions/v1OperateInfo",
+          "description": "时间"
+        },
+        "conflict": {
+          "$ref": "#/definitions/v1Conflict",
+          "description": "冲突检测"
+        }
+      }
+    },
+    "v1AppFormData": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "应用名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "应用描述"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "作用范围"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AppType",
+          "description": "类型"
+        },
+        "package": {
+          "type": "string",
+          "description": "包名"
+        },
+        "project": {
+          "type": "string",
+          "description": "项目标识"
+        },
+        "manage": {
+          "type": "boolean",
+          "description": "是否管理型应用"
+        },
+        "attrs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "应用属性"
+        }
+      }
+    },
+    "v1AppPaginateDate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "应用 id"
+        },
+        "name": {
+          "type": "string",
+          "description": "应用名称"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AppType",
+          "description": "类型"
+        },
+        "manage": {
+          "type": "boolean",
+          "description": "是否管理型应用"
+        },
+        "enabled": {
+          "$ref": "#/definitions/v1EnableState",
+          "description": "启用状态"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        }
+      }
+    },
+    "v1AppPaginateResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1PaginateMeta"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1AppPaginateDate"
+          }
+        }
+      }
+    },
+    "v1AppType": {
+      "type": "string",
+      "enum": [
+        "Backend",
+        "Frontend"
+      ],
+      "default": "Backend"
+    },
+    "v1AppUpdateData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/v1AppFormData",
+          "description": "data"
+        },
+        "conflict": {
+          "$ref": "#/definitions/v1Conflict",
+          "description": "检测冲突"
+        }
+      },
+      "required": [
+        "data",
+        "conflict"
+      ]
+    },
+    "v1AppVersion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "id"
+        },
+        "title": {
+          "type": "string",
+          "description": "名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "更新的内容"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "versionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本号数值"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "是否强制更新"
+        },
+        "url": {
+          "type": "string",
+          "description": "文件路径"
+        },
+        "publishedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "发布时间"
+        },
+        "operateInfo": {
+          "$ref": "#/definitions/v1OperateInfo",
+          "description": "时间"
+        },
+        "conflict": {
+          "$ref": "#/definitions/v1Conflict",
+          "description": "冲突检测"
+        }
+      }
+    },
+    "v1AppVersionFormData": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "更行内容"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "versionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本号数值"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "是否强制更新"
+        },
+        "url": {
+          "type": "string",
+          "description": "文件路径"
+        }
+      }
+    },
+    "v1AppVersionPaginateData": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "标题"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "是否强制更新"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        },
+        "publishedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "发布时间"
+        }
+      }
+    },
+    "v1AppVersionPaginateResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1PaginateMeta"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1AppVersionPaginateData"
+          }
+        }
+      }
+    },
+    "v1AppVersionUpdateData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/v1AppVersionFormData",
+          "description": "更新的数据"
+        },
+        "conflict": {
+          "$ref": "#/definitions/v1Conflict",
+          "description": "检测冲突"
+        }
+      },
+      "required": [
+        "data",
+        "conflict"
+      ]
+    },
     "v1AuthedApp": {
       "type": "object",
       "properties": {
@@ -377,6 +1979,81 @@
         }
       },
       "title": "TODO 8 change  to  project config and controller"
+    },
+    "v1ConfigItem": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "属性key"
+        },
+        "title": {
+          "type": "string",
+          "description": "属性标题"
+        },
+        "desc": {
+          "type": "string",
+          "description": "属性描述"
+        }
+      },
+      "required": [
+        "key",
+        "title",
+        "desc"
+      ]
+    },
+    "v1ConfigResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ConfigItem",
+            "required": [
+              "items"
+            ]
+          },
+          "description": "属性"
+        }
+      }
+    },
+    "v1Conflict": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The conflict value of the resource",
+          "title": "Value"
+        }
+      },
+      "title": "冲突检查值",
+      "required": [
+        "value"
+      ]
+    },
+    "v1ConflictData": {
+      "type": "object",
+      "properties": {
+        "conflict": {
+          "$ref": "#/definitions/v1Conflict",
+          "description": "Conflict",
+          "title": "Conflict"
+        }
+      },
+      "required": [
+        "conflict"
+      ]
+    },
+    "v1EnableState": {
+      "type": "string",
+      "enum": [
+        "Disabled",
+        "Enabled",
+        "Default"
+      ],
+      "default": "Disabled",
+      "title": "启用 禁用"
     },
     "v1ErrorObject": {
       "type": "object",
@@ -434,6 +2111,27 @@
       },
       "title": "id name 响应"
     },
+    "v1OperateInfo": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "最后更新时间"
+        },
+        "deletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "删除时间"
+        }
+      },
+      "title": "操作信息"
+    },
     "v1OptionListResponse": {
       "type": "object",
       "properties": {
@@ -444,8 +2142,45 @@
             "$ref": "#/definitions/v1IntOption"
           },
           "description": "启禁用状态"
+        },
+        "appType": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IntOption"
+          },
+          "description": "应用类型"
+        },
+        "publishState": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1IntOption"
+          },
+          "description": "版本发布状态"
         }
       }
+    },
+    "v1PaginateMeta": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Resource total nums"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Current page id"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Current page size"
+        }
+      },
+      "title": "分页元数据"
     },
     "v1ValidAppResponse": {
       "type": "object",

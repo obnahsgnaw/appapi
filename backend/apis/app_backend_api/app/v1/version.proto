@@ -1,0 +1,381 @@
+syntax = "proto3";
+package app_backend_api.app.v1;
+option go_package = "app_backend_api/app/v1";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/api/annotations.proto";
+import "app_backend_api/common/v1/obj.proto";
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service AppVersionService{
+  // 服务swagger描述定义
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "版本管理";
+  };
+  // 列表
+  rpc Paginate (AppVersionPaginateRequest) returns (AppVersionPaginateResponse) {
+    option (google.api.http) = {
+      get: "/v1/applications/{app_id}/versions"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "列表";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 1
+        }
+      }
+    };
+  }
+  // 详情
+  rpc Detail (AppVersionDetailRequest) returns (AppVersion) {
+    option (google.api.http) = {
+      get: "/v1/applications/{app_id}/versions/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "详情";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 2
+        }
+      }
+    };
+  }
+  // 创建
+  rpc Create (AppVersionCreateRequest) returns (AppVersion) {
+    option (google.api.http) = {
+      post: "/v1/applications/{app_id}/versions";
+      body: "data";
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "创建";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 3
+        }
+      }
+    };
+  }
+  // 修改
+  rpc Update (AppVersionUpdateRequest) returns (AppVersion) {
+    option (google.api.http) = {
+      put: "/v1/applications/{app_id}/versions/{id}"
+      body: "data"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "修改";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 4
+        }
+      }
+    };
+  }
+  // 删除
+  rpc Delete (AppVersionDeleteRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/applications/{app_id}/versions/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "删除";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 5
+        }
+      }
+    };
+  }
+  // 发布
+  rpc Publish (AppVersionPublishRequest) returns (AppVersion){
+    option (google.api.http) = {
+      put :'/v1/applications/{app_id}/versions/{id}/publish-state'
+      body:'data'
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "发布";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 6
+        }
+      }
+    };
+  }
+}
+
+message AppVersionPaginateRequest{
+  uint32 page = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "Page number, default=1";
+    },
+    (validate.rules).uint32 = {ignore_empty: false, gte:0}
+  ];
+  uint32 limit = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "Page size, default=10";
+    },
+    (validate.rules).uint32 = {ignore_empty: false, gte:0}
+  ];
+  string keyword = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Keyword search, like:keyword=xx，keyword=id=1|name=xxx";
+  }];
+  string sort = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Sort list, like: sort=+a,-b,+c,-d";
+  }];
+  string app_id =5[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: 'app_id'
+      required:'app_id'
+    },
+    (validate.rules).string={ignore_empty:false,min_len:1}
+  ];
+}
+message AppVersionDetailRequest{
+  uint32 id =1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={
+    description:'id'
+  },
+    (validate.rules).uint32={ignore_empty:false,gt:0}
+  ];
+  string app_id =2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: 'app_id'
+  },
+    (validate.rules).string={ignore_empty:false,min_len:1}
+  ];
+}
+message AppVersionPaginateResponse {
+  option (validate.ignored) = true;
+  common.v1.PaginateMeta meta = 1;
+  repeated AppVersionPaginateData list = 2;
+}
+message AppVersionPaginateData {
+  option (validate.ignored) = true;
+  string title = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"标题"
+  }];
+  string version = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"版本号"
+  }];
+  bool force = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"是否强制更新"
+  }];
+  google.protobuf.Timestamp created_at = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"创建时间";
+  }];
+  google.protobuf.Timestamp published_at = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"发布时间";
+  }];
+}
+message AppVersion {
+  option (validate.ignored) = true;
+  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"id"
+  }];
+  string title = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"名称"
+  }];
+  string description = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"更新的内容"
+  }];
+  string version = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"版本号"
+  }];
+  uint32 version_num = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"版本号数值"
+  }];
+  bool force = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"是否强制更新"
+  }];
+  string url = 7[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"文件路径"
+  }];
+  google.protobuf.Timestamp published_at = 8[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"发布时间";
+  }];
+  common.v1.OperateInfo operate_info = 9[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"时间";
+  }];
+  common.v1.Conflict conflict = 10[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"冲突检测";
+  }];
+}
+message AppVersionCreateRequest {
+  string app_id =1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: 'app_id'
+    },
+    (validate.rules).string={ignore_empty:false,len:24}
+  ];
+  AppVersionFormData data = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:["data"]
+      description:'创建应用版本信息'
+    },
+    (validate.rules).message = {required :true}
+  ];
+}
+message AppVersionFormData {
+  string title = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'名称'
+    },
+    (validate.rules).string = {ignore_empty:false,min_len:1,max_len:100}
+  ];
+  string description = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'更行内容'
+    },
+    (validate.rules).string = {ignore_empty:false,min_len:0,max_len:255}
+  ];
+  string version = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'版本号'
+    },
+    (validate.rules).string = {ignore_empty:false,min_len:5,max_len:20}
+  ];
+  uint32 version_num = 4[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'版本号数值'
+    },
+    (validate.rules).uint32 = {ignore_empty:false,gt:0}
+  ];
+  bool force = 5[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'是否强制更新'
+    }
+  ];
+  string url = 6[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'文件路径'
+    },
+    (validate.rules).string = {ignore_empty:false,min_len:1,max_len:255}
+  ];
+}
+message AppVersionUpdateRequest {
+  uint32 id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:['id']
+      description:'id'
+    },
+    (validate.rules).uint32 = {ignore_empty: false, gt:0}
+  ];
+  string app_id =2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: 'app_id'
+    },
+    (validate.rules).string={ignore_empty:false,len:24}
+  ];
+  AppVersionUpdateData data = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:["data"]
+      description:'data'
+    },
+    (validate.rules).message = {required :true}
+  ];
+}
+message AppVersionUpdateData {
+  AppVersionFormData data = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:['data']
+      description:'更新的数据'
+    },
+    (validate.rules).message = {required:true}
+  ];
+  common.v1.Conflict conflict = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:["conflict"]
+      description:'检测冲突'
+    },
+    (validate.rules).message = {required :true}
+  ];
+}
+message AppVersionDeleteRequest {
+  uint32 id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      title: "ID";
+      description: "ID";
+    },
+    (validate.rules).uint32 = {ignore_empty: false, gt:0}
+  ];
+  string app_id =2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: 'app_id'
+  },
+    (validate.rules).string={ignore_empty:false,len:24}
+  ];
+}
+message AppVersionPublishRequest {
+  uint32 id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      title: "ID";
+      description: "ID";
+    },
+    (validate.rules).uint32 = {ignore_empty: false, gt:0}
+  ];
+  string app_id =2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: 'app_id'
+  },
+    (validate.rules).string={ignore_empty:false,len:24}
+  ];
+  common.v1.ConflictData data = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["data"];
+      title: "data";
+      description: "data";
+    },
+    (validate.rules).message = {required:true}
+  ];
+}

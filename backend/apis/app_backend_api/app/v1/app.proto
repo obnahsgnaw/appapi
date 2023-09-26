@@ -1,0 +1,394 @@
+syntax = "proto3";
+package app_backend_api.app.v1;
+option go_package = "app_backend_api/app/v1";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/api/annotations.proto";
+import "app_backend_api/common/v1/obj.proto";
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service AppService{
+  // 服务swagger描述定义
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "应用管理";
+  };
+  // 列表
+  rpc Paginate (common.v1.PaginateRequest) returns (AppPaginateResponse) {
+    option (google.api.http) = {
+      get: "/v1/applications"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "列表";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 1
+        }
+      }
+    };
+  }
+  // 详情
+  rpc Detail (common.v1.IntIdRequest) returns (App) {
+    option (google.api.http) = {
+      get: "/v1/applications/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "详情";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 2
+        }
+      }
+    };
+  }
+  // 创建
+  rpc Create (AppCreateRequest) returns (App) {
+    option (google.api.http) = {
+      post: "/v1/applications";
+      body: "data";
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "创建";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 3
+        }
+      }
+    };
+  }
+  // 修改
+  rpc Update (AppUpdateRequest) returns (App) {
+    option (google.api.http) = {
+      put: "/v1/applications/{id}"
+      body: "data"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "修改";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 4
+        }
+      }
+    };
+  }
+  // 删除
+  rpc Delete (common.v1.IntIdRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/applications/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "删除";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 5
+        }
+      }
+    };
+  }
+  // 禁用
+  rpc Disable (common.v1.IntIdOperateRequest) returns (App){
+    option (google.api.http) = {
+      put :'/v1/applications/{id}/disable-state'
+      body:"data"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "禁用";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 6
+        }
+      }
+    };
+  }
+  // 启用
+  rpc Enable (common.v1.IntIdOperateRequest) returns (App){
+    option (google.api.http) = {
+      put :'/v1/applications/{id}/enable-state'
+      body:"data"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "启用";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 7
+        }
+      }
+    };
+  }
+  // 属性配置
+  rpc Config(ConfigRequest) returns(ConfigResponse){
+    option (google.api.http) = {
+      get: "/v1/attr-configs"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "属性配置";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 8
+        }
+      }
+    };
+  }
+}
+
+enum AppType{
+  Backend = 0;
+  Frontend = 1;
+}
+message AppPaginateResponse{
+  option (validate.ignored) = true;
+  common.v1.PaginateMeta meta = 1;
+  repeated AppPaginateDate list = 2;
+}
+message AppPaginateDate {
+  option (validate.ignored) = true; // 忽略验证
+  string id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'应用 id'
+  }];
+  string name = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'应用名称'
+  }];
+  AppType type = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'类型'
+  }];
+  bool manage = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'是否管理型应用'
+  }];
+  common.v1.EnableState enabled = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"启用状态";
+  }];
+  google.protobuf.Timestamp created_at = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"创建时间";
+  }];
+}
+message App {
+  option (validate.ignored) = true; // 忽略验证
+  string id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'app id'
+  }];
+  string name = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'应用名称'
+  }];
+  AppType type = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'类型'
+  }];
+  string description = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'应用描述'
+  }];
+  string scopes = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'作用范围'
+  }];
+  string package = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'包名'
+  }];
+  string project = 7[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'项目标识'
+  }];
+  bool manage = 8[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'是否管理型应用'
+  }];
+  common.v1.EnableState enabled = 9[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"启用状态";
+  }];
+  map<string, string> attrs = 10[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'应用属性'
+  }];
+  common.v1.OperateInfo operateinfo = 111[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"时间";
+  }];
+  common.v1.Conflict conflict = 12[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"冲突检测";
+  }];
+}
+message AppCreateRequest {
+  AppFormData data = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:["data"]
+      description:"data";
+    },
+    (validate.rules).message = {required: true}];
+}
+message AppFormData {
+  string name = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'应用名称'
+    },
+    (validate.rules).string = {ignore_empty:false, min_len:1,max_len:100}
+  ];
+  string description = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'应用描述'
+    },
+    (validate.rules).string = {ignore_empty:false, min_len:0,max_len:255}
+  ];
+  repeated string scopes = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'作用范围'
+    }
+  ];
+  AppType type = 4[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'类型'
+    },
+    (validate.rules).enum = {defined_only:true}
+  ];
+  string package = 5[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'包名'
+    },
+    (validate.rules).string = {ignore_empty:false, min_len:1,max_len:100}
+  ];
+  string project = 6[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'项目标识'
+    },
+    (validate.rules).string = {ignore_empty:false, min_len:1,max_len:100}
+  ];
+  bool manage = 7[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'是否管理型应用'
+    }
+  ];
+  map<string,string> attrs = 8[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'应用属性'
+    }
+  ];
+}
+message AppUpdateRequest {
+  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    required:['id']
+    description:'app.id'
+  },
+    (validate.rules).uint32 = {ignore_empty: false, gt:0}
+  ];
+  AppUpdateData data = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:["data"]
+      description:'data'
+    },
+    (validate.rules).message = {required :true}
+  ];
+}
+message AppUpdateData {
+  AppFormData data = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:['data']
+      description:'data'
+    },
+    (validate.rules).message = {required: true}
+  ];
+  common.v1.Conflict conflict = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:["conflict"]
+      description:'检测冲突'
+    },
+    (validate.rules).message = {required :true}
+  ];
+}
+message ConfigRequest {
+}
+message ConfigResponse{
+  repeated ConfigItem items = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:['items']
+      description:'属性'
+    },
+    (validate.rules).repeated = {ignore_empty: true}
+  ];
+}
+message ConfigItem{
+  string key = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:['key']
+      description:'属性key'
+    },
+    (validate.rules).string = {ignore_empty: false}
+  ];
+  string title = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:['title']
+      description:'属性标题'
+    },
+    (validate.rules).string = {ignore_empty: false}
+  ];
+  string desc = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required:['desc']
+      description:'属性描述'
+    },
+    (validate.rules).string = {ignore_empty: false}
+  ];
+}
