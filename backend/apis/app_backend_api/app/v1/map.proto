@@ -12,13 +12,15 @@ message SampleApp{
   string name = 3;
 }
 message IdsAppRequest{
-  repeated uint32 id = 1;
+  repeated uint32 ids = 1;
+  bool with_deleted = 2;
 }
 message IdsAppResponse{
   map<uint32, SampleApp> data = 1;
 }
 message LocalIdsAppRequest{
-  repeated string id = 1;
+  repeated string ids = 1;
+  bool with_deleted = 2;
 }
 message LocalIdsAppResponse{
   map<string, SampleApp> data = 1;

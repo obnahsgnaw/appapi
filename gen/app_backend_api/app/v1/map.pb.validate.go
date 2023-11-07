@@ -162,6 +162,8 @@ func (m *IdsAppRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for WithDeleted
+
 	if len(errors) > 0 {
 		return IdsAppRequestMultiError(errors)
 	}
@@ -407,6 +409,8 @@ func (m *LocalIdsAppRequest) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for WithDeleted
 
 	if len(errors) > 0 {
 		return LocalIdsAppRequestMultiError(errors)
