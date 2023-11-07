@@ -32,6 +32,7 @@ service ConfigService{
   rpc Update (Config) returns (Config) {
     option (google.api.http) = {
       put: "/v1/config"
+      body:"*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "更新配置";

@@ -31,7 +31,7 @@ type AppVersionServiceClient interface {
 	// 列表
 	Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*AppVersionPaginateResponse, error)
 	// 最新版本
-	Latest(ctx context.Context, in *LatestRequest, opts ...grpc.CallOption) (*LatestVersion, error)
+	Latest(ctx context.Context, in *LatestRequest, opts ...grpc.CallOption) (*LatestResponse, error)
 }
 
 type appVersionServiceClient struct {
@@ -51,8 +51,8 @@ func (c *appVersionServiceClient) Paginate(ctx context.Context, in *v1.PaginateR
 	return out, nil
 }
 
-func (c *appVersionServiceClient) Latest(ctx context.Context, in *LatestRequest, opts ...grpc.CallOption) (*LatestVersion, error) {
-	out := new(LatestVersion)
+func (c *appVersionServiceClient) Latest(ctx context.Context, in *LatestRequest, opts ...grpc.CallOption) (*LatestResponse, error) {
+	out := new(LatestResponse)
 	err := c.cc.Invoke(ctx, AppVersionService_Latest_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -67,7 +67,7 @@ type AppVersionServiceServer interface {
 	// 列表
 	Paginate(context.Context, *v1.PaginateRequest) (*AppVersionPaginateResponse, error)
 	// 最新版本
-	Latest(context.Context, *LatestRequest) (*LatestVersion, error)
+	Latest(context.Context, *LatestRequest) (*LatestResponse, error)
 }
 
 // UnimplementedAppVersionServiceServer should be embedded to have forward compatible implementations.
@@ -77,7 +77,7 @@ type UnimplementedAppVersionServiceServer struct {
 func (UnimplementedAppVersionServiceServer) Paginate(context.Context, *v1.PaginateRequest) (*AppVersionPaginateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Paginate not implemented")
 }
-func (UnimplementedAppVersionServiceServer) Latest(context.Context, *LatestRequest) (*LatestVersion, error) {
+func (UnimplementedAppVersionServiceServer) Latest(context.Context, *LatestRequest) (*LatestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Latest not implemented")
 }
 

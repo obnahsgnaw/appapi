@@ -29,7 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AppServiceClient interface {
 	// 下拉列表
-	Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*v1.PaginateStringOptionResponse, error)
+	Paginate(ctx context.Context, in *v1.PaginateAllRequest, opts ...grpc.CallOption) (*v1.PaginateStringOptionResponse, error)
 	// 配置
 	Config(ctx context.Context, in *ConfigRequest, opts ...grpc.CallOption) (*AppConfig, error)
 }
@@ -42,7 +42,7 @@ func NewAppServiceClient(cc grpc.ClientConnInterface) AppServiceClient {
 	return &appServiceClient{cc}
 }
 
-func (c *appServiceClient) Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*v1.PaginateStringOptionResponse, error) {
+func (c *appServiceClient) Paginate(ctx context.Context, in *v1.PaginateAllRequest, opts ...grpc.CallOption) (*v1.PaginateStringOptionResponse, error) {
 	out := new(v1.PaginateStringOptionResponse)
 	err := c.cc.Invoke(ctx, AppService_Paginate_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -65,7 +65,7 @@ func (c *appServiceClient) Config(ctx context.Context, in *ConfigRequest, opts .
 // for forward compatibility
 type AppServiceServer interface {
 	// 下拉列表
-	Paginate(context.Context, *v1.PaginateRequest) (*v1.PaginateStringOptionResponse, error)
+	Paginate(context.Context, *v1.PaginateAllRequest) (*v1.PaginateStringOptionResponse, error)
 	// 配置
 	Config(context.Context, *ConfigRequest) (*AppConfig, error)
 }
@@ -74,7 +74,7 @@ type AppServiceServer interface {
 type UnimplementedAppServiceServer struct {
 }
 
-func (UnimplementedAppServiceServer) Paginate(context.Context, *v1.PaginateRequest) (*v1.PaginateStringOptionResponse, error) {
+func (UnimplementedAppServiceServer) Paginate(context.Context, *v1.PaginateAllRequest) (*v1.PaginateStringOptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Paginate not implemented")
 }
 func (UnimplementedAppServiceServer) Config(context.Context, *ConfigRequest) (*AppConfig, error) {
@@ -93,7 +93,7 @@ func RegisterAppServiceServer(s grpc.ServiceRegistrar, srv AppServiceServer) {
 }
 
 func _AppService_Paginate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.PaginateRequest)
+	in := new(v1.PaginateAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ func _AppService_Paginate_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: AppService_Paginate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServiceServer).Paginate(ctx, req.(*v1.PaginateRequest))
+		return srv.(AppServiceServer).Paginate(ctx, req.(*v1.PaginateAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

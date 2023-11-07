@@ -38,17 +38,17 @@ type AppServiceClient interface {
 	// 列表
 	Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*AppPaginateResponse, error)
 	// 详情
-	Detail(ctx context.Context, in *v1.IntIdRequest, opts ...grpc.CallOption) (*App, error)
+	Detail(ctx context.Context, in *AppIdRequest, opts ...grpc.CallOption) (*App, error)
 	// 创建
 	Create(ctx context.Context, in *AppCreateRequest, opts ...grpc.CallOption) (*App, error)
 	// 修改
 	Update(ctx context.Context, in *AppUpdateRequest, opts ...grpc.CallOption) (*App, error)
 	// 删除
-	Delete(ctx context.Context, in *v1.IntIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	Delete(ctx context.Context, in *AppIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// 禁用
-	Disable(ctx context.Context, in *v1.IntIdOperateRequest, opts ...grpc.CallOption) (*App, error)
+	Disable(ctx context.Context, in *AppIdOperateRequest, opts ...grpc.CallOption) (*App, error)
 	// 启用
-	Enable(ctx context.Context, in *v1.IntIdOperateRequest, opts ...grpc.CallOption) (*App, error)
+	Enable(ctx context.Context, in *AppIdOperateRequest, opts ...grpc.CallOption) (*App, error)
 	// 属性配置
 	Config(ctx context.Context, in *ConfigRequest, opts ...grpc.CallOption) (*ConfigResponse, error)
 }
@@ -70,7 +70,7 @@ func (c *appServiceClient) Paginate(ctx context.Context, in *v1.PaginateRequest,
 	return out, nil
 }
 
-func (c *appServiceClient) Detail(ctx context.Context, in *v1.IntIdRequest, opts ...grpc.CallOption) (*App, error) {
+func (c *appServiceClient) Detail(ctx context.Context, in *AppIdRequest, opts ...grpc.CallOption) (*App, error) {
 	out := new(App)
 	err := c.cc.Invoke(ctx, AppService_Detail_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -97,7 +97,7 @@ func (c *appServiceClient) Update(ctx context.Context, in *AppUpdateRequest, opt
 	return out, nil
 }
 
-func (c *appServiceClient) Delete(ctx context.Context, in *v1.IntIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *appServiceClient) Delete(ctx context.Context, in *AppIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, AppService_Delete_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -106,7 +106,7 @@ func (c *appServiceClient) Delete(ctx context.Context, in *v1.IntIdRequest, opts
 	return out, nil
 }
 
-func (c *appServiceClient) Disable(ctx context.Context, in *v1.IntIdOperateRequest, opts ...grpc.CallOption) (*App, error) {
+func (c *appServiceClient) Disable(ctx context.Context, in *AppIdOperateRequest, opts ...grpc.CallOption) (*App, error) {
 	out := new(App)
 	err := c.cc.Invoke(ctx, AppService_Disable_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -115,7 +115,7 @@ func (c *appServiceClient) Disable(ctx context.Context, in *v1.IntIdOperateReque
 	return out, nil
 }
 
-func (c *appServiceClient) Enable(ctx context.Context, in *v1.IntIdOperateRequest, opts ...grpc.CallOption) (*App, error) {
+func (c *appServiceClient) Enable(ctx context.Context, in *AppIdOperateRequest, opts ...grpc.CallOption) (*App, error) {
 	out := new(App)
 	err := c.cc.Invoke(ctx, AppService_Enable_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -140,17 +140,17 @@ type AppServiceServer interface {
 	// 列表
 	Paginate(context.Context, *v1.PaginateRequest) (*AppPaginateResponse, error)
 	// 详情
-	Detail(context.Context, *v1.IntIdRequest) (*App, error)
+	Detail(context.Context, *AppIdRequest) (*App, error)
 	// 创建
 	Create(context.Context, *AppCreateRequest) (*App, error)
 	// 修改
 	Update(context.Context, *AppUpdateRequest) (*App, error)
 	// 删除
-	Delete(context.Context, *v1.IntIdRequest) (*emptypb.Empty, error)
+	Delete(context.Context, *AppIdRequest) (*emptypb.Empty, error)
 	// 禁用
-	Disable(context.Context, *v1.IntIdOperateRequest) (*App, error)
+	Disable(context.Context, *AppIdOperateRequest) (*App, error)
 	// 启用
-	Enable(context.Context, *v1.IntIdOperateRequest) (*App, error)
+	Enable(context.Context, *AppIdOperateRequest) (*App, error)
 	// 属性配置
 	Config(context.Context, *ConfigRequest) (*ConfigResponse, error)
 }
@@ -162,7 +162,7 @@ type UnimplementedAppServiceServer struct {
 func (UnimplementedAppServiceServer) Paginate(context.Context, *v1.PaginateRequest) (*AppPaginateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Paginate not implemented")
 }
-func (UnimplementedAppServiceServer) Detail(context.Context, *v1.IntIdRequest) (*App, error) {
+func (UnimplementedAppServiceServer) Detail(context.Context, *AppIdRequest) (*App, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Detail not implemented")
 }
 func (UnimplementedAppServiceServer) Create(context.Context, *AppCreateRequest) (*App, error) {
@@ -171,13 +171,13 @@ func (UnimplementedAppServiceServer) Create(context.Context, *AppCreateRequest) 
 func (UnimplementedAppServiceServer) Update(context.Context, *AppUpdateRequest) (*App, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedAppServiceServer) Delete(context.Context, *v1.IntIdRequest) (*emptypb.Empty, error) {
+func (UnimplementedAppServiceServer) Delete(context.Context, *AppIdRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedAppServiceServer) Disable(context.Context, *v1.IntIdOperateRequest) (*App, error) {
+func (UnimplementedAppServiceServer) Disable(context.Context, *AppIdOperateRequest) (*App, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Disable not implemented")
 }
-func (UnimplementedAppServiceServer) Enable(context.Context, *v1.IntIdOperateRequest) (*App, error) {
+func (UnimplementedAppServiceServer) Enable(context.Context, *AppIdOperateRequest) (*App, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Enable not implemented")
 }
 func (UnimplementedAppServiceServer) Config(context.Context, *ConfigRequest) (*ConfigResponse, error) {
@@ -214,7 +214,7 @@ func _AppService_Paginate_Handler(srv interface{}, ctx context.Context, dec func
 }
 
 func _AppService_Detail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.IntIdRequest)
+	in := new(AppIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -226,7 +226,7 @@ func _AppService_Detail_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: AppService_Detail_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServiceServer).Detail(ctx, req.(*v1.IntIdRequest))
+		return srv.(AppServiceServer).Detail(ctx, req.(*AppIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -268,7 +268,7 @@ func _AppService_Update_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 func _AppService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.IntIdRequest)
+	in := new(AppIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -280,13 +280,13 @@ func _AppService_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: AppService_Delete_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServiceServer).Delete(ctx, req.(*v1.IntIdRequest))
+		return srv.(AppServiceServer).Delete(ctx, req.(*AppIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AppService_Disable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.IntIdOperateRequest)
+	in := new(AppIdOperateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -298,13 +298,13 @@ func _AppService_Disable_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: AppService_Disable_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServiceServer).Disable(ctx, req.(*v1.IntIdOperateRequest))
+		return srv.(AppServiceServer).Disable(ctx, req.(*AppIdOperateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AppService_Enable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.IntIdOperateRequest)
+	in := new(AppIdOperateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -316,7 +316,7 @@ func _AppService_Enable_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: AppService_Enable_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServiceServer).Enable(ctx, req.(*v1.IntIdOperateRequest))
+		return srv.(AppServiceServer).Enable(ctx, req.(*AppIdOperateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

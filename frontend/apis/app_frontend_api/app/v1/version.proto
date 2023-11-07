@@ -35,7 +35,7 @@ service AppVersionService {
     };
   }
   // 最新版本
-  rpc Latest(LatestRequest) returns (LatestVersion){
+  rpc Latest(LatestRequest) returns (LatestResponse){
     option(google.api.http) = {
       get: "/v1/versions/latest";
     };
@@ -79,6 +79,12 @@ message AppVersionPaginateData {
   }];
 }
 message LatestRequest{}
+message LatestResponse{
+  option (validate.ignored) = true;
+  LatestVersion version = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"最新版本"
+  }];
+}
 message LatestVersion {
   option (validate.ignored) = true;
   string title = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {

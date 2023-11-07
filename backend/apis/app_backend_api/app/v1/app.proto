@@ -37,7 +37,7 @@ service AppService{
     };
   }
   // 详情
-  rpc Detail (common.v1.IntIdRequest) returns (App) {
+  rpc Detail (AppIdRequest) returns (App) {
     option (google.api.http) = {
       get: "/v1/applications/{id}"
     };
@@ -108,7 +108,7 @@ service AppService{
     };
   }
   // 删除
-  rpc Delete (common.v1.IntIdRequest) returns (google.protobuf.Empty) {
+  rpc Delete (AppIdRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/applications/{id}"
     };
@@ -131,7 +131,7 @@ service AppService{
     };
   }
   // 禁用
-  rpc Disable (common.v1.IntIdOperateRequest) returns (App){
+  rpc Disable (AppIdOperateRequest) returns (App){
     option (google.api.http) = {
       put :'/v1/applications/{id}/disable-state'
       body:"data"
@@ -155,7 +155,7 @@ service AppService{
     };
   }
   // 启用
-  rpc Enable (common.v1.IntIdOperateRequest) returns (App){
+  rpc Enable (AppIdOperateRequest) returns (App){
     option (google.api.http) = {
       put :'/v1/applications/{id}/enable-state'
       body:"data"
@@ -265,7 +265,7 @@ message App {
   map<string, string> attrs = 10[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'应用属性'
   }];
-  common.v1.OperateInfo operateinfo = 111[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  common.v1.OperateInfo operate_info = 11[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"时间";
   }];
   common.v1.Conflict conflict = 12[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
@@ -328,11 +328,11 @@ message AppFormData {
   ];
 }
 message AppUpdateRequest {
-  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  string id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     required:['id']
     description:'app.id'
   },
-    (validate.rules).uint32 = {ignore_empty: false, gt:0}
+    (validate.rules).string = {ignore_empty: false, len:24}
   ];
   AppUpdateData data = 2[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
@@ -390,5 +390,33 @@ message ConfigItem{
       description:'属性描述'
     },
     (validate.rules).string = {ignore_empty: false}
+  ];
+}
+message AppIdRequest {
+  string id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      title: "ID";
+      description: "ID";
+    },
+    (validate.rules).string = {ignore_empty: false, len: 24}
+  ];
+}
+message AppIdOperateRequest {
+  string id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      title: "ID";
+      description: "ID";
+    },
+    (validate.rules).string = {ignore_empty: false, len:24}
+  ];
+  common.v1.ConflictData data = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["data"];
+      title: "data";
+      description: "data";
+    },
+    (validate.rules).message = {required:true}
   ];
 }

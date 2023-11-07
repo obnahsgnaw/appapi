@@ -883,8 +883,7 @@
             "description": "ID",
             "in": "path",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -964,8 +963,7 @@
             "description": "ID",
             "in": "path",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -1044,8 +1042,7 @@
             "description": "app.id",
             "in": "path",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "data",
@@ -1138,8 +1135,7 @@
             "description": "ID",
             "in": "path",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "data",
@@ -1234,8 +1230,7 @@
             "description": "ID",
             "in": "path",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "data",
@@ -1469,11 +1464,12 @@
         },
         "parameters": [
           {
-            "name": "debug",
-            "description": "调试模式",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1Config"
+            }
           }
         ],
         "tags": [
@@ -1677,7 +1673,7 @@
           },
           "description": "应用属性"
         },
-        "operateinfo": {
+        "operateInfo": {
           "$ref": "#/definitions/v1OperateInfo",
           "description": "时间"
         },

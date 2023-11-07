@@ -10,7 +10,7 @@ service AppService {
     description: "应用服务";
   };
   // 下拉列表
-  rpc Paginate(common.v1.PaginateRequest) returns (common.v1.PaginateStringOptionResponse){
+  rpc Paginate(common.v1.PaginateAllRequest) returns (common.v1.PaginateStringOptionResponse){
     option(google.api.http) = {
       get: "/v1/applications";
     };

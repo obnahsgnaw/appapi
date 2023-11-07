@@ -83,15 +83,16 @@ func (m *AppVersionPaginateRequest) validate(all bool) error {
 
 	// no validation rules for Sort
 
-	if utf8.RuneCountInString(m.GetAppId()) < 1 {
+	if utf8.RuneCountInString(m.GetAppId()) != 24 {
 		err := AppVersionPaginateRequestValidationError{
 			field:  "AppId",
-			reason: "value length must be at least 1 runes",
+			reason: "value length must be 24 runes",
 		}
 		if !all {
 			return err
 		}
 		errors = append(errors, err)
+
 	}
 
 	if len(errors) > 0 {
@@ -207,15 +208,16 @@ func (m *AppVersionDetailRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetAppId()) < 1 {
+	if utf8.RuneCountInString(m.GetAppId()) != 24 {
 		err := AppVersionDetailRequestValidationError{
 			field:  "AppId",
-			reason: "value length must be at least 1 runes",
+			reason: "value length must be 24 runes",
 		}
 		if !all {
 			return err
 		}
 		errors = append(errors, err)
+
 	}
 
 	if len(errors) > 0 {
