@@ -24,6 +24,9 @@
       "description": "应用管理"
     },
     {
+      "name": "MapAppService"
+    },
+    {
       "name": "AppVersionService",
       "description": "版本管理"
     },
@@ -1631,6 +1634,11 @@
       "type": "object",
       "properties": {
         "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "id"
+        },
+        "appId": {
           "type": "string",
           "description": "app id"
         },
@@ -2092,6 +2100,17 @@
       },
       "title": "错误 多个错误"
     },
+    "v1IdsAppResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1SampleApp"
+          }
+        }
+      }
+    },
     "v1IntOption": {
       "type": "object",
       "properties": {
@@ -2106,6 +2125,17 @@
         }
       },
       "title": "id name 响应"
+    },
+    "v1LocalIdsAppResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1SampleApp"
+          }
+        }
+      }
     },
     "v1OperateInfo": {
       "type": "object",
@@ -2177,6 +2207,21 @@
         }
       },
       "title": "分页元数据"
+    },
+    "v1SampleApp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
     },
     "v1ValidAppResponse": {
       "type": "object",

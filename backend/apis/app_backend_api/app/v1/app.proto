@@ -235,40 +235,43 @@ message AppPaginateDate {
 }
 message App {
   option (validate.ignored) = true; // 忽略验证
-  string id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'id'
+  }];
+  string app_id = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'app id'
   }];
-  string name = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  string name = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'应用名称'
   }];
-  AppType type = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  AppType type = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'类型'
   }];
-  string description = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  string description = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'应用描述'
   }];
-  string scopes = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  string scopes = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'作用范围'
   }];
-  string package = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  string package = 7[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'包名'
   }];
-  string project = 7[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  string project = 8[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'项目标识'
   }];
-  bool manage = 8[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  bool manage = 9[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'是否管理型应用'
   }];
-  common.v1.EnableState enabled = 9[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  common.v1.EnableState enabled = 10[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"启用状态";
   }];
-  map<string, string> attrs = 10[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  map<string, string> attrs = 11[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:'应用属性'
   }];
-  common.v1.OperateInfo operate_info = 11[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  common.v1.OperateInfo operate_info = 12[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"时间";
   }];
-  common.v1.Conflict conflict = 12[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  common.v1.Conflict conflict = 13[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"冲突检测";
   }];
 }
