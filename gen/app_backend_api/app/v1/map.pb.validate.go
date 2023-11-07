@@ -265,25 +265,25 @@ func (m *IdsAppResponse) validate(all bool) error {
 	var errors []error
 
 	{
-		sorted_keys := make([]uint32, len(m.GetData()))
+		sorted_keys := make([]uint32, len(m.GetList()))
 		i := 0
-		for key := range m.GetData() {
+		for key := range m.GetList() {
 			sorted_keys[i] = key
 			i++
 		}
 		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
 		for _, key := range sorted_keys {
-			val := m.GetData()[key]
+			val := m.GetList()[key]
 			_ = val
 
-			// no validation rules for Data[key]
+			// no validation rules for List[key]
 
 			if all {
 				switch v := interface{}(val).(type) {
 				case interface{ ValidateAll() error }:
 					if err := v.ValidateAll(); err != nil {
 						errors = append(errors, IdsAppResponseValidationError{
-							field:  fmt.Sprintf("Data[%v]", key),
+							field:  fmt.Sprintf("List[%v]", key),
 							reason: "embedded message failed validation",
 							cause:  err,
 						})
@@ -291,7 +291,7 @@ func (m *IdsAppResponse) validate(all bool) error {
 				case interface{ Validate() error }:
 					if err := v.Validate(); err != nil {
 						errors = append(errors, IdsAppResponseValidationError{
-							field:  fmt.Sprintf("Data[%v]", key),
+							field:  fmt.Sprintf("List[%v]", key),
 							reason: "embedded message failed validation",
 							cause:  err,
 						})
@@ -300,7 +300,7 @@ func (m *IdsAppResponse) validate(all bool) error {
 			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 				if err := v.Validate(); err != nil {
 					return IdsAppResponseValidationError{
-						field:  fmt.Sprintf("Data[%v]", key),
+						field:  fmt.Sprintf("List[%v]", key),
 						reason: "embedded message failed validation",
 						cause:  err,
 					}
@@ -515,25 +515,25 @@ func (m *LocalIdsAppResponse) validate(all bool) error {
 	var errors []error
 
 	{
-		sorted_keys := make([]string, len(m.GetData()))
+		sorted_keys := make([]string, len(m.GetList()))
 		i := 0
-		for key := range m.GetData() {
+		for key := range m.GetList() {
 			sorted_keys[i] = key
 			i++
 		}
 		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
 		for _, key := range sorted_keys {
-			val := m.GetData()[key]
+			val := m.GetList()[key]
 			_ = val
 
-			// no validation rules for Data[key]
+			// no validation rules for List[key]
 
 			if all {
 				switch v := interface{}(val).(type) {
 				case interface{ ValidateAll() error }:
 					if err := v.ValidateAll(); err != nil {
 						errors = append(errors, LocalIdsAppResponseValidationError{
-							field:  fmt.Sprintf("Data[%v]", key),
+							field:  fmt.Sprintf("List[%v]", key),
 							reason: "embedded message failed validation",
 							cause:  err,
 						})
@@ -541,7 +541,7 @@ func (m *LocalIdsAppResponse) validate(all bool) error {
 				case interface{ Validate() error }:
 					if err := v.Validate(); err != nil {
 						errors = append(errors, LocalIdsAppResponseValidationError{
-							field:  fmt.Sprintf("Data[%v]", key),
+							field:  fmt.Sprintf("List[%v]", key),
 							reason: "embedded message failed validation",
 							cause:  err,
 						})
@@ -550,7 +550,7 @@ func (m *LocalIdsAppResponse) validate(all bool) error {
 			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 				if err := v.Validate(); err != nil {
 					return LocalIdsAppResponseValidationError{
-						field:  fmt.Sprintf("Data[%v]", key),
+						field:  fmt.Sprintf("List[%v]", key),
 						reason: "embedded message failed validation",
 						cause:  err,
 					}

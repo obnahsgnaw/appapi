@@ -16,12 +16,12 @@ message IdsAppRequest{
   bool with_deleted = 2;
 }
 message IdsAppResponse{
-  map<uint32, SampleApp> data = 1;
+  map<uint32, SampleApp> list = 1;
 }
 message LocalIdsAppRequest{
   repeated string ids = 1;
   bool with_deleted = 2;
 }
 message LocalIdsAppResponse{
-  map<string, SampleApp> data = 1;
+  map<string, SampleApp> list = 1;
 }

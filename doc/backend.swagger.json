@@ -2103,7 +2103,7 @@
     "v1IdsAppResponse": {
       "type": "object",
       "properties": {
-        "data": {
+        "list": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/v1SampleApp"
@@ -2129,7 +2129,7 @@
     "v1LocalIdsAppResponse": {
       "type": "object",
       "properties": {
-        "data": {
+        "list": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/v1SampleApp"
