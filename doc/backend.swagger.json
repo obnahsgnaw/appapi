@@ -1981,8 +1981,7 @@
           "type": "boolean",
           "description": "调试模式"
         }
-      },
-      "title": "TODO 8 change  to  project config and controller"
+      }
     },
     "v1ConfigItem": {
       "type": "object",
@@ -2187,6 +2186,33 @@
         }
       }
     },
+    "v1PaginateConfig": {
+      "type": "object",
+      "properties": {
+        "keywordOptions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1StringOption"
+          },
+          "description": "关键字类型选项，如果为空则只有关键字搜索"
+        },
+        "sortColumns": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "可排序列,key=列，value=参数key"
+        },
+        "optionColumns": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "可过滤选项列, key=列，value=option选项列表的key"
+        }
+      }
+    },
     "v1PaginateMeta": {
       "type": "object",
       "properties": {
@@ -2204,6 +2230,10 @@
           "type": "integer",
           "format": "int64",
           "description": "Current page size"
+        },
+        "config": {
+          "$ref": "#/definitions/v1PaginateConfig",
+          "description": "列表配置, page=1时有配置，也可能为nil"
         }
       },
       "title": "分页元数据"
@@ -2222,6 +2252,20 @@
           "type": "string"
         }
       }
+    },
+    "v1StringOption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "名称"
+        }
+      },
+      "title": "key name 响应"
     },
     "v1ValidAppResponse": {
       "type": "object",
