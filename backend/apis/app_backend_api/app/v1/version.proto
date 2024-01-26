@@ -202,19 +202,22 @@ message AppVersionPaginateResponse {
 }
 message AppVersionPaginateData {
   option (validate.ignored) = true;
-  string title = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"ID"
+  }];
+  string title = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"标题"
   }];
-  string version = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  string version = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"版本号"
   }];
-  bool force = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  bool force = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"是否强制更新"
   }];
-  google.protobuf.Timestamp created_at = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  google.protobuf.Timestamp created_at = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"创建时间";
   }];
-  google.protobuf.Timestamp published_at = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  google.protobuf.Timestamp published_at = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"发布时间";
   }];
 }
