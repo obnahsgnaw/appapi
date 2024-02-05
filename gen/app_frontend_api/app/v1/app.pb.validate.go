@@ -159,6 +159,8 @@ func (m *AppConfig) validate(all bool) error {
 
 	// no validation rules for Config
 
+	// no validation rules for Manage
+
 	if len(errors) > 0 {
 		return AppConfigMultiError(errors)
 	}

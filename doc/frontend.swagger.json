@@ -554,6 +554,15 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "manage": {
+          "type": "boolean"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },

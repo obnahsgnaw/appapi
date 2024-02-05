@@ -55,5 +55,7 @@ service AppService {
 }
 message ConfigRequest{}
 message AppConfig {
-  map<string,string> config = 1;
+  map<string, string> config = 1;
+  bool manage = 2;
+  repeated string  scope = 3;
 }
