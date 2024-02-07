@@ -1,0 +1,45 @@
+syntax = "proto3";
+package app_frontend_api.app.v1;
+option go_package = "app_frontend_api/app/v1";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "validate/validate.proto";
+
+// 类型
+enum AppType{
+  Backend = 0;
+  Frontend = 1;
+}
+// 应用全属性对象
+message App {
+  option (validate.ignored) = true;
+  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'id'
+  }];
+  string app_id = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'app id'
+  }];
+  string name = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'应用名称'
+  }];
+  AppType type = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'类型'
+  }];
+  string description = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'应用描述'
+  }];
+  repeated string scopes = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'作用范围'
+  }];
+  string package = 7[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'包名'
+  }];
+  string project = 8[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'项目标识'
+  }];
+  bool manage = 9[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'是否管理型应用'
+  }];
+  map<string, string> attrs = 11[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:'应用属性'
+  }];
+}

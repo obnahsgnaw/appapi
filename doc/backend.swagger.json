@@ -20,18 +20,28 @@
       "description": "选项管理"
     },
     {
-      "name": "AppService",
-      "description": "应用管理"
+      "name": "AppEditService",
+      "description": "2.应用编辑服务"
     },
     {
-      "name": "MapAppService"
+      "name": "AppEnableDisableService",
+      "description": "3.应用启用服务"
     },
     {
-      "name": "AppVersionService",
-      "description": "版本管理"
+      "name": "AppQueryService",
+      "description": "1.应用查询服务"
     },
     {
-      "name": "AuthedAppService"
+      "name": "AppVersionEditService",
+      "description": "5.版本编辑服务"
+    },
+    {
+      "name": "AppVersionPublishService",
+      "description": "6.版本发布服务"
+    },
+    {
+      "name": "AppVersionQueryService",
+      "description": "4.版本查询服务"
     },
     {
       "name": "ConfigService",
@@ -54,7 +64,7 @@
     "/v1/applications": {
       "get": {
         "summary": "列表",
-        "operationId": "AppService_Paginate",
+        "operationId": "AppQueryService_Paginate",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -144,7 +154,7 @@
           }
         ],
         "tags": [
-          "AppService"
+          "AppQueryService"
         ],
         "security": [
           {
@@ -156,7 +166,7 @@
       },
       "post": {
         "summary": "创建",
-        "operationId": "AppService_Create",
+        "operationId": "AppEditService_Create",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -228,7 +238,7 @@
           }
         ],
         "tags": [
-          "AppService"
+          "AppEditService"
         ],
         "security": [
           {
@@ -236,13 +246,13 @@
             "BearerToken": []
           }
         ],
-        "x-order": 3
+        "x-order": 1
       }
     },
     "/v1/applications/{appId}/versions": {
       "get": {
         "summary": "列表",
-        "operationId": "AppVersionService_Paginate",
+        "operationId": "AppVersionQueryService_Paginate",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -339,7 +349,7 @@
           }
         ],
         "tags": [
-          "AppVersionService"
+          "AppVersionQueryService"
         ],
         "security": [
           {
@@ -351,7 +361,7 @@
       },
       "post": {
         "summary": "创建",
-        "operationId": "AppVersionService_Create",
+        "operationId": "AppVersionEditService_Create",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -430,7 +440,7 @@
           }
         ],
         "tags": [
-          "AppVersionService"
+          "AppVersionEditService"
         ],
         "security": [
           {
@@ -438,13 +448,13 @@
             "BearerToken": []
           }
         ],
-        "x-order": 3
+        "x-order": 1
       }
     },
     "/v1/applications/{appId}/versions/{id}": {
       "get": {
         "summary": "详情",
-        "operationId": "AppVersionService_Detail",
+        "operationId": "AppVersionQueryService_Detail",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -519,7 +529,7 @@
           }
         ],
         "tags": [
-          "AppVersionService"
+          "AppVersionQueryService"
         ],
         "security": [
           {
@@ -531,7 +541,7 @@
       },
       "delete": {
         "summary": "删除",
-        "operationId": "AppVersionService_Delete",
+        "operationId": "AppVersionEditService_Delete",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -607,7 +617,7 @@
           }
         ],
         "tags": [
-          "AppVersionService"
+          "AppVersionEditService"
         ],
         "security": [
           {
@@ -615,11 +625,11 @@
             "BearerToken": []
           }
         ],
-        "x-order": 5
+        "x-order": 3
       },
       "put": {
         "summary": "修改",
-        "operationId": "AppVersionService_Update",
+        "operationId": "AppVersionEditService_Update",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -706,7 +716,7 @@
           }
         ],
         "tags": [
-          "AppVersionService"
+          "AppVersionEditService"
         ],
         "security": [
           {
@@ -714,13 +724,13 @@
             "BearerToken": []
           }
         ],
-        "x-order": 4
+        "x-order": 2
       }
     },
     "/v1/applications/{appId}/versions/{id}/publish-state": {
       "put": {
         "summary": "发布",
-        "operationId": "AppVersionService_Publish",
+        "operationId": "AppVersionPublishService_Publish",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -809,7 +819,7 @@
           }
         ],
         "tags": [
-          "AppVersionService"
+          "AppVersionPublishService"
         ],
         "security": [
           {
@@ -817,13 +827,13 @@
             "BearerToken": []
           }
         ],
-        "x-order": 6
+        "x-order": 1
       }
     },
     "/v1/applications/{id}": {
       "get": {
         "summary": "详情",
-        "operationId": "AppService_Detail",
+        "operationId": "AppQueryService_IdDetail",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -890,7 +900,7 @@
           }
         ],
         "tags": [
-          "AppService"
+          "AppQueryService"
         ],
         "security": [
           {
@@ -902,7 +912,7 @@
       },
       "delete": {
         "summary": "删除",
-        "operationId": "AppService_Delete",
+        "operationId": "AppEditService_Delete",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -970,7 +980,7 @@
           }
         ],
         "tags": [
-          "AppService"
+          "AppEditService"
         ],
         "security": [
           {
@@ -978,11 +988,11 @@
             "BearerToken": []
           }
         ],
-        "x-order": 5
+        "x-order": 3
       },
       "put": {
         "summary": "修改",
-        "operationId": "AppService_Update",
+        "operationId": "AppEditService_Update",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1061,7 +1071,7 @@
           }
         ],
         "tags": [
-          "AppService"
+          "AppEditService"
         ],
         "security": [
           {
@@ -1069,13 +1079,13 @@
             "BearerToken": []
           }
         ],
-        "x-order": 4
+        "x-order": 2
       }
     },
     "/v1/applications/{id}/disable-state": {
       "put": {
         "summary": "禁用",
-        "operationId": "AppService_Disable",
+        "operationId": "AppEnableDisableService_Disable",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1156,7 +1166,7 @@
           }
         ],
         "tags": [
-          "AppService"
+          "AppEnableDisableService"
         ],
         "security": [
           {
@@ -1164,13 +1174,13 @@
             "BearerToken": []
           }
         ],
-        "x-order": 6
+        "x-order": 2
       }
     },
     "/v1/applications/{id}/enable-state": {
       "put": {
         "summary": "启用",
-        "operationId": "AppService_Enable",
+        "operationId": "AppEnableDisableService_Enable",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1251,7 +1261,7 @@
           }
         ],
         "tags": [
-          "AppService"
+          "AppEnableDisableService"
         ],
         "security": [
           {
@@ -1259,13 +1269,13 @@
             "BearerToken": []
           }
         ],
-        "x-order": 7
+        "x-order": 1
       }
     },
     "/v1/attr-configs": {
       "get": {
         "summary": "属性配置",
-        "operationId": "AppService_Config",
+        "operationId": "AppQueryService_Config",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1323,7 +1333,7 @@
           }
         },
         "tags": [
-          "AppService"
+          "AppQueryService"
         ],
         "security": [
           {
@@ -1331,7 +1341,7 @@
             "BearerToken": []
           }
         ],
-        "x-order": 8
+        "x-order": 3
       }
     },
     "/v1/config": {
@@ -1655,7 +1665,10 @@
           "description": "应用描述"
         },
         "scopes": {
-          "type": "string",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "description": "作用范围"
         },
         "package": {
@@ -1689,7 +1702,8 @@
           "$ref": "#/definitions/v1Conflict",
           "description": "冲突检测"
         }
-      }
+      },
+      "title": "应用全属性对象"
     },
     "v1AppFormData": {
       "type": "object",
@@ -1734,33 +1748,27 @@
         }
       }
     },
-    "v1AppPaginateDate": {
+    "v1AppIdsResponse": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "应用 id"
-        },
-        "name": {
-          "type": "string",
-          "description": "应用名称"
-        },
-        "type": {
-          "$ref": "#/definitions/v1AppType",
-          "description": "类型"
-        },
-        "manage": {
-          "type": "boolean",
-          "description": "是否管理型应用"
-        },
-        "enabled": {
-          "$ref": "#/definitions/v1EnableState",
-          "description": "启用状态"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "创建时间"
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1App"
+          },
+          "description": "data"
+        }
+      }
+    },
+    "v1AppIdsSimpleResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1SimpleApp"
+          },
+          "description": "data"
         }
       }
     },
@@ -1774,7 +1782,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1AppPaginateDate"
+            "$ref": "#/definitions/v1PaginateApp"
           }
         }
       }
@@ -1785,7 +1793,8 @@
         "Backend",
         "Frontend"
       ],
-      "default": "Backend"
+      "default": "Backend",
+      "title": "类型"
     },
     "v1AppUpdateData": {
       "type": "object",
@@ -1850,7 +1859,8 @@
           "$ref": "#/definitions/v1Conflict",
           "description": "冲突检测"
         }
-      }
+      },
+      "title": "全属性对象"
     },
     "v1AppVersionFormData": {
       "type": "object",
@@ -1882,38 +1892,6 @@
         }
       }
     },
-    "v1AppVersionPaginateData": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": "ID"
-        },
-        "title": {
-          "type": "string",
-          "description": "标题"
-        },
-        "version": {
-          "type": "string",
-          "description": "版本号"
-        },
-        "force": {
-          "type": "boolean",
-          "description": "是否强制更新"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "创建时间"
-        },
-        "publishedAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "发布时间"
-        }
-      }
-    },
     "v1AppVersionPaginateResponse": {
       "type": "object",
       "properties": {
@@ -1924,7 +1902,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1AppVersionPaginateData"
+            "$ref": "#/definitions/v1PaginateAppVersion"
           }
         }
       }
@@ -1945,39 +1923,6 @@
         "data",
         "conflict"
       ]
-    },
-    "v1AuthedApp": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "appId": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "backend": {
-          "type": "boolean"
-        },
-        "manage": {
-          "type": "boolean"
-        },
-        "scope": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "attrs": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      }
     },
     "v1Config": {
       "type": "object",
@@ -2104,17 +2049,6 @@
       },
       "title": "错误 多个错误"
     },
-    "v1IdsAppResponse": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/v1SampleApp"
-          }
-        }
-      }
-    },
     "v1IntOption": {
       "type": "object",
       "properties": {
@@ -2129,17 +2063,6 @@
         }
       },
       "title": "id name 响应"
-    },
-    "v1LocalIdsAppResponse": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/v1SampleApp"
-          }
-        }
-      }
     },
     "v1OperateInfo": {
       "type": "object",
@@ -2190,6 +2113,70 @@
           "description": "版本发布状态"
         }
       }
+    },
+    "v1PaginateApp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "应用 id"
+        },
+        "name": {
+          "type": "string",
+          "description": "应用名称"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AppType",
+          "description": "类型"
+        },
+        "manage": {
+          "type": "boolean",
+          "description": "是否管理型应用"
+        },
+        "enabled": {
+          "$ref": "#/definitions/v1EnableState",
+          "description": "启用状态"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        }
+      },
+      "title": "应用分页对象"
+    },
+    "v1PaginateAppVersion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ID"
+        },
+        "title": {
+          "type": "string",
+          "description": "标题"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号, 包含了数字版本号和字符串版本号 如 0.0.1(101)"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "是否强制更新"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        },
+        "publishedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "发布时间"
+        }
+      },
+      "title": "分页版本对象"
     },
     "v1PaginateConfig": {
       "type": "object",
@@ -2243,7 +2230,7 @@
       },
       "title": "分页元数据"
     },
-    "v1SampleApp": {
+    "v1SimpleApp": {
       "type": "object",
       "properties": {
         "id": {
@@ -2256,7 +2243,8 @@
         "name": {
           "type": "string"
         }
-      }
+      },
+      "title": "简单属性对象"
     },
     "v1StringOption": {
       "type": "object",
@@ -2271,17 +2259,6 @@
         }
       },
       "title": "key name 响应"
-    },
-    "v1ValidAppResponse": {
-      "type": "object",
-      "properties": {
-        "error": {
-          "type": "string"
-        },
-        "app": {
-          "$ref": "#/definitions/v1AuthedApp"
-        }
-      }
     },
     "v1VersionResponse": {
       "type": "object",

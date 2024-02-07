@@ -1,0 +1,64 @@
+syntax = "proto3";
+package app_backend_api.appversion.v1;
+option go_package = "app_backend_api/appversion/v1";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "app_backend_api/common/v1/obj.proto";
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+// 分页版本对象
+message PaginateAppVersion {
+  option (validate.ignored) = true;
+  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"ID"
+  }];
+  string title = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"标题"
+  }];
+  string version = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"版本号, 包含了数字版本号和字符串版本号 如 0.0.1(101)"
+  }];
+  bool force = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"是否强制更新"
+  }];
+  google.protobuf.Timestamp created_at = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"创建时间";
+  }];
+  google.protobuf.Timestamp published_at = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"发布时间";
+  }];
+}
+// 全属性对象
+message AppVersion {
+  option (validate.ignored) = true;
+  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"id"
+  }];
+  string title = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"名称"
+  }];
+  string description = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"更新的内容"
+  }];
+  string version = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"版本号"
+  }];
+  uint32 version_num = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"版本号数值"
+  }];
+  bool force = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"是否强制更新"
+  }];
+  string url = 7[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"文件路径"
+  }];
+  google.protobuf.Timestamp published_at = 8[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"发布时间";
+  }];
+  common.v1.OperateInfo operate_info = 9[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"时间";
+  }];
+  common.v1.Conflict conflict = 10[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"冲突检测";
+  }];
+}

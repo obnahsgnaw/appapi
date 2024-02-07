@@ -1,0 +1,107 @@
+syntax = "proto3";
+package app_backend_api.appversion.v1;
+option go_package = "app_backend_api/appversion/v1";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/api/annotations.proto";
+import "app_backend_api/common/v1/obj.proto";
+import "app_backend_api/appversion/v1/entity.proto";
+import "validate/validate.proto";
+
+// 查询服务
+service AppVersionQueryService{
+  // 服务swagger描述定义
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "4.版本查询服务";
+  };
+  // 列表
+  rpc Paginate (AppVersionPaginateRequest) returns (AppVersionPaginateResponse) {
+    option (google.api.http) = {
+      get: "/v1/applications/{app_id}/versions"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "列表";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 1
+        }
+      }
+    };
+  }
+  // 详情
+  rpc Detail (AppVersionDetailRequest) returns (AppVersion) {
+    option (google.api.http) = {
+      get: "/v1/applications/{app_id}/versions/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "详情";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 2
+        }
+      }
+    };
+  }
+}
+
+message AppVersionPaginateRequest{
+  string app_id =1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: 'app_id'
+      required:'app_id'
+    },
+    (validate.rules).string={ignore_empty:false,len:24}
+  ];
+  uint32 page = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "Page number, default=1";
+    },
+    (validate.rules).uint32 = {ignore_empty: false, gte:0}
+  ];
+  uint32 limit = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "Page size, default=10";
+    },
+    (validate.rules).uint32 = {ignore_empty: false, gte:0}
+  ];
+  string keyword = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Keyword search, like:keyword=xx，keyword=id=1|name=xxx";
+  }];
+  string sort = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Sort list, like: sort=+a,-b,+c,-d";
+  }];
+}
+message AppVersionDetailRequest{
+  string app_id =1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: 'app_id'
+  },
+    (validate.rules).string={ignore_empty:false,len:24}
+  ];
+  uint32 id =2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={
+    description:'id'
+  },
+    (validate.rules).uint32={ignore_empty:false,gt:0}
+  ];
+}
+message AppVersionPaginateResponse {
+  option (validate.ignored) = true;
+  common.v1.PaginateMeta meta = 1;
+  repeated PaginateAppVersion list = 2;
+}

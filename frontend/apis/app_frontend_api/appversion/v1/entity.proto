@@ -1,0 +1,28 @@
+syntax = "proto3";
+package app_frontend_api.appversion.v1;
+option go_package = "app_frontend_api/appversion/v1";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+message AppVersion {
+  option (validate.ignored) = true;
+  string title = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"标题"
+  }];
+  string description = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"更新的内容"
+  }];
+  string version = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"版本号, 包含数字版本号和字符串版本号"
+  }];
+  bool force = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"是否必须更新"
+  }];
+  string url = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"更新包地址"
+  }];
+  google.protobuf.Timestamp publish_at = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"时间";
+  }];
+}

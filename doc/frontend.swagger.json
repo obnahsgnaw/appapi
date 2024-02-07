@@ -20,15 +20,12 @@
       "description": "选项管理"
     },
     {
-      "name": "AppService",
-      "description": "应用服务"
+      "name": "AppQueryService",
+      "description": "1.应用服务"
     },
     {
-      "name": "AppVersionService",
-      "description": "版本服务"
-    },
-    {
-      "name": "AuthedAppService"
+      "name": "AppVersionQueryService",
+      "description": "2.版本服务"
     }
   ],
   "schemes": [
@@ -47,7 +44,7 @@
     "/v1/applications": {
       "get": {
         "summary": "可选列表",
-        "operationId": "AppService_Paginate",
+        "operationId": "AppQueryService_Paginate",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -144,7 +141,7 @@
           }
         ],
         "tags": [
-          "AppService"
+          "AppQueryService"
         ],
         "security": [
           {
@@ -155,10 +152,10 @@
         "x-order": 1
       }
     },
-    "/v1/config": {
+    "/v1/applications/current": {
       "get": {
-        "summary": "配置",
-        "operationId": "AppService_Config",
+        "summary": "当前",
+        "operationId": "AppQueryService_Detail",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -216,7 +213,7 @@
           }
         },
         "tags": [
-          "AppService"
+          "AppQueryService"
         ],
         "security": [
           {
@@ -371,7 +368,7 @@
     "/v1/versions": {
       "get": {
         "summary": "已发布列表",
-        "operationId": "AppVersionService_Paginate",
+        "operationId": "AppVersionQueryService_Paginate",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -461,7 +458,7 @@
           }
         ],
         "tags": [
-          "AppVersionService"
+          "AppVersionQueryService"
         ],
         "security": [
           {
@@ -475,7 +472,7 @@
     "/v1/versions/latest": {
       "get": {
         "summary": "最新版本",
-        "operationId": "AppVersionService_Latest",
+        "operationId": "AppVersionQueryService_Latest",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -533,7 +530,7 @@
           }
         },
         "tags": [
-          "AppVersionService"
+          "AppVersionQueryService"
         ],
         "security": [
           {
@@ -546,6 +543,59 @@
     }
   },
   "definitions": {
+    "v1App": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "id"
+        },
+        "appId": {
+          "type": "string",
+          "description": "app id"
+        },
+        "name": {
+          "type": "string",
+          "description": "应用名称"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AppType",
+          "description": "类型"
+        },
+        "description": {
+          "type": "string",
+          "description": "应用描述"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "作用范围"
+        },
+        "package": {
+          "type": "string",
+          "description": "包名"
+        },
+        "project": {
+          "type": "string",
+          "description": "项目标识"
+        },
+        "manage": {
+          "type": "boolean",
+          "description": "是否管理型应用"
+        },
+        "attrs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "应用属性"
+        }
+      },
+      "title": "应用全属性对象"
+    },
     "v1AppConfig": {
       "type": "object",
       "properties": {
@@ -566,7 +616,16 @@
         }
       }
     },
-    "v1AppVersionPaginateData": {
+    "v1AppType": {
+      "type": "string",
+      "enum": [
+        "Backend",
+        "Frontend"
+      ],
+      "default": "Backend",
+      "title": "类型"
+    },
+    "v1AppVersion": {
       "type": "object",
       "properties": {
         "title": {
@@ -575,16 +634,24 @@
         },
         "description": {
           "type": "string",
-          "description": "更新描述"
+          "description": "更新的内容"
         },
         "version": {
           "type": "string",
-          "description": "版本号"
+          "description": "版本号, 包含数字版本号和字符串版本号"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "是否必须更新"
+        },
+        "url": {
+          "type": "string",
+          "description": "更新包地址"
         },
         "publishAt": {
           "type": "string",
           "format": "date-time",
-          "description": "发布时间"
+          "description": "时间"
         }
       }
     },
@@ -598,40 +665,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1AppVersionPaginateData"
-          }
-        }
-      }
-    },
-    "v1AuthedApp": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "appId": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "backend": {
-          "type": "boolean"
-        },
-        "manage": {
-          "type": "boolean"
-        },
-        "scope": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "attrs": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/v1AppVersion"
           }
         }
       }
@@ -696,38 +730,8 @@
       "type": "object",
       "properties": {
         "version": {
-          "$ref": "#/definitions/v1LatestVersion",
-          "description": "最新版本"
-        }
-      }
-    },
-    "v1LatestVersion": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string",
-          "description": "标题"
-        },
-        "description": {
-          "type": "string",
-          "description": "更新的内容"
-        },
-        "version": {
-          "type": "string",
-          "description": "版本号"
-        },
-        "force": {
-          "type": "boolean",
-          "description": "是否必须更新"
-        },
-        "url": {
-          "type": "string",
-          "description": "更新包地址"
-        },
-        "publishAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "时间"
+          "$ref": "#/definitions/v1AppVersion",
+          "description": "最新版本, 无则为null"
         }
       }
     },
@@ -815,10 +819,12 @@
       "type": "object",
       "properties": {
         "error": {
-          "type": "string"
+          "type": "string",
+          "description": "invalid信息"
         },
         "app": {
-          "$ref": "#/definitions/v1AuthedApp"
+          "$ref": "#/definitions/v1App",
+          "description": "app"
         }
       }
     },
