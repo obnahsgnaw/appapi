@@ -1,4 +1,12 @@
 
+<a name="v0.8.0"></a>
+## [v0.8.0](https://8.140.161.172/wangsb/wgateway/compare/v0.7.2...v0.8.0) (2024-02-07)
+
+### Features
+
+* **all:** change api structure
+
+
 <a name="v0.7.2"></a>
 ## [v0.7.2](https://8.140.161.172/wangsb/wgateway/compare/v0.7.1...v0.7.2) (2024-02-05)
 
