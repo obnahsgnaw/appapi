@@ -32,7 +32,7 @@ type AppQueryServiceClient interface {
 	// 下拉列表
 	Paginate(ctx context.Context, in *v1.PaginateAllRequest, opts ...grpc.CallOption) (*v1.PaginateStringOptionResponse, error)
 	// 配置
-	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*AppConfig, error)
+	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*App, error)
 	// 验证后的详情
 	ValidApp(ctx context.Context, in *ValidAppRequest, opts ...grpc.CallOption) (*ValidAppResponse, error)
 }
@@ -54,8 +54,8 @@ func (c *appQueryServiceClient) Paginate(ctx context.Context, in *v1.PaginateAll
 	return out, nil
 }
 
-func (c *appQueryServiceClient) Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*AppConfig, error) {
-	out := new(AppConfig)
+func (c *appQueryServiceClient) Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*App, error) {
+	out := new(App)
 	err := c.cc.Invoke(ctx, AppQueryService_Detail_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -79,7 +79,7 @@ type AppQueryServiceServer interface {
 	// 下拉列表
 	Paginate(context.Context, *v1.PaginateAllRequest) (*v1.PaginateStringOptionResponse, error)
 	// 配置
-	Detail(context.Context, *DetailRequest) (*AppConfig, error)
+	Detail(context.Context, *DetailRequest) (*App, error)
 	// 验证后的详情
 	ValidApp(context.Context, *ValidAppRequest) (*ValidAppResponse, error)
 }
@@ -91,7 +91,7 @@ type UnimplementedAppQueryServiceServer struct {
 func (UnimplementedAppQueryServiceServer) Paginate(context.Context, *v1.PaginateAllRequest) (*v1.PaginateStringOptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Paginate not implemented")
 }
-func (UnimplementedAppQueryServiceServer) Detail(context.Context, *DetailRequest) (*AppConfig, error) {
+func (UnimplementedAppQueryServiceServer) Detail(context.Context, *DetailRequest) (*App, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Detail not implemented")
 }
 func (UnimplementedAppQueryServiceServer) ValidApp(context.Context, *ValidAppRequest) (*ValidAppResponse, error) {

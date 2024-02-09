@@ -160,7 +160,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1AppConfig"
+              "$ref": "#/definitions/v1App"
             }
           },
           "201": {
@@ -595,26 +595,6 @@
         }
       },
       "title": "应用全属性对象"
-    },
-    "v1AppConfig": {
-      "type": "object",
-      "properties": {
-        "config": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "manage": {
-          "type": "boolean"
-        },
-        "scope": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
     },
     "v1AppType": {
       "type": "string",

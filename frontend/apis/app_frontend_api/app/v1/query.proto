@@ -36,7 +36,7 @@ service AppQueryService {
     };
   }
   // 配置
-  rpc Detail (DetailRequest) returns (AppConfig) {
+  rpc Detail (DetailRequest) returns (App) {
     option (google.api.http) = {
       get: "/v1/applications/current"
     };
@@ -60,11 +60,6 @@ service AppQueryService {
 }
 
 message DetailRequest{}
-message AppConfig {
-  map<string, string> config = 1;
-  bool manage = 2;
-  repeated string  scope = 3;
-}
 message ValidAppRequest{
   string id = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
