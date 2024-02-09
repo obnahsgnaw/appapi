@@ -1,4 +1,12 @@
 
+<a name="v0.8.1"></a>
+## [v0.8.1](https://8.140.161.172/wangsb/wgateway/compare/v0.8.0...v0.8.1) (2024-02-09)
+
+### Bug Fixes
+
+* **frontend:** fix frontend app detial response
+
+
 <a name="v0.8.0"></a>
 ## [v0.8.0](https://8.140.161.172/wangsb/wgateway/compare/v0.7.2...v0.8.0) (2024-02-07)
 
