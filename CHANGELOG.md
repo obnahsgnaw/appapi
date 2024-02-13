@@ -1,4 +1,12 @@
 
+<a name="v0.8.2"></a>
+## [v0.8.2](https://8.140.161.172/wangsb/wgateway/compare/v0.8.1...v0.8.2) (2024-02-13)
+
+### Bug Fixes
+
+* **api:** fix api
+
+
 <a name="v0.8.1"></a>
 ## [v0.8.1](https://8.140.161.172/wangsb/wgateway/compare/v0.8.0...v0.8.1) (2024-02-09)
 
