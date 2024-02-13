@@ -35,6 +35,574 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on DetailRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *DetailRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DetailRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in DetailRequestMultiError, or
+// nil if none found.
+func (m *DetailRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DetailRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetId()) != 24 {
+		err := DetailRequestValidationError{
+			field:  "Id",
+			reason: "value length must be 24 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+
+	}
+
+	if len(errors) > 0 {
+		return DetailRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DetailRequestMultiError is an error wrapping multiple validation errors
+// returned by DetailRequest.ValidateAll() if the designated constraints
+// aren't met.
+type DetailRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DetailRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DetailRequestMultiError) AllErrors() []error { return m }
+
+// DetailRequestValidationError is the validation error returned by
+// DetailRequest.Validate if the designated constraints aren't met.
+type DetailRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DetailRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DetailRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DetailRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DetailRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DetailRequestValidationError) ErrorName() string { return "DetailRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e DetailRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDetailRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DetailRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DetailRequestValidationError{}
+
+// Validate checks the field values on IdRequest with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *IdRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in IdRequestMultiError, or nil
+// if none found.
+func (m *IdRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() <= 0 {
+		err := IdRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for WithDeleted
+
+	if len(errors) > 0 {
+		return IdRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// IdRequestMultiError is an error wrapping multiple validation errors returned
+// by IdRequest.ValidateAll() if the designated constraints aren't met.
+type IdRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRequestMultiError) AllErrors() []error { return m }
+
+// IdRequestValidationError is the validation error returned by
+// IdRequest.Validate if the designated constraints aren't met.
+type IdRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IdRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IdRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IdRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IdRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IdRequestValidationError) ErrorName() string { return "IdRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e IdRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIdRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IdRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IdRequestValidationError{}
+
+// Validate checks the field values on IdsRequest with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *IdsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdsRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in IdsRequestMultiError, or
+// nil if none found.
+func (m *IdsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for WithDeleted
+
+	if len(errors) > 0 {
+		return IdsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// IdsRequestMultiError is an error wrapping multiple validation errors
+// returned by IdsRequest.ValidateAll() if the designated constraints aren't met.
+type IdsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdsRequestMultiError) AllErrors() []error { return m }
+
+// IdsRequestValidationError is the validation error returned by
+// IdsRequest.Validate if the designated constraints aren't met.
+type IdsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IdsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IdsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IdsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IdsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IdsRequestValidationError) ErrorName() string { return "IdsRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e IdsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIdsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IdsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IdsRequestValidationError{}
+
+// Validate checks the field values on ValidAppRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ValidAppRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ValidAppRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ValidAppRequestMultiError, or nil if none found.
+func (m *ValidAppRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ValidAppRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetId()) != 24 {
+		err := ValidAppRequestValidationError{
+			field:  "Id",
+			reason: "value length must be 24 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+
+	}
+
+	if len(errors) > 0 {
+		return ValidAppRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ValidAppRequestMultiError is an error wrapping multiple validation errors
+// returned by ValidAppRequest.ValidateAll() if the designated constraints
+// aren't met.
+type ValidAppRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ValidAppRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ValidAppRequestMultiError) AllErrors() []error { return m }
+
+// ValidAppRequestValidationError is the validation error returned by
+// ValidAppRequest.Validate if the designated constraints aren't met.
+type ValidAppRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ValidAppRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ValidAppRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ValidAppRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ValidAppRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ValidAppRequestValidationError) ErrorName() string { return "ValidAppRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ValidAppRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sValidAppRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ValidAppRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ValidAppRequestValidationError{}
+
+// Validate checks the field values on ValidAppResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ValidAppResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ValidAppResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ValidAppResponseMultiError, or nil if none found.
+func (m *ValidAppResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ValidAppResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Error
+
+	if all {
+		switch v := interface{}(m.GetApp()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ValidAppResponseValidationError{
+					field:  "App",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ValidAppResponseValidationError{
+					field:  "App",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetApp()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ValidAppResponseValidationError{
+				field:  "App",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ValidAppResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ValidAppResponseMultiError is an error wrapping multiple validation errors
+// returned by ValidAppResponse.ValidateAll() if the designated constraints
+// aren't met.
+type ValidAppResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ValidAppResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ValidAppResponseMultiError) AllErrors() []error { return m }
+
+// ValidAppResponseValidationError is the validation error returned by
+// ValidAppResponse.Validate if the designated constraints aren't met.
+type ValidAppResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ValidAppResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ValidAppResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ValidAppResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ValidAppResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ValidAppResponseValidationError) ErrorName() string { return "ValidAppResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ValidAppResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sValidAppResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ValidAppResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ValidAppResponseValidationError{}
+
 // Validate checks the field values on ConfigRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -371,216 +939,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ConfigItemValidationError{}
-
-// Validate checks the field values on AppIdRequest with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *AppIdRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on AppIdRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in AppIdRequestMultiError, or
-// nil if none found.
-func (m *AppIdRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *AppIdRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if utf8.RuneCountInString(m.GetId()) != 24 {
-		err := AppIdRequestValidationError{
-			field:  "Id",
-			reason: "value length must be 24 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-
-	}
-
-	if len(errors) > 0 {
-		return AppIdRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// AppIdRequestMultiError is an error wrapping multiple validation errors
-// returned by AppIdRequest.ValidateAll() if the designated constraints aren't met.
-type AppIdRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m AppIdRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m AppIdRequestMultiError) AllErrors() []error { return m }
-
-// AppIdRequestValidationError is the validation error returned by
-// AppIdRequest.Validate if the designated constraints aren't met.
-type AppIdRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AppIdRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AppIdRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AppIdRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AppIdRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AppIdRequestValidationError) ErrorName() string { return "AppIdRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e AppIdRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAppIdRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AppIdRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AppIdRequestValidationError{}
-
-// Validate checks the field values on AppIdsRequest with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *AppIdsRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on AppIdsRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in AppIdsRequestMultiError, or
-// nil if none found.
-func (m *AppIdsRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *AppIdsRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for WithDeleted
-
-	if len(errors) > 0 {
-		return AppIdsRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// AppIdsRequestMultiError is an error wrapping multiple validation errors
-// returned by AppIdsRequest.ValidateAll() if the designated constraints
-// aren't met.
-type AppIdsRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m AppIdsRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m AppIdsRequestMultiError) AllErrors() []error { return m }
-
-// AppIdsRequestValidationError is the validation error returned by
-// AppIdsRequest.Validate if the designated constraints aren't met.
-type AppIdsRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AppIdsRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AppIdsRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AppIdsRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AppIdsRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AppIdsRequestValidationError) ErrorName() string { return "AppIdsRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e AppIdsRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAppIdsRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AppIdsRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AppIdsRequestValidationError{}

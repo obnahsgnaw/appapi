@@ -21,9 +21,12 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	AppQueryService_Paginate_FullMethodName  = "/app_backend_api.app.v1.AppQueryService/Paginate"
+	AppQueryService_Detail_FullMethodName    = "/app_backend_api.app.v1.AppQueryService/Detail"
 	AppQueryService_IdDetail_FullMethodName  = "/app_backend_api.app.v1.AppQueryService/IdDetail"
+	AppQueryService_IdSimple_FullMethodName  = "/app_backend_api.app.v1.AppQueryService/IdSimple"
 	AppQueryService_IdsDetail_FullMethodName = "/app_backend_api.app.v1.AppQueryService/IdsDetail"
 	AppQueryService_IdsSimple_FullMethodName = "/app_backend_api.app.v1.AppQueryService/IdsSimple"
+	AppQueryService_ValidApp_FullMethodName  = "/app_backend_api.app.v1.AppQueryService/ValidApp"
 	AppQueryService_Config_FullMethodName    = "/app_backend_api.app.v1.AppQueryService/Config"
 )
 
@@ -34,11 +37,17 @@ type AppQueryServiceClient interface {
 	// 列表
 	Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*AppPaginateResponse, error)
 	// 单ID详情
-	IdDetail(ctx context.Context, in *AppIdRequest, opts ...grpc.CallOption) (*App, error)
+	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*App, error)
+	// 单ID详情
+	IdDetail(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*App, error)
+	// 单ID详情
+	IdSimple(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SimpleApp, error)
 	// 多ID详情
-	IdsDetail(ctx context.Context, in *AppIdsRequest, opts ...grpc.CallOption) (*AppIdsResponse, error)
+	IdsDetail(ctx context.Context, in *IdsRequest, opts ...grpc.CallOption) (*IdsResponse, error)
 	// 多ID简单详情
-	IdsSimple(ctx context.Context, in *AppIdsRequest, opts ...grpc.CallOption) (*AppIdsSimpleResponse, error)
+	IdsSimple(ctx context.Context, in *IdsRequest, opts ...grpc.CallOption) (*IdsSimpleResponse, error)
+	// 验证后的详情
+	ValidApp(ctx context.Context, in *ValidAppRequest, opts ...grpc.CallOption) (*ValidAppResponse, error)
 	// 属性配置
 	Config(ctx context.Context, in *ConfigRequest, opts ...grpc.CallOption) (*ConfigResponse, error)
 }
@@ -60,7 +69,16 @@ func (c *appQueryServiceClient) Paginate(ctx context.Context, in *v1.PaginateReq
 	return out, nil
 }
 
-func (c *appQueryServiceClient) IdDetail(ctx context.Context, in *AppIdRequest, opts ...grpc.CallOption) (*App, error) {
+func (c *appQueryServiceClient) Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*App, error) {
+	out := new(App)
+	err := c.cc.Invoke(ctx, AppQueryService_Detail_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *appQueryServiceClient) IdDetail(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*App, error) {
 	out := new(App)
 	err := c.cc.Invoke(ctx, AppQueryService_IdDetail_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -69,8 +87,17 @@ func (c *appQueryServiceClient) IdDetail(ctx context.Context, in *AppIdRequest, 
 	return out, nil
 }
 
-func (c *appQueryServiceClient) IdsDetail(ctx context.Context, in *AppIdsRequest, opts ...grpc.CallOption) (*AppIdsResponse, error) {
-	out := new(AppIdsResponse)
+func (c *appQueryServiceClient) IdSimple(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SimpleApp, error) {
+	out := new(SimpleApp)
+	err := c.cc.Invoke(ctx, AppQueryService_IdSimple_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *appQueryServiceClient) IdsDetail(ctx context.Context, in *IdsRequest, opts ...grpc.CallOption) (*IdsResponse, error) {
+	out := new(IdsResponse)
 	err := c.cc.Invoke(ctx, AppQueryService_IdsDetail_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -78,9 +105,18 @@ func (c *appQueryServiceClient) IdsDetail(ctx context.Context, in *AppIdsRequest
 	return out, nil
 }
 
-func (c *appQueryServiceClient) IdsSimple(ctx context.Context, in *AppIdsRequest, opts ...grpc.CallOption) (*AppIdsSimpleResponse, error) {
-	out := new(AppIdsSimpleResponse)
+func (c *appQueryServiceClient) IdsSimple(ctx context.Context, in *IdsRequest, opts ...grpc.CallOption) (*IdsSimpleResponse, error) {
+	out := new(IdsSimpleResponse)
 	err := c.cc.Invoke(ctx, AppQueryService_IdsSimple_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *appQueryServiceClient) ValidApp(ctx context.Context, in *ValidAppRequest, opts ...grpc.CallOption) (*ValidAppResponse, error) {
+	out := new(ValidAppResponse)
+	err := c.cc.Invoke(ctx, AppQueryService_ValidApp_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,11 +139,17 @@ type AppQueryServiceServer interface {
 	// 列表
 	Paginate(context.Context, *v1.PaginateRequest) (*AppPaginateResponse, error)
 	// 单ID详情
-	IdDetail(context.Context, *AppIdRequest) (*App, error)
+	Detail(context.Context, *DetailRequest) (*App, error)
+	// 单ID详情
+	IdDetail(context.Context, *IdRequest) (*App, error)
+	// 单ID详情
+	IdSimple(context.Context, *IdRequest) (*SimpleApp, error)
 	// 多ID详情
-	IdsDetail(context.Context, *AppIdsRequest) (*AppIdsResponse, error)
+	IdsDetail(context.Context, *IdsRequest) (*IdsResponse, error)
 	// 多ID简单详情
-	IdsSimple(context.Context, *AppIdsRequest) (*AppIdsSimpleResponse, error)
+	IdsSimple(context.Context, *IdsRequest) (*IdsSimpleResponse, error)
+	// 验证后的详情
+	ValidApp(context.Context, *ValidAppRequest) (*ValidAppResponse, error)
 	// 属性配置
 	Config(context.Context, *ConfigRequest) (*ConfigResponse, error)
 }
@@ -119,14 +161,23 @@ type UnimplementedAppQueryServiceServer struct {
 func (UnimplementedAppQueryServiceServer) Paginate(context.Context, *v1.PaginateRequest) (*AppPaginateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Paginate not implemented")
 }
-func (UnimplementedAppQueryServiceServer) IdDetail(context.Context, *AppIdRequest) (*App, error) {
+func (UnimplementedAppQueryServiceServer) Detail(context.Context, *DetailRequest) (*App, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Detail not implemented")
+}
+func (UnimplementedAppQueryServiceServer) IdDetail(context.Context, *IdRequest) (*App, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IdDetail not implemented")
 }
-func (UnimplementedAppQueryServiceServer) IdsDetail(context.Context, *AppIdsRequest) (*AppIdsResponse, error) {
+func (UnimplementedAppQueryServiceServer) IdSimple(context.Context, *IdRequest) (*SimpleApp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IdSimple not implemented")
+}
+func (UnimplementedAppQueryServiceServer) IdsDetail(context.Context, *IdsRequest) (*IdsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IdsDetail not implemented")
 }
-func (UnimplementedAppQueryServiceServer) IdsSimple(context.Context, *AppIdsRequest) (*AppIdsSimpleResponse, error) {
+func (UnimplementedAppQueryServiceServer) IdsSimple(context.Context, *IdsRequest) (*IdsSimpleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IdsSimple not implemented")
+}
+func (UnimplementedAppQueryServiceServer) ValidApp(context.Context, *ValidAppRequest) (*ValidAppResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidApp not implemented")
 }
 func (UnimplementedAppQueryServiceServer) Config(context.Context, *ConfigRequest) (*ConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Config not implemented")
@@ -161,8 +212,26 @@ func _AppQueryService_Paginate_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AppQueryService_Detail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DetailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AppQueryServiceServer).Detail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AppQueryService_Detail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AppQueryServiceServer).Detail(ctx, req.(*DetailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AppQueryService_IdDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppIdRequest)
+	in := new(IdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -174,13 +243,31 @@ func _AppQueryService_IdDetail_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: AppQueryService_IdDetail_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppQueryServiceServer).IdDetail(ctx, req.(*AppIdRequest))
+		return srv.(AppQueryServiceServer).IdDetail(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AppQueryService_IdSimple_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AppQueryServiceServer).IdSimple(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AppQueryService_IdSimple_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AppQueryServiceServer).IdSimple(ctx, req.(*IdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AppQueryService_IdsDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppIdsRequest)
+	in := new(IdsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -192,13 +279,13 @@ func _AppQueryService_IdsDetail_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: AppQueryService_IdsDetail_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppQueryServiceServer).IdsDetail(ctx, req.(*AppIdsRequest))
+		return srv.(AppQueryServiceServer).IdsDetail(ctx, req.(*IdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AppQueryService_IdsSimple_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppIdsRequest)
+	in := new(IdsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -210,7 +297,25 @@ func _AppQueryService_IdsSimple_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: AppQueryService_IdsSimple_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppQueryServiceServer).IdsSimple(ctx, req.(*AppIdsRequest))
+		return srv.(AppQueryServiceServer).IdsSimple(ctx, req.(*IdsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AppQueryService_ValidApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ValidAppRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AppQueryServiceServer).ValidApp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AppQueryService_ValidApp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AppQueryServiceServer).ValidApp(ctx, req.(*ValidAppRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -245,8 +350,16 @@ var AppQueryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AppQueryService_Paginate_Handler,
 		},
 		{
+			MethodName: "Detail",
+			Handler:    _AppQueryService_Detail_Handler,
+		},
+		{
 			MethodName: "IdDetail",
 			Handler:    _AppQueryService_IdDetail_Handler,
+		},
+		{
+			MethodName: "IdSimple",
+			Handler:    _AppQueryService_IdSimple_Handler,
 		},
 		{
 			MethodName: "IdsDetail",
@@ -255,6 +368,10 @@ var AppQueryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "IdsSimple",
 			Handler:    _AppQueryService_IdsSimple_Handler,
+		},
+		{
+			MethodName: "ValidApp",
+			Handler:    _AppQueryService_ValidApp_Handler,
 		},
 		{
 			MethodName: "Config",

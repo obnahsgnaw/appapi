@@ -833,7 +833,7 @@
     "/v1/applications/{id}": {
       "get": {
         "summary": "详情",
-        "operationId": "AppQueryService_IdDetail",
+        "operationId": "AppQueryService_Detail",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1748,30 +1748,6 @@
         }
       }
     },
-    "v1AppIdsResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/v1App"
-          },
-          "description": "data"
-        }
-      }
-    },
-    "v1AppIdsSimpleResponse": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/v1SimpleApp"
-          },
-          "description": "data"
-        }
-      }
-    },
     "v1AppPaginateResponse": {
       "type": "object",
       "properties": {
@@ -2049,6 +2025,30 @@
       },
       "title": "错误 多个错误"
     },
+    "v1IdsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1App"
+          },
+          "description": "data"
+        }
+      }
+    },
+    "v1IdsSimpleResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1SimpleApp"
+          },
+          "description": "data"
+        }
+      }
+    },
     "v1IntOption": {
       "type": "object",
       "properties": {
@@ -2259,6 +2259,19 @@
         }
       },
       "title": "key name 响应"
+    },
+    "v1ValidAppResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "description": "invalid信息"
+        },
+        "app": {
+          "$ref": "#/definitions/v1App",
+          "description": "app"
+        }
+      }
     },
     "v1VersionResponse": {
       "type": "object",

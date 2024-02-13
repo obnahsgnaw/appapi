@@ -37,7 +37,7 @@ service AppQueryService{
     };
   }
   // 单ID详情
-  rpc IdDetail (AppIdRequest) returns (App) {
+  rpc Detail (DetailRequest) returns (App) {
     option (google.api.http) = {
       get: "/v1/applications/{id}"
     };
@@ -59,10 +59,16 @@ service AppQueryService{
       }
     };
   }
+  // 单ID详情
+  rpc IdDetail (IdRequest) returns (App);
+  // 单ID详情
+  rpc IdSimple (IdRequest) returns (SimpleApp);
   // 多ID详情
-  rpc IdsDetail (AppIdsRequest) returns (AppIdsResponse);
+  rpc IdsDetail (IdsRequest) returns (IdsResponse);
   // 多ID简单详情
-  rpc IdsSimple (AppIdsRequest) returns (AppIdsSimpleResponse);
+  rpc IdsSimple (IdsRequest) returns (IdsSimpleResponse);
+  // 验证后的详情
+  rpc ValidApp(ValidAppRequest)returns(ValidAppResponse);
   // 属性配置
   rpc Config(ConfigRequest) returns(ConfigResponse){
     option (google.api.http) = {
@@ -92,6 +98,81 @@ message AppPaginateResponse{
   option (validate.ignored) = true;
   common.v1.PaginateMeta meta = 1;
   repeated PaginateApp list = 2;
+}
+message DetailRequest {
+  string id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      description: "ID";
+    },
+    (validate.rules).string = {ignore_empty: false, len: 24}
+  ];
+}
+message IdRequest {
+  uint32 id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      description: "ID";
+    },
+    (validate.rules).uint32 = {ignore_empty: false, gt: 0}
+  ];
+  bool with_deleted = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["with_deleted"];
+      description: "是否包含删除数据";
+    }
+  ];
+}
+message IdsRequest {
+  repeated uint32 ids = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      description: "ID";
+    },
+    (validate.rules).repeated = {ignore_empty: false}
+  ];
+  bool with_deleted = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["with_deleted"];
+      description: "是否包含删除数据";
+    }
+  ];
+}
+message IdsResponse{
+  option (validate.ignored) = true;
+  map<uint32,App> data = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"data"
+  }];
+}
+message IdsSimpleResponse{
+  option (validate.ignored) = true;
+  map<uint32,SimpleApp> data = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"data"
+  }];
+}
+message ValidAppRequest{
+  string id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      description: "ID";
+    },
+    (validate.rules).string = {ignore_empty: false, len: 24}
+  ];
+  string project = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["project"];
+      description: "project";
+    },
+    (validate.rules).string = {ignore_empty: false}
+  ];
+}
+message ValidAppResponse{
+  string error = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"invalid信息"
+  }];
+  App app = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"app"
+  }];
 }
 message ConfigRequest {
 }
@@ -126,40 +207,4 @@ message ConfigItem{
     },
     (validate.rules).string = {ignore_empty: false}
   ];
-}
-message AppIdRequest {
-  string id = 1[
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      required: ["id"];
-      description: "ID";
-    },
-    (validate.rules).string = {ignore_empty: false, len: 24}
-  ];
-}
-message AppIdsRequest {
-  repeated uint32 ids = 1[
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      required: ["id"];
-      description: "ID";
-    },
-    (validate.rules).repeated = {ignore_empty: false}
-  ];
-  bool with_deleted = 2[
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      required: ["with_deleted"];
-      description: "是否包含删除数据";
-    }
-  ];
-}
-message AppIdsResponse{
-  option (validate.ignored) = true;
-  map<uint32,App> data = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description:"data"
-  }];
-}
-message AppIdsSimpleResponse{
-  option (validate.ignored) = true;
-  map<uint32,SimpleApp> data = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description:"data"
-  }];
 }
