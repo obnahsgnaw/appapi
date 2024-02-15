@@ -60,6 +60,8 @@ service AppQueryService{
     };
   }
   // 单ID详情
+  rpc Simple (SimpleRequest) returns (SimpleApp);
+  // 单ID详情
   rpc IdDetail (IdRequest) returns (App);
   // 单ID详情
   rpc IdSimple (IdRequest) returns (SimpleApp);
@@ -108,6 +110,21 @@ message DetailRequest {
     (validate.rules).string = {ignore_empty: false, len: 24}
   ];
 }
+message SimpleRequest {
+  string id = 1[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      description: "ID";
+    },
+    (validate.rules).string = {ignore_empty: false, len: 24}
+  ];
+  bool with_deleted = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["with_deleted"];
+      description: "是否包含删除数据";
+    }
+  ];
+}
 message IdRequest {
   uint32 id = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
@@ -120,6 +137,12 @@ message IdRequest {
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required: ["with_deleted"];
       description: "是否包含删除数据";
+    }
+  ];
+  bool with_attr = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["with_attr"];
+      description: "是否包含属性数据";
     }
   ];
 }
@@ -135,6 +158,12 @@ message IdsRequest {
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required: ["with_deleted"];
       description: "是否包含删除数据";
+    }
+  ];
+  bool with_attr = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["with_attr"];
+      description: "是否包含属性数据";
     }
   ];
 }

@@ -147,6 +147,120 @@ var _ interface {
 	ErrorName() string
 } = DetailRequestValidationError{}
 
+// Validate checks the field values on SimpleRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SimpleRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SimpleRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SimpleRequestMultiError, or
+// nil if none found.
+func (m *SimpleRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SimpleRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetId()) != 24 {
+		err := SimpleRequestValidationError{
+			field:  "Id",
+			reason: "value length must be 24 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+
+	}
+
+	// no validation rules for WithDeleted
+
+	if len(errors) > 0 {
+		return SimpleRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SimpleRequestMultiError is an error wrapping multiple validation errors
+// returned by SimpleRequest.ValidateAll() if the designated constraints
+// aren't met.
+type SimpleRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SimpleRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SimpleRequestMultiError) AllErrors() []error { return m }
+
+// SimpleRequestValidationError is the validation error returned by
+// SimpleRequest.Validate if the designated constraints aren't met.
+type SimpleRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SimpleRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SimpleRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SimpleRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SimpleRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SimpleRequestValidationError) ErrorName() string { return "SimpleRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SimpleRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSimpleRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SimpleRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SimpleRequestValidationError{}
+
 // Validate checks the field values on IdRequest with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -181,6 +295,8 @@ func (m *IdRequest) validate(all bool) error {
 	}
 
 	// no validation rules for WithDeleted
+
+	// no validation rules for WithAttr
 
 	if len(errors) > 0 {
 		return IdRequestMultiError(errors)
@@ -282,6 +398,8 @@ func (m *IdsRequest) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for WithDeleted
+
+	// no validation rules for WithAttr
 
 	if len(errors) > 0 {
 		return IdsRequestMultiError(errors)
