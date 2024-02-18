@@ -32,7 +32,7 @@ var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
 func request_AppEditService_Create_0(ctx context.Context, marshaler runtime.Marshaler, client AppEditServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppCreateRequest
+	var protoReq CreateRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -49,7 +49,7 @@ func request_AppEditService_Create_0(ctx context.Context, marshaler runtime.Mars
 }
 
 func local_request_AppEditService_Create_0(ctx context.Context, marshaler runtime.Marshaler, server AppEditServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppCreateRequest
+	var protoReq CreateRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -66,7 +66,7 @@ func local_request_AppEditService_Create_0(ctx context.Context, marshaler runtim
 }
 
 func request_AppEditService_Update_0(ctx context.Context, marshaler runtime.Marshaler, client AppEditServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppUpdateRequest
+	var protoReq UpdateRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -100,7 +100,7 @@ func request_AppEditService_Update_0(ctx context.Context, marshaler runtime.Mars
 }
 
 func local_request_AppEditService_Update_0(ctx context.Context, marshaler runtime.Marshaler, server AppEditServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppUpdateRequest
+	var protoReq UpdateRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -134,7 +134,7 @@ func local_request_AppEditService_Update_0(ctx context.Context, marshaler runtim
 }
 
 func request_AppEditService_Delete_0(ctx context.Context, marshaler runtime.Marshaler, client AppEditServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppDeleteRequest
+	var protoReq DeleteRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -160,7 +160,7 @@ func request_AppEditService_Delete_0(ctx context.Context, marshaler runtime.Mars
 }
 
 func local_request_AppEditService_Delete_0(ctx context.Context, marshaler runtime.Marshaler, server AppEditServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppDeleteRequest
+	var protoReq DeleteRequest
 	var metadata runtime.ServerMetadata
 
 	var (

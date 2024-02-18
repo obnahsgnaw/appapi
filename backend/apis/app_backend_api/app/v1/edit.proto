@@ -15,7 +15,7 @@ service AppEditService{
     description: "2.应用编辑服务";
   };
   // 创建
-  rpc Create (AppCreateRequest) returns (App) {
+  rpc Create (CreateRequest) returns (App) {
     option (google.api.http) = {
       post: "/v1/applications";
       body: "data";
@@ -39,7 +39,7 @@ service AppEditService{
     };
   }
   // 修改
-  rpc Update (AppUpdateRequest) returns (App) {
+  rpc Update (UpdateRequest) returns (App) {
     option (google.api.http) = {
       put: "/v1/applications/{id}"
       body: "data"
@@ -63,7 +63,7 @@ service AppEditService{
     };
   }
   // 删除
-  rpc Delete (AppDeleteRequest) returns (google.protobuf.Empty) {
+  rpc Delete (DeleteRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/applications/{id}"
     };
@@ -87,15 +87,15 @@ service AppEditService{
   }
 }
 
-message AppCreateRequest {
-  AppCreateForm data = 1[
+message CreateRequest {
+  CreateForm data = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:["data"]
       description:"data";
     },
     (validate.rules).message = {required: true}];
 }
-message AppCreateForm {
+message CreateForm {
   string name = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       description:'应用名称'
@@ -143,14 +143,14 @@ message AppCreateForm {
     }
   ];
 }
-message AppUpdateRequest {
+message UpdateRequest {
   string id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     required:['id']
     description:'app.id'
   },
     (validate.rules).string = {ignore_empty: false, len:24}
   ];
-  AppUpdateForm data = 2[
+  UpdateForm data = 2[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:["data"]
       description:'data'
@@ -158,7 +158,7 @@ message AppUpdateRequest {
     (validate.rules).message = {required :true}
   ];
 }
-message AppUpdateForm {
+message UpdateForm {
   string name = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       description:'应用名称'
@@ -213,7 +213,7 @@ message AppUpdateForm {
     (validate.rules).message = {required :true}
   ];
 }
-message AppDeleteRequest {
+message DeleteRequest {
   string id = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required: ["id"];

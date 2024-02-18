@@ -30,11 +30,11 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AppEditServiceClient interface {
 	// 创建
-	Create(ctx context.Context, in *AppCreateRequest, opts ...grpc.CallOption) (*App, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*App, error)
 	// 修改
-	Update(ctx context.Context, in *AppUpdateRequest, opts ...grpc.CallOption) (*App, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*App, error)
 	// 删除
-	Delete(ctx context.Context, in *AppDeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type appEditServiceClient struct {
@@ -45,7 +45,7 @@ func NewAppEditServiceClient(cc grpc.ClientConnInterface) AppEditServiceClient {
 	return &appEditServiceClient{cc}
 }
 
-func (c *appEditServiceClient) Create(ctx context.Context, in *AppCreateRequest, opts ...grpc.CallOption) (*App, error) {
+func (c *appEditServiceClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*App, error) {
 	out := new(App)
 	err := c.cc.Invoke(ctx, AppEditService_Create_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -54,7 +54,7 @@ func (c *appEditServiceClient) Create(ctx context.Context, in *AppCreateRequest,
 	return out, nil
 }
 
-func (c *appEditServiceClient) Update(ctx context.Context, in *AppUpdateRequest, opts ...grpc.CallOption) (*App, error) {
+func (c *appEditServiceClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*App, error) {
 	out := new(App)
 	err := c.cc.Invoke(ctx, AppEditService_Update_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -63,7 +63,7 @@ func (c *appEditServiceClient) Update(ctx context.Context, in *AppUpdateRequest,
 	return out, nil
 }
 
-func (c *appEditServiceClient) Delete(ctx context.Context, in *AppDeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *appEditServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, AppEditService_Delete_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -77,24 +77,24 @@ func (c *appEditServiceClient) Delete(ctx context.Context, in *AppDeleteRequest,
 // for forward compatibility
 type AppEditServiceServer interface {
 	// 创建
-	Create(context.Context, *AppCreateRequest) (*App, error)
+	Create(context.Context, *CreateRequest) (*App, error)
 	// 修改
-	Update(context.Context, *AppUpdateRequest) (*App, error)
+	Update(context.Context, *UpdateRequest) (*App, error)
 	// 删除
-	Delete(context.Context, *AppDeleteRequest) (*emptypb.Empty, error)
+	Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 }
 
 // UnimplementedAppEditServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedAppEditServiceServer struct {
 }
 
-func (UnimplementedAppEditServiceServer) Create(context.Context, *AppCreateRequest) (*App, error) {
+func (UnimplementedAppEditServiceServer) Create(context.Context, *CreateRequest) (*App, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedAppEditServiceServer) Update(context.Context, *AppUpdateRequest) (*App, error) {
+func (UnimplementedAppEditServiceServer) Update(context.Context, *UpdateRequest) (*App, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedAppEditServiceServer) Delete(context.Context, *AppDeleteRequest) (*emptypb.Empty, error) {
+func (UnimplementedAppEditServiceServer) Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 
@@ -110,7 +110,7 @@ func RegisterAppEditServiceServer(s grpc.ServiceRegistrar, srv AppEditServiceSer
 }
 
 func _AppEditService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppCreateRequest)
+	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -122,13 +122,13 @@ func _AppEditService_Create_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: AppEditService_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppEditServiceServer).Create(ctx, req.(*AppCreateRequest))
+		return srv.(AppEditServiceServer).Create(ctx, req.(*CreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AppEditService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppUpdateRequest)
+	in := new(UpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -140,13 +140,13 @@ func _AppEditService_Update_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: AppEditService_Update_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppEditServiceServer).Update(ctx, req.(*AppUpdateRequest))
+		return srv.(AppEditServiceServer).Update(ctx, req.(*UpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AppEditService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppDeleteRequest)
+	in := new(DeleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func _AppEditService_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: AppEditService_Delete_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppEditServiceServer).Delete(ctx, req.(*AppDeleteRequest))
+		return srv.(AppEditServiceServer).Delete(ctx, req.(*DeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

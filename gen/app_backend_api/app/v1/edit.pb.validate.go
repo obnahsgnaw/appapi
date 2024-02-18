@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on AppCreateRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *AppCreateRequest) Validate() error {
+// Validate checks the field values on CreateRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreateRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppCreateRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppCreateRequestMultiError, or nil if none found.
-func (m *AppCreateRequest) ValidateAll() error {
+// ValidateAll checks the field values on CreateRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateRequestMultiError, or
+// nil if none found.
+func (m *CreateRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppCreateRequest) validate(all bool) error {
+func (m *CreateRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -58,7 +58,7 @@ func (m *AppCreateRequest) validate(all bool) error {
 	var errors []error
 
 	if m.GetData() == nil {
-		err := AppCreateRequestValidationError{
+		err := CreateRequestValidationError{
 			field:  "Data",
 			reason: "value is required",
 		}
@@ -72,7 +72,7 @@ func (m *AppCreateRequest) validate(all bool) error {
 		switch v := interface{}(m.GetData()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AppCreateRequestValidationError{
+				errors = append(errors, CreateRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -80,7 +80,7 @@ func (m *AppCreateRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, AppCreateRequestValidationError{
+				errors = append(errors, CreateRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -89,7 +89,7 @@ func (m *AppCreateRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetData()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return AppCreateRequestValidationError{
+			return CreateRequestValidationError{
 				field:  "Data",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -98,19 +98,19 @@ func (m *AppCreateRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppCreateRequestMultiError(errors)
+		return CreateRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppCreateRequestMultiError is an error wrapping multiple validation errors
-// returned by AppCreateRequest.ValidateAll() if the designated constraints
+// CreateRequestMultiError is an error wrapping multiple validation errors
+// returned by CreateRequest.ValidateAll() if the designated constraints
 // aren't met.
-type AppCreateRequestMultiError []error
+type CreateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppCreateRequestMultiError) Error() string {
+func (m CreateRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -119,11 +119,11 @@ func (m AppCreateRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppCreateRequestMultiError) AllErrors() []error { return m }
+func (m CreateRequestMultiError) AllErrors() []error { return m }
 
-// AppCreateRequestValidationError is the validation error returned by
-// AppCreateRequest.Validate if the designated constraints aren't met.
-type AppCreateRequestValidationError struct {
+// CreateRequestValidationError is the validation error returned by
+// CreateRequest.Validate if the designated constraints aren't met.
+type CreateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -131,22 +131,22 @@ type AppCreateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppCreateRequestValidationError) Field() string { return e.field }
+func (e CreateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppCreateRequestValidationError) Reason() string { return e.reason }
+func (e CreateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppCreateRequestValidationError) Cause() error { return e.cause }
+func (e CreateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppCreateRequestValidationError) Key() bool { return e.key }
+func (e CreateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppCreateRequestValidationError) ErrorName() string { return "AppCreateRequestValidationError" }
+func (e CreateRequestValidationError) ErrorName() string { return "CreateRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppCreateRequestValidationError) Error() string {
+func (e CreateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -158,14 +158,14 @@ func (e AppCreateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppCreateRequest.%s: %s%s",
+		"invalid %sCreateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppCreateRequestValidationError{}
+var _ error = CreateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -173,24 +173,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppCreateRequestValidationError{}
+} = CreateRequestValidationError{}
 
-// Validate checks the field values on AppCreateForm with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
+// Validate checks the field values on CreateForm with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *AppCreateForm) Validate() error {
+func (m *CreateForm) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppCreateForm with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in AppCreateFormMultiError, or
+// ValidateAll checks the field values on CreateForm with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateFormMultiError, or
 // nil if none found.
-func (m *AppCreateForm) ValidateAll() error {
+func (m *CreateForm) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppCreateForm) validate(all bool) error {
+func (m *CreateForm) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -198,7 +198,7 @@ func (m *AppCreateForm) validate(all bool) error {
 	var errors []error
 
 	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 100 {
-		err := AppCreateFormValidationError{
+		err := CreateFormValidationError{
 			field:  "Name",
 			reason: "value length must be between 1 and 100 runes, inclusive",
 		}
@@ -209,7 +209,7 @@ func (m *AppCreateForm) validate(all bool) error {
 	}
 
 	if l := utf8.RuneCountInString(m.GetDescription()); l < 0 || l > 255 {
-		err := AppCreateFormValidationError{
+		err := CreateFormValidationError{
 			field:  "Description",
 			reason: "value length must be between 0 and 255 runes, inclusive",
 		}
@@ -221,13 +221,13 @@ func (m *AppCreateForm) validate(all bool) error {
 
 	if len(m.GetScopes()) > 0 {
 
-		_AppCreateForm_Scopes_Unique := make(map[string]struct{}, len(m.GetScopes()))
+		_CreateForm_Scopes_Unique := make(map[string]struct{}, len(m.GetScopes()))
 
 		for idx, item := range m.GetScopes() {
 			_, _ = idx, item
 
-			if _, exists := _AppCreateForm_Scopes_Unique[item]; exists {
-				err := AppCreateFormValidationError{
+			if _, exists := _CreateForm_Scopes_Unique[item]; exists {
+				err := CreateFormValidationError{
 					field:  fmt.Sprintf("Scopes[%v]", idx),
 					reason: "repeated value must contain unique items",
 				}
@@ -236,11 +236,11 @@ func (m *AppCreateForm) validate(all bool) error {
 				}
 				errors = append(errors, err)
 			} else {
-				_AppCreateForm_Scopes_Unique[item] = struct{}{}
+				_CreateForm_Scopes_Unique[item] = struct{}{}
 			}
 
 			if l := utf8.RuneCountInString(item); l < 1 || l > 100 {
-				err := AppCreateFormValidationError{
+				err := CreateFormValidationError{
 					field:  fmt.Sprintf("Scopes[%v]", idx),
 					reason: "value length must be between 1 and 100 runes, inclusive",
 				}
@@ -255,7 +255,7 @@ func (m *AppCreateForm) validate(all bool) error {
 	}
 
 	if _, ok := AppType_name[int32(m.GetType())]; !ok {
-		err := AppCreateFormValidationError{
+		err := CreateFormValidationError{
 			field:  "Type",
 			reason: "value must be one of the defined enum values",
 		}
@@ -266,7 +266,7 @@ func (m *AppCreateForm) validate(all bool) error {
 	}
 
 	if l := utf8.RuneCountInString(m.GetPackage()); l < 1 || l > 100 {
-		err := AppCreateFormValidationError{
+		err := CreateFormValidationError{
 			field:  "Package",
 			reason: "value length must be between 1 and 100 runes, inclusive",
 		}
@@ -277,7 +277,7 @@ func (m *AppCreateForm) validate(all bool) error {
 	}
 
 	if l := utf8.RuneCountInString(m.GetProject()); l < 1 || l > 100 {
-		err := AppCreateFormValidationError{
+		err := CreateFormValidationError{
 			field:  "Project",
 			reason: "value length must be between 1 and 100 runes, inclusive",
 		}
@@ -292,19 +292,18 @@ func (m *AppCreateForm) validate(all bool) error {
 	// no validation rules for Attrs
 
 	if len(errors) > 0 {
-		return AppCreateFormMultiError(errors)
+		return CreateFormMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppCreateFormMultiError is an error wrapping multiple validation errors
-// returned by AppCreateForm.ValidateAll() if the designated constraints
-// aren't met.
-type AppCreateFormMultiError []error
+// CreateFormMultiError is an error wrapping multiple validation errors
+// returned by CreateForm.ValidateAll() if the designated constraints aren't met.
+type CreateFormMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppCreateFormMultiError) Error() string {
+func (m CreateFormMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -313,11 +312,11 @@ func (m AppCreateFormMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppCreateFormMultiError) AllErrors() []error { return m }
+func (m CreateFormMultiError) AllErrors() []error { return m }
 
-// AppCreateFormValidationError is the validation error returned by
-// AppCreateForm.Validate if the designated constraints aren't met.
-type AppCreateFormValidationError struct {
+// CreateFormValidationError is the validation error returned by
+// CreateForm.Validate if the designated constraints aren't met.
+type CreateFormValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -325,22 +324,22 @@ type AppCreateFormValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppCreateFormValidationError) Field() string { return e.field }
+func (e CreateFormValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppCreateFormValidationError) Reason() string { return e.reason }
+func (e CreateFormValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppCreateFormValidationError) Cause() error { return e.cause }
+func (e CreateFormValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppCreateFormValidationError) Key() bool { return e.key }
+func (e CreateFormValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppCreateFormValidationError) ErrorName() string { return "AppCreateFormValidationError" }
+func (e CreateFormValidationError) ErrorName() string { return "CreateFormValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppCreateFormValidationError) Error() string {
+func (e CreateFormValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -352,14 +351,14 @@ func (e AppCreateFormValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppCreateForm.%s: %s%s",
+		"invalid %sCreateForm.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppCreateFormValidationError{}
+var _ error = CreateFormValidationError{}
 
 var _ interface {
 	Field() string
@@ -367,24 +366,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppCreateFormValidationError{}
+} = CreateFormValidationError{}
 
-// Validate checks the field values on AppUpdateRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *AppUpdateRequest) Validate() error {
+// Validate checks the field values on UpdateRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UpdateRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppUpdateRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppUpdateRequestMultiError, or nil if none found.
-func (m *AppUpdateRequest) ValidateAll() error {
+// ValidateAll checks the field values on UpdateRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UpdateRequestMultiError, or
+// nil if none found.
+func (m *UpdateRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppUpdateRequest) validate(all bool) error {
+func (m *UpdateRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -392,7 +391,7 @@ func (m *AppUpdateRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetId()) != 24 {
-		err := AppUpdateRequestValidationError{
+		err := UpdateRequestValidationError{
 			field:  "Id",
 			reason: "value length must be 24 runes",
 		}
@@ -404,7 +403,7 @@ func (m *AppUpdateRequest) validate(all bool) error {
 	}
 
 	if m.GetData() == nil {
-		err := AppUpdateRequestValidationError{
+		err := UpdateRequestValidationError{
 			field:  "Data",
 			reason: "value is required",
 		}
@@ -418,7 +417,7 @@ func (m *AppUpdateRequest) validate(all bool) error {
 		switch v := interface{}(m.GetData()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AppUpdateRequestValidationError{
+				errors = append(errors, UpdateRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -426,7 +425,7 @@ func (m *AppUpdateRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, AppUpdateRequestValidationError{
+				errors = append(errors, UpdateRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -435,7 +434,7 @@ func (m *AppUpdateRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetData()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return AppUpdateRequestValidationError{
+			return UpdateRequestValidationError{
 				field:  "Data",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -444,19 +443,19 @@ func (m *AppUpdateRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppUpdateRequestMultiError(errors)
+		return UpdateRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppUpdateRequestMultiError is an error wrapping multiple validation errors
-// returned by AppUpdateRequest.ValidateAll() if the designated constraints
+// UpdateRequestMultiError is an error wrapping multiple validation errors
+// returned by UpdateRequest.ValidateAll() if the designated constraints
 // aren't met.
-type AppUpdateRequestMultiError []error
+type UpdateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppUpdateRequestMultiError) Error() string {
+func (m UpdateRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -465,11 +464,11 @@ func (m AppUpdateRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppUpdateRequestMultiError) AllErrors() []error { return m }
+func (m UpdateRequestMultiError) AllErrors() []error { return m }
 
-// AppUpdateRequestValidationError is the validation error returned by
-// AppUpdateRequest.Validate if the designated constraints aren't met.
-type AppUpdateRequestValidationError struct {
+// UpdateRequestValidationError is the validation error returned by
+// UpdateRequest.Validate if the designated constraints aren't met.
+type UpdateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -477,22 +476,22 @@ type AppUpdateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppUpdateRequestValidationError) Field() string { return e.field }
+func (e UpdateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppUpdateRequestValidationError) Reason() string { return e.reason }
+func (e UpdateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppUpdateRequestValidationError) Cause() error { return e.cause }
+func (e UpdateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppUpdateRequestValidationError) Key() bool { return e.key }
+func (e UpdateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppUpdateRequestValidationError) ErrorName() string { return "AppUpdateRequestValidationError" }
+func (e UpdateRequestValidationError) ErrorName() string { return "UpdateRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppUpdateRequestValidationError) Error() string {
+func (e UpdateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -504,14 +503,14 @@ func (e AppUpdateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppUpdateRequest.%s: %s%s",
+		"invalid %sUpdateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppUpdateRequestValidationError{}
+var _ error = UpdateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -519,24 +518,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppUpdateRequestValidationError{}
+} = UpdateRequestValidationError{}
 
-// Validate checks the field values on AppUpdateForm with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
+// Validate checks the field values on UpdateForm with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *AppUpdateForm) Validate() error {
+func (m *UpdateForm) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppUpdateForm with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in AppUpdateFormMultiError, or
+// ValidateAll checks the field values on UpdateForm with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UpdateFormMultiError, or
 // nil if none found.
-func (m *AppUpdateForm) ValidateAll() error {
+func (m *UpdateForm) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppUpdateForm) validate(all bool) error {
+func (m *UpdateForm) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -546,7 +545,7 @@ func (m *AppUpdateForm) validate(all bool) error {
 	if m.GetName() != "" {
 
 		if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 100 {
-			err := AppUpdateFormValidationError{
+			err := UpdateFormValidationError{
 				field:  "Name",
 				reason: "value length must be between 1 and 100 runes, inclusive",
 			}
@@ -561,7 +560,7 @@ func (m *AppUpdateForm) validate(all bool) error {
 	if m.GetDescription() != "" {
 
 		if l := utf8.RuneCountInString(m.GetDescription()); l < 0 || l > 255 {
-			err := AppUpdateFormValidationError{
+			err := UpdateFormValidationError{
 				field:  "Description",
 				reason: "value length must be between 0 and 255 runes, inclusive",
 			}
@@ -575,13 +574,13 @@ func (m *AppUpdateForm) validate(all bool) error {
 
 	if len(m.GetScopes()) > 0 {
 
-		_AppUpdateForm_Scopes_Unique := make(map[string]struct{}, len(m.GetScopes()))
+		_UpdateForm_Scopes_Unique := make(map[string]struct{}, len(m.GetScopes()))
 
 		for idx, item := range m.GetScopes() {
 			_, _ = idx, item
 
-			if _, exists := _AppUpdateForm_Scopes_Unique[item]; exists {
-				err := AppUpdateFormValidationError{
+			if _, exists := _UpdateForm_Scopes_Unique[item]; exists {
+				err := UpdateFormValidationError{
 					field:  fmt.Sprintf("Scopes[%v]", idx),
 					reason: "repeated value must contain unique items",
 				}
@@ -590,11 +589,11 @@ func (m *AppUpdateForm) validate(all bool) error {
 				}
 				errors = append(errors, err)
 			} else {
-				_AppUpdateForm_Scopes_Unique[item] = struct{}{}
+				_UpdateForm_Scopes_Unique[item] = struct{}{}
 			}
 
 			if l := utf8.RuneCountInString(item); l < 1 || l > 100 {
-				err := AppUpdateFormValidationError{
+				err := UpdateFormValidationError{
 					field:  fmt.Sprintf("Scopes[%v]", idx),
 					reason: "value length must be between 1 and 100 runes, inclusive",
 				}
@@ -609,7 +608,7 @@ func (m *AppUpdateForm) validate(all bool) error {
 	}
 
 	if _, ok := AppType_name[int32(m.GetType())]; !ok {
-		err := AppUpdateFormValidationError{
+		err := UpdateFormValidationError{
 			field:  "Type",
 			reason: "value must be one of the defined enum values",
 		}
@@ -622,7 +621,7 @@ func (m *AppUpdateForm) validate(all bool) error {
 	if m.GetPackage() != "" {
 
 		if l := utf8.RuneCountInString(m.GetPackage()); l < 1 || l > 100 {
-			err := AppUpdateFormValidationError{
+			err := UpdateFormValidationError{
 				field:  "Package",
 				reason: "value length must be between 1 and 100 runes, inclusive",
 			}
@@ -637,7 +636,7 @@ func (m *AppUpdateForm) validate(all bool) error {
 	if m.GetProject() != "" {
 
 		if l := utf8.RuneCountInString(m.GetProject()); l < 1 || l > 100 {
-			err := AppUpdateFormValidationError{
+			err := UpdateFormValidationError{
 				field:  "Project",
 				reason: "value length must be between 1 and 100 runes, inclusive",
 			}
@@ -654,7 +653,7 @@ func (m *AppUpdateForm) validate(all bool) error {
 	// no validation rules for Attrs
 
 	if m.GetConflict() == nil {
-		err := AppUpdateFormValidationError{
+		err := UpdateFormValidationError{
 			field:  "Conflict",
 			reason: "value is required",
 		}
@@ -668,7 +667,7 @@ func (m *AppUpdateForm) validate(all bool) error {
 		switch v := interface{}(m.GetConflict()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AppUpdateFormValidationError{
+				errors = append(errors, UpdateFormValidationError{
 					field:  "Conflict",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -676,7 +675,7 @@ func (m *AppUpdateForm) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, AppUpdateFormValidationError{
+				errors = append(errors, UpdateFormValidationError{
 					field:  "Conflict",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -685,7 +684,7 @@ func (m *AppUpdateForm) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetConflict()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return AppUpdateFormValidationError{
+			return UpdateFormValidationError{
 				field:  "Conflict",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -694,19 +693,18 @@ func (m *AppUpdateForm) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppUpdateFormMultiError(errors)
+		return UpdateFormMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppUpdateFormMultiError is an error wrapping multiple validation errors
-// returned by AppUpdateForm.ValidateAll() if the designated constraints
-// aren't met.
-type AppUpdateFormMultiError []error
+// UpdateFormMultiError is an error wrapping multiple validation errors
+// returned by UpdateForm.ValidateAll() if the designated constraints aren't met.
+type UpdateFormMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppUpdateFormMultiError) Error() string {
+func (m UpdateFormMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -715,11 +713,11 @@ func (m AppUpdateFormMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppUpdateFormMultiError) AllErrors() []error { return m }
+func (m UpdateFormMultiError) AllErrors() []error { return m }
 
-// AppUpdateFormValidationError is the validation error returned by
-// AppUpdateForm.Validate if the designated constraints aren't met.
-type AppUpdateFormValidationError struct {
+// UpdateFormValidationError is the validation error returned by
+// UpdateForm.Validate if the designated constraints aren't met.
+type UpdateFormValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -727,22 +725,22 @@ type AppUpdateFormValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppUpdateFormValidationError) Field() string { return e.field }
+func (e UpdateFormValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppUpdateFormValidationError) Reason() string { return e.reason }
+func (e UpdateFormValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppUpdateFormValidationError) Cause() error { return e.cause }
+func (e UpdateFormValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppUpdateFormValidationError) Key() bool { return e.key }
+func (e UpdateFormValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppUpdateFormValidationError) ErrorName() string { return "AppUpdateFormValidationError" }
+func (e UpdateFormValidationError) ErrorName() string { return "UpdateFormValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppUpdateFormValidationError) Error() string {
+func (e UpdateFormValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -754,14 +752,14 @@ func (e AppUpdateFormValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppUpdateForm.%s: %s%s",
+		"invalid %sUpdateForm.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppUpdateFormValidationError{}
+var _ error = UpdateFormValidationError{}
 
 var _ interface {
 	Field() string
@@ -769,24 +767,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppUpdateFormValidationError{}
+} = UpdateFormValidationError{}
 
-// Validate checks the field values on AppDeleteRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *AppDeleteRequest) Validate() error {
+// Validate checks the field values on DeleteRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *DeleteRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppDeleteRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppDeleteRequestMultiError, or nil if none found.
-func (m *AppDeleteRequest) ValidateAll() error {
+// ValidateAll checks the field values on DeleteRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in DeleteRequestMultiError, or
+// nil if none found.
+func (m *DeleteRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppDeleteRequest) validate(all bool) error {
+func (m *DeleteRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -794,7 +792,7 @@ func (m *AppDeleteRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetId()) != 24 {
-		err := AppDeleteRequestValidationError{
+		err := DeleteRequestValidationError{
 			field:  "Id",
 			reason: "value length must be 24 runes",
 		}
@@ -806,19 +804,19 @@ func (m *AppDeleteRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppDeleteRequestMultiError(errors)
+		return DeleteRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppDeleteRequestMultiError is an error wrapping multiple validation errors
-// returned by AppDeleteRequest.ValidateAll() if the designated constraints
+// DeleteRequestMultiError is an error wrapping multiple validation errors
+// returned by DeleteRequest.ValidateAll() if the designated constraints
 // aren't met.
-type AppDeleteRequestMultiError []error
+type DeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppDeleteRequestMultiError) Error() string {
+func (m DeleteRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -827,11 +825,11 @@ func (m AppDeleteRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppDeleteRequestMultiError) AllErrors() []error { return m }
+func (m DeleteRequestMultiError) AllErrors() []error { return m }
 
-// AppDeleteRequestValidationError is the validation error returned by
-// AppDeleteRequest.Validate if the designated constraints aren't met.
-type AppDeleteRequestValidationError struct {
+// DeleteRequestValidationError is the validation error returned by
+// DeleteRequest.Validate if the designated constraints aren't met.
+type DeleteRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -839,22 +837,22 @@ type AppDeleteRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppDeleteRequestValidationError) Field() string { return e.field }
+func (e DeleteRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppDeleteRequestValidationError) Reason() string { return e.reason }
+func (e DeleteRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppDeleteRequestValidationError) Cause() error { return e.cause }
+func (e DeleteRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppDeleteRequestValidationError) Key() bool { return e.key }
+func (e DeleteRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppDeleteRequestValidationError) ErrorName() string { return "AppDeleteRequestValidationError" }
+func (e DeleteRequestValidationError) ErrorName() string { return "DeleteRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppDeleteRequestValidationError) Error() string {
+func (e DeleteRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -866,14 +864,14 @@ func (e AppDeleteRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppDeleteRequest.%s: %s%s",
+		"invalid %sDeleteRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppDeleteRequestValidationError{}
+var _ error = DeleteRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -881,4 +879,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppDeleteRequestValidationError{}
+} = DeleteRequestValidationError{}

@@ -229,7 +229,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1AppCreateForm",
+              "$ref": "#/definitions/app_backend_apiappv1CreateForm",
               "description": "data",
               "required": [
                 "data"
@@ -431,7 +431,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateForm",
+              "$ref": "#/definitions/app_backend_apiappversionv1CreateForm",
               "description": "创建应用版本信息",
               "required": [
                 "data"
@@ -707,7 +707,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1UpdateForm",
+              "$ref": "#/definitions/app_backend_apiappversionv1UpdateForm",
               "description": "data",
               "required": [
                 "data"
@@ -1062,7 +1062,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1AppUpdateForm",
+              "$ref": "#/definitions/app_backend_apiappv1UpdateForm",
               "description": "data",
               "required": [
                 "data"
@@ -1640,6 +1640,49 @@
     }
   },
   "definitions": {
+    "app_backend_apiappv1CreateForm": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "应用名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "应用描述"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "作用范围"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AppType",
+          "description": "类型"
+        },
+        "package": {
+          "type": "string",
+          "description": "包名"
+        },
+        "project": {
+          "type": "string",
+          "description": "项目标识"
+        },
+        "manage": {
+          "type": "boolean",
+          "description": "是否管理型应用"
+        },
+        "attrs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "应用属性"
+        }
+      }
+    },
     "app_backend_apiappv1PaginateResponse": {
       "type": "object",
       "properties": {
@@ -1652,6 +1695,86 @@
             "type": "object",
             "$ref": "#/definitions/v1PaginateApp"
           }
+        }
+      }
+    },
+    "app_backend_apiappv1UpdateForm": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "应用名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "应用描述"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "作用范围"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AppType",
+          "description": "类型"
+        },
+        "package": {
+          "type": "string",
+          "description": "包名"
+        },
+        "project": {
+          "type": "string",
+          "description": "项目标识"
+        },
+        "manage": {
+          "type": "boolean",
+          "description": "是否管理型应用"
+        },
+        "attrs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "应用属性"
+        },
+        "conflict": {
+          "$ref": "#/definitions/v1Conflict",
+          "description": "检测冲突"
+        }
+      },
+      "required": [
+        "conflict"
+      ]
+    },
+    "app_backend_apiappversionv1CreateForm": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "更行内容"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "versionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本号数值"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "是否强制更新"
+        },
+        "url": {
+          "type": "string",
+          "description": "文件路径"
         }
       }
     },
@@ -1669,6 +1792,43 @@
           }
         }
       }
+    },
+    "app_backend_apiappversionv1UpdateForm": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "更行内容"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "versionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本号数值"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "是否强制更新"
+        },
+        "url": {
+          "type": "string",
+          "description": "文件路径"
+        },
+        "conflict": {
+          "$ref": "#/definitions/v1Conflict",
+          "description": "检测冲突"
+        }
+      },
+      "required": [
+        "conflict"
+      ]
     },
     "v1App": {
       "type": "object",
@@ -1735,49 +1895,6 @@
       },
       "title": "应用全属性对象"
     },
-    "v1AppCreateForm": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "应用名称"
-        },
-        "description": {
-          "type": "string",
-          "description": "应用描述"
-        },
-        "scopes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "作用范围"
-        },
-        "type": {
-          "$ref": "#/definitions/v1AppType",
-          "description": "类型"
-        },
-        "package": {
-          "type": "string",
-          "description": "包名"
-        },
-        "project": {
-          "type": "string",
-          "description": "项目标识"
-        },
-        "manage": {
-          "type": "boolean",
-          "description": "是否管理型应用"
-        },
-        "attrs": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "应用属性"
-        }
-      }
-    },
     "v1AppType": {
       "type": "string",
       "enum": [
@@ -1786,56 +1903,6 @@
       ],
       "default": "Backend",
       "title": "类型"
-    },
-    "v1AppUpdateForm": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "应用名称"
-        },
-        "description": {
-          "type": "string",
-          "description": "应用描述"
-        },
-        "scopes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "作用范围"
-        },
-        "type": {
-          "$ref": "#/definitions/v1AppType",
-          "description": "类型"
-        },
-        "package": {
-          "type": "string",
-          "description": "包名"
-        },
-        "project": {
-          "type": "string",
-          "description": "项目标识"
-        },
-        "manage": {
-          "type": "boolean",
-          "description": "是否管理型应用"
-        },
-        "attrs": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "应用属性"
-        },
-        "conflict": {
-          "$ref": "#/definitions/v1Conflict",
-          "description": "检测冲突"
-        }
-      },
-      "required": [
-        "conflict"
-      ]
     },
     "v1AppVersion": {
       "type": "object",
@@ -1959,36 +2026,6 @@
       "required": [
         "conflict"
       ]
-    },
-    "v1CreateForm": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string",
-          "description": "名称"
-        },
-        "description": {
-          "type": "string",
-          "description": "更行内容"
-        },
-        "version": {
-          "type": "string",
-          "description": "版本号"
-        },
-        "versionNum": {
-          "type": "integer",
-          "format": "int64",
-          "description": "版本号数值"
-        },
-        "force": {
-          "type": "boolean",
-          "description": "是否强制更新"
-        },
-        "url": {
-          "type": "string",
-          "description": "文件路径"
-        }
-      }
     },
     "v1EnableState": {
       "type": "string",
@@ -2275,43 +2312,6 @@
         }
       },
       "title": "key name 响应"
-    },
-    "v1UpdateForm": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string",
-          "description": "名称"
-        },
-        "description": {
-          "type": "string",
-          "description": "更行内容"
-        },
-        "version": {
-          "type": "string",
-          "description": "版本号"
-        },
-        "versionNum": {
-          "type": "integer",
-          "format": "int64",
-          "description": "版本号数值"
-        },
-        "force": {
-          "type": "boolean",
-          "description": "是否强制更新"
-        },
-        "url": {
-          "type": "string",
-          "description": "文件路径"
-        },
-        "conflict": {
-          "$ref": "#/definitions/v1Conflict",
-          "description": "检测冲突"
-        }
-      },
-      "required": [
-        "conflict"
-      ]
     },
     "v1ValidAppResponse": {
       "type": "object",
