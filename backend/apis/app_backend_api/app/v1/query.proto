@@ -14,7 +14,7 @@ service AppQueryService{
     description: "1.应用查询服务";
   };
   // 列表
-  rpc Paginate (common.v1.PaginateRequest) returns (AppPaginateResponse) {
+  rpc Paginate (common.v1.PaginateRequest) returns (PaginateResponse) {
     option (google.api.http) = {
       get: "/v1/applications"
     };
@@ -96,7 +96,7 @@ service AppQueryService{
   }
 }
 
-message AppPaginateResponse{
+message PaginateResponse{
   option (validate.ignored) = true;
   common.v1.PaginateMeta meta = 1;
   repeated PaginateApp list = 2;
@@ -206,15 +206,16 @@ message ValidAppResponse{
 message ConfigRequest {
 }
 message ConfigResponse{
+  option (validate.ignored) = true;
   repeated ConfigItem items = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:['items']
       description:'属性'
-    },
-    (validate.rules).repeated = {ignore_empty: true}
+    }
   ];
 }
 message ConfigItem{
+  option (validate.ignored) = true;
   string key = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:['key']

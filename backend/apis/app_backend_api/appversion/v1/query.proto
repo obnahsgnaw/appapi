@@ -14,7 +14,7 @@ service AppVersionQueryService{
     description: "4.版本查询服务";
   };
   // 列表
-  rpc Paginate (AppVersionPaginateRequest) returns (AppVersionPaginateResponse) {
+  rpc Paginate (PaginateRequest) returns (PaginateResponse) {
     option (google.api.http) = {
       get: "/v1/applications/{app_id}/versions"
     };
@@ -37,7 +37,7 @@ service AppVersionQueryService{
     };
   }
   // 详情
-  rpc Detail (AppVersionDetailRequest) returns (AppVersion) {
+  rpc Detail (DetailRequest) returns (AppVersion) {
     option (google.api.http) = {
       get: "/v1/applications/{app_id}/versions/{id}"
     };
@@ -61,7 +61,7 @@ service AppVersionQueryService{
   }
 }
 
-message AppVersionPaginateRequest{
+message PaginateRequest{
   string app_id =1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       description: 'app_id'
@@ -88,7 +88,12 @@ message AppVersionPaginateRequest{
     description: "Sort list, like: sort=+a,-b,+c,-d";
   }];
 }
-message AppVersionDetailRequest{
+message PaginateResponse {
+  option (validate.ignored) = true;
+  common.v1.PaginateMeta meta = 1;
+  repeated PaginateAppVersion list = 2;
+}
+message DetailRequest{
   string app_id =1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description: 'app_id'
   },
@@ -99,9 +104,4 @@ message AppVersionDetailRequest{
   },
     (validate.rules).uint32={ignore_empty:false,gt:0}
   ];
-}
-message AppVersionPaginateResponse {
-  option (validate.ignored) = true;
-  common.v1.PaginateMeta meta = 1;
-  repeated PaginateAppVersion list = 2;
 }

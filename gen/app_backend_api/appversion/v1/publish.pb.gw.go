@@ -32,7 +32,7 @@ var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
 func request_AppVersionPublishService_Publish_0(ctx context.Context, marshaler runtime.Marshaler, client AppVersionPublishServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppVersionPublishRequest
+	var protoReq PublishRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -76,7 +76,7 @@ func request_AppVersionPublishService_Publish_0(ctx context.Context, marshaler r
 }
 
 func local_request_AppVersionPublishService_Publish_0(ctx context.Context, marshaler runtime.Marshaler, server AppVersionPublishServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppVersionPublishRequest
+	var protoReq PublishRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)

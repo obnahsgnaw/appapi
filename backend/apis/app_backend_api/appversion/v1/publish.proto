@@ -13,7 +13,7 @@ service AppVersionPublishService{
     description: "6.版本发布服务";
   };
   // 发布
-  rpc Publish (AppVersionPublishRequest) returns (AppVersion){
+  rpc Publish (PublishRequest) returns (AppVersion){
     option (google.api.http) = {
       put :'/v1/applications/{app_id}/versions/{id}/publish-state'
       body:'data'
@@ -38,19 +38,19 @@ service AppVersionPublishService{
   }
 }
 
-message AppVersionPublishRequest {
-  uint32 id = 1[
+message PublishRequest {
+  string app_id =1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: 'app_id'
+  },
+    (validate.rules).string={ignore_empty:false,len:24}
+  ];
+  uint32 id = 2[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required: ["id"];
       title: "ID";
       description: "ID";
     },
     (validate.rules).uint32 = {ignore_empty: false, gt:0}
-  ];
-  string app_id =2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description: 'app_id'
-  },
-    (validate.rules).string={ignore_empty:false,len:24}
   ];
   common.v1.ConflictData data = 3[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {

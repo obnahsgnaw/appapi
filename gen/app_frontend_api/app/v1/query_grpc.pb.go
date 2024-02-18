@@ -31,9 +31,9 @@ const (
 type AppQueryServiceClient interface {
 	// 下拉列表
 	Paginate(ctx context.Context, in *v1.PaginateAllRequest, opts ...grpc.CallOption) (*v1.PaginateStringOptionResponse, error)
-	// 配置
+	// 详情
 	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*App, error)
-	// 验证后的详情
+	// 经过验证的详情
 	ValidApp(ctx context.Context, in *ValidAppRequest, opts ...grpc.CallOption) (*ValidAppResponse, error)
 }
 
@@ -78,9 +78,9 @@ func (c *appQueryServiceClient) ValidApp(ctx context.Context, in *ValidAppReques
 type AppQueryServiceServer interface {
 	// 下拉列表
 	Paginate(context.Context, *v1.PaginateAllRequest) (*v1.PaginateStringOptionResponse, error)
-	// 配置
+	// 详情
 	Detail(context.Context, *DetailRequest) (*App, error)
-	// 验证后的详情
+	// 经过验证的详情
 	ValidApp(context.Context, *ValidAppRequest) (*ValidAppResponse, error)
 }
 

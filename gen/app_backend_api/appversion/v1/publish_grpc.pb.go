@@ -27,7 +27,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AppVersionPublishServiceClient interface {
 	// 发布
-	Publish(ctx context.Context, in *AppVersionPublishRequest, opts ...grpc.CallOption) (*AppVersion, error)
+	Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*AppVersion, error)
 }
 
 type appVersionPublishServiceClient struct {
@@ -38,7 +38,7 @@ func NewAppVersionPublishServiceClient(cc grpc.ClientConnInterface) AppVersionPu
 	return &appVersionPublishServiceClient{cc}
 }
 
-func (c *appVersionPublishServiceClient) Publish(ctx context.Context, in *AppVersionPublishRequest, opts ...grpc.CallOption) (*AppVersion, error) {
+func (c *appVersionPublishServiceClient) Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*AppVersion, error) {
 	out := new(AppVersion)
 	err := c.cc.Invoke(ctx, AppVersionPublishService_Publish_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -52,14 +52,14 @@ func (c *appVersionPublishServiceClient) Publish(ctx context.Context, in *AppVer
 // for forward compatibility
 type AppVersionPublishServiceServer interface {
 	// 发布
-	Publish(context.Context, *AppVersionPublishRequest) (*AppVersion, error)
+	Publish(context.Context, *PublishRequest) (*AppVersion, error)
 }
 
 // UnimplementedAppVersionPublishServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedAppVersionPublishServiceServer struct {
 }
 
-func (UnimplementedAppVersionPublishServiceServer) Publish(context.Context, *AppVersionPublishRequest) (*AppVersion, error) {
+func (UnimplementedAppVersionPublishServiceServer) Publish(context.Context, *PublishRequest) (*AppVersion, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Publish not implemented")
 }
 
@@ -75,7 +75,7 @@ func RegisterAppVersionPublishServiceServer(s grpc.ServiceRegistrar, srv AppVers
 }
 
 func _AppVersionPublishService_Publish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppVersionPublishRequest)
+	in := new(PublishRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func _AppVersionPublishService_Publish_Handler(srv interface{}, ctx context.Cont
 		FullMethod: AppVersionPublishService_Publish_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppVersionPublishServiceServer).Publish(ctx, req.(*AppVersionPublishRequest))
+		return srv.(AppVersionPublishServiceServer).Publish(ctx, req.(*PublishRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

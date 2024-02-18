@@ -28,9 +28,9 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AppVersionQueryServiceClient interface {
 	// 列表
-	Paginate(ctx context.Context, in *AppVersionPaginateRequest, opts ...grpc.CallOption) (*AppVersionPaginateResponse, error)
+	Paginate(ctx context.Context, in *PaginateRequest, opts ...grpc.CallOption) (*PaginateResponse, error)
 	// 详情
-	Detail(ctx context.Context, in *AppVersionDetailRequest, opts ...grpc.CallOption) (*AppVersion, error)
+	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*AppVersion, error)
 }
 
 type appVersionQueryServiceClient struct {
@@ -41,8 +41,8 @@ func NewAppVersionQueryServiceClient(cc grpc.ClientConnInterface) AppVersionQuer
 	return &appVersionQueryServiceClient{cc}
 }
 
-func (c *appVersionQueryServiceClient) Paginate(ctx context.Context, in *AppVersionPaginateRequest, opts ...grpc.CallOption) (*AppVersionPaginateResponse, error) {
-	out := new(AppVersionPaginateResponse)
+func (c *appVersionQueryServiceClient) Paginate(ctx context.Context, in *PaginateRequest, opts ...grpc.CallOption) (*PaginateResponse, error) {
+	out := new(PaginateResponse)
 	err := c.cc.Invoke(ctx, AppVersionQueryService_Paginate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -50,7 +50,7 @@ func (c *appVersionQueryServiceClient) Paginate(ctx context.Context, in *AppVers
 	return out, nil
 }
 
-func (c *appVersionQueryServiceClient) Detail(ctx context.Context, in *AppVersionDetailRequest, opts ...grpc.CallOption) (*AppVersion, error) {
+func (c *appVersionQueryServiceClient) Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*AppVersion, error) {
 	out := new(AppVersion)
 	err := c.cc.Invoke(ctx, AppVersionQueryService_Detail_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -64,19 +64,19 @@ func (c *appVersionQueryServiceClient) Detail(ctx context.Context, in *AppVersio
 // for forward compatibility
 type AppVersionQueryServiceServer interface {
 	// 列表
-	Paginate(context.Context, *AppVersionPaginateRequest) (*AppVersionPaginateResponse, error)
+	Paginate(context.Context, *PaginateRequest) (*PaginateResponse, error)
 	// 详情
-	Detail(context.Context, *AppVersionDetailRequest) (*AppVersion, error)
+	Detail(context.Context, *DetailRequest) (*AppVersion, error)
 }
 
 // UnimplementedAppVersionQueryServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedAppVersionQueryServiceServer struct {
 }
 
-func (UnimplementedAppVersionQueryServiceServer) Paginate(context.Context, *AppVersionPaginateRequest) (*AppVersionPaginateResponse, error) {
+func (UnimplementedAppVersionQueryServiceServer) Paginate(context.Context, *PaginateRequest) (*PaginateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Paginate not implemented")
 }
-func (UnimplementedAppVersionQueryServiceServer) Detail(context.Context, *AppVersionDetailRequest) (*AppVersion, error) {
+func (UnimplementedAppVersionQueryServiceServer) Detail(context.Context, *DetailRequest) (*AppVersion, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Detail not implemented")
 }
 
@@ -92,7 +92,7 @@ func RegisterAppVersionQueryServiceServer(s grpc.ServiceRegistrar, srv AppVersio
 }
 
 func _AppVersionQueryService_Paginate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppVersionPaginateRequest)
+	in := new(PaginateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -104,13 +104,13 @@ func _AppVersionQueryService_Paginate_Handler(srv interface{}, ctx context.Conte
 		FullMethod: AppVersionQueryService_Paginate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppVersionQueryServiceServer).Paginate(ctx, req.(*AppVersionPaginateRequest))
+		return srv.(AppVersionQueryServiceServer).Paginate(ctx, req.(*PaginateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AppVersionQueryService_Detail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppVersionDetailRequest)
+	in := new(DetailRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func _AppVersionQueryService_Detail_Handler(srv interface{}, ctx context.Context
 		FullMethod: AppVersionQueryService_Detail_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppVersionQueryServiceServer).Detail(ctx, req.(*AppVersionDetailRequest))
+		return srv.(AppVersionQueryServiceServer).Detail(ctx, req.(*DetailRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

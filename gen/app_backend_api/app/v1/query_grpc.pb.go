@@ -36,7 +36,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AppQueryServiceClient interface {
 	// 列表
-	Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*AppPaginateResponse, error)
+	Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*PaginateResponse, error)
 	// 单ID详情
 	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*App, error)
 	// 单ID详情
@@ -63,8 +63,8 @@ func NewAppQueryServiceClient(cc grpc.ClientConnInterface) AppQueryServiceClient
 	return &appQueryServiceClient{cc}
 }
 
-func (c *appQueryServiceClient) Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*AppPaginateResponse, error) {
-	out := new(AppPaginateResponse)
+func (c *appQueryServiceClient) Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*PaginateResponse, error) {
+	out := new(PaginateResponse)
 	err := c.cc.Invoke(ctx, AppQueryService_Paginate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -149,7 +149,7 @@ func (c *appQueryServiceClient) Config(ctx context.Context, in *ConfigRequest, o
 // for forward compatibility
 type AppQueryServiceServer interface {
 	// 列表
-	Paginate(context.Context, *v1.PaginateRequest) (*AppPaginateResponse, error)
+	Paginate(context.Context, *v1.PaginateRequest) (*PaginateResponse, error)
 	// 单ID详情
 	Detail(context.Context, *DetailRequest) (*App, error)
 	// 单ID详情
@@ -172,7 +172,7 @@ type AppQueryServiceServer interface {
 type UnimplementedAppQueryServiceServer struct {
 }
 
-func (UnimplementedAppQueryServiceServer) Paginate(context.Context, *v1.PaginateRequest) (*AppPaginateResponse, error) {
+func (UnimplementedAppQueryServiceServer) Paginate(context.Context, *v1.PaginateRequest) (*PaginateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Paginate not implemented")
 }
 func (UnimplementedAppQueryServiceServer) Detail(context.Context, *DetailRequest) (*App, error) {

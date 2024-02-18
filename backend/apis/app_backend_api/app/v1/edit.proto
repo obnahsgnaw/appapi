@@ -88,14 +88,14 @@ service AppEditService{
 }
 
 message AppCreateRequest {
-  AppFormData data = 1[
+  AppCreateForm data = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:["data"]
       description:"data";
     },
     (validate.rules).message = {required: true}];
 }
-message AppFormData {
+message AppCreateForm {
   string name = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       description:'应用名称'
@@ -111,7 +111,8 @@ message AppFormData {
   repeated string scopes = 3[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       description:'作用范围'
-    }
+    },
+    (validate.rules).repeated = {ignore_empty:true, unique:true, items:{string:{min_len:1,max_len:100}}}
   ];
   AppType type = 4[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
@@ -149,7 +150,7 @@ message AppUpdateRequest {
   },
     (validate.rules).string = {ignore_empty: false, len:24}
   ];
-  AppUpdateData data = 2[
+  AppUpdateForm data = 2[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:["data"]
       description:'data'
@@ -157,15 +158,54 @@ message AppUpdateRequest {
     (validate.rules).message = {required :true}
   ];
 }
-message AppUpdateData {
-  AppFormData data = 1[
+message AppUpdateForm {
+  string name = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      required:['data']
-      description:'data'
+      description:'应用名称'
     },
-    (validate.rules).message = {required: true}
+    (validate.rules).string = {ignore_empty:true, min_len:1,max_len:100}
   ];
-  common.v1.Conflict conflict = 2[
+  string description = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'应用描述'
+    },
+    (validate.rules).string = {ignore_empty:true, min_len:0,max_len:255}
+  ];
+  repeated string scopes = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'作用范围'
+    },
+    (validate.rules).repeated = {ignore_empty:true, unique:true, items:{string:{min_len:1,max_len:100}}}
+  ];
+  AppType type = 4[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'类型'
+    },
+    (validate.rules).enum = {defined_only:true}
+  ];
+  string package = 5[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'包名'
+    },
+    (validate.rules).string = {ignore_empty:true, min_len:1,max_len:100}
+  ];
+  string project = 6[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'项目标识'
+    },
+    (validate.rules).string = {ignore_empty:true, min_len:1,max_len:100}
+  ];
+  bool manage = 7[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'是否管理型应用'
+    }
+  ];
+  map<string,string> attrs = 8[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'应用属性'
+    }
+  ];
+  common.v1.Conflict conflict = 9[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:["conflict"]
       description:'检测冲突'

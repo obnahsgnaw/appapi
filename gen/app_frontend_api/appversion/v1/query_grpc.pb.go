@@ -29,7 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AppVersionQueryServiceClient interface {
 	// 列表
-	Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*AppVersionPaginateResponse, error)
+	Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*PaginateResponse, error)
 	// 最新版本
 	Latest(ctx context.Context, in *LatestRequest, opts ...grpc.CallOption) (*LatestResponse, error)
 }
@@ -42,8 +42,8 @@ func NewAppVersionQueryServiceClient(cc grpc.ClientConnInterface) AppVersionQuer
 	return &appVersionQueryServiceClient{cc}
 }
 
-func (c *appVersionQueryServiceClient) Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*AppVersionPaginateResponse, error) {
-	out := new(AppVersionPaginateResponse)
+func (c *appVersionQueryServiceClient) Paginate(ctx context.Context, in *v1.PaginateRequest, opts ...grpc.CallOption) (*PaginateResponse, error) {
+	out := new(PaginateResponse)
 	err := c.cc.Invoke(ctx, AppVersionQueryService_Paginate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -65,7 +65,7 @@ func (c *appVersionQueryServiceClient) Latest(ctx context.Context, in *LatestReq
 // for forward compatibility
 type AppVersionQueryServiceServer interface {
 	// 列表
-	Paginate(context.Context, *v1.PaginateRequest) (*AppVersionPaginateResponse, error)
+	Paginate(context.Context, *v1.PaginateRequest) (*PaginateResponse, error)
 	// 最新版本
 	Latest(context.Context, *LatestRequest) (*LatestResponse, error)
 }
@@ -74,7 +74,7 @@ type AppVersionQueryServiceServer interface {
 type UnimplementedAppVersionQueryServiceServer struct {
 }
 
-func (UnimplementedAppVersionQueryServiceServer) Paginate(context.Context, *v1.PaginateRequest) (*AppVersionPaginateResponse, error) {
+func (UnimplementedAppVersionQueryServiceServer) Paginate(context.Context, *v1.PaginateRequest) (*PaginateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Paginate not implemented")
 }
 func (UnimplementedAppVersionQueryServiceServer) Latest(context.Context, *LatestRequest) (*LatestResponse, error) {

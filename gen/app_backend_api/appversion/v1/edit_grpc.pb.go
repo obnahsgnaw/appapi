@@ -30,11 +30,11 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AppVersionEditServiceClient interface {
 	// 创建
-	Create(ctx context.Context, in *AppVersionCreateRequest, opts ...grpc.CallOption) (*AppVersion, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*AppVersion, error)
 	// 修改
-	Update(ctx context.Context, in *AppVersionUpdateRequest, opts ...grpc.CallOption) (*AppVersion, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*AppVersion, error)
 	// 删除
-	Delete(ctx context.Context, in *AppVersionDeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type appVersionEditServiceClient struct {
@@ -45,7 +45,7 @@ func NewAppVersionEditServiceClient(cc grpc.ClientConnInterface) AppVersionEditS
 	return &appVersionEditServiceClient{cc}
 }
 
-func (c *appVersionEditServiceClient) Create(ctx context.Context, in *AppVersionCreateRequest, opts ...grpc.CallOption) (*AppVersion, error) {
+func (c *appVersionEditServiceClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*AppVersion, error) {
 	out := new(AppVersion)
 	err := c.cc.Invoke(ctx, AppVersionEditService_Create_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -54,7 +54,7 @@ func (c *appVersionEditServiceClient) Create(ctx context.Context, in *AppVersion
 	return out, nil
 }
 
-func (c *appVersionEditServiceClient) Update(ctx context.Context, in *AppVersionUpdateRequest, opts ...grpc.CallOption) (*AppVersion, error) {
+func (c *appVersionEditServiceClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*AppVersion, error) {
 	out := new(AppVersion)
 	err := c.cc.Invoke(ctx, AppVersionEditService_Update_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -63,7 +63,7 @@ func (c *appVersionEditServiceClient) Update(ctx context.Context, in *AppVersion
 	return out, nil
 }
 
-func (c *appVersionEditServiceClient) Delete(ctx context.Context, in *AppVersionDeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *appVersionEditServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, AppVersionEditService_Delete_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -77,24 +77,24 @@ func (c *appVersionEditServiceClient) Delete(ctx context.Context, in *AppVersion
 // for forward compatibility
 type AppVersionEditServiceServer interface {
 	// 创建
-	Create(context.Context, *AppVersionCreateRequest) (*AppVersion, error)
+	Create(context.Context, *CreateRequest) (*AppVersion, error)
 	// 修改
-	Update(context.Context, *AppVersionUpdateRequest) (*AppVersion, error)
+	Update(context.Context, *UpdateRequest) (*AppVersion, error)
 	// 删除
-	Delete(context.Context, *AppVersionDeleteRequest) (*emptypb.Empty, error)
+	Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 }
 
 // UnimplementedAppVersionEditServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedAppVersionEditServiceServer struct {
 }
 
-func (UnimplementedAppVersionEditServiceServer) Create(context.Context, *AppVersionCreateRequest) (*AppVersion, error) {
+func (UnimplementedAppVersionEditServiceServer) Create(context.Context, *CreateRequest) (*AppVersion, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedAppVersionEditServiceServer) Update(context.Context, *AppVersionUpdateRequest) (*AppVersion, error) {
+func (UnimplementedAppVersionEditServiceServer) Update(context.Context, *UpdateRequest) (*AppVersion, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedAppVersionEditServiceServer) Delete(context.Context, *AppVersionDeleteRequest) (*emptypb.Empty, error) {
+func (UnimplementedAppVersionEditServiceServer) Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 
@@ -110,7 +110,7 @@ func RegisterAppVersionEditServiceServer(s grpc.ServiceRegistrar, srv AppVersion
 }
 
 func _AppVersionEditService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppVersionCreateRequest)
+	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -122,13 +122,13 @@ func _AppVersionEditService_Create_Handler(srv interface{}, ctx context.Context,
 		FullMethod: AppVersionEditService_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppVersionEditServiceServer).Create(ctx, req.(*AppVersionCreateRequest))
+		return srv.(AppVersionEditServiceServer).Create(ctx, req.(*CreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AppVersionEditService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppVersionUpdateRequest)
+	in := new(UpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -140,13 +140,13 @@ func _AppVersionEditService_Update_Handler(srv interface{}, ctx context.Context,
 		FullMethod: AppVersionEditService_Update_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppVersionEditServiceServer).Update(ctx, req.(*AppVersionUpdateRequest))
+		return srv.(AppVersionEditServiceServer).Update(ctx, req.(*UpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AppVersionEditService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AppVersionDeleteRequest)
+	in := new(DeleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func _AppVersionEditService_Delete_Handler(srv interface{}, ctx context.Context,
 		FullMethod: AppVersionEditService_Delete_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppVersionEditServiceServer).Delete(ctx, req.(*AppVersionDeleteRequest))
+		return srv.(AppVersionEditServiceServer).Delete(ctx, req.(*DeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

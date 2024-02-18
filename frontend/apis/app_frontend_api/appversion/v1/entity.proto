@@ -23,6 +23,6 @@ message AppVersion {
     description:"更新包地址"
   }];
   google.protobuf.Timestamp publish_at = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description:"时间";
+    description:"发布时间";
   }];
 }

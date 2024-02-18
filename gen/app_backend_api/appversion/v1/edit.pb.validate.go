@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on AppVersionCreateRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AppVersionCreateRequest) Validate() error {
+// Validate checks the field values on CreateRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreateRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppVersionCreateRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppVersionCreateRequestMultiError, or nil if none found.
-func (m *AppVersionCreateRequest) ValidateAll() error {
+// ValidateAll checks the field values on CreateRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateRequestMultiError, or
+// nil if none found.
+func (m *CreateRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppVersionCreateRequest) validate(all bool) error {
+func (m *CreateRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -58,7 +58,7 @@ func (m *AppVersionCreateRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetAppId()) != 24 {
-		err := AppVersionCreateRequestValidationError{
+		err := CreateRequestValidationError{
 			field:  "AppId",
 			reason: "value length must be 24 runes",
 		}
@@ -70,7 +70,7 @@ func (m *AppVersionCreateRequest) validate(all bool) error {
 	}
 
 	if m.GetData() == nil {
-		err := AppVersionCreateRequestValidationError{
+		err := CreateRequestValidationError{
 			field:  "Data",
 			reason: "value is required",
 		}
@@ -84,7 +84,7 @@ func (m *AppVersionCreateRequest) validate(all bool) error {
 		switch v := interface{}(m.GetData()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AppVersionCreateRequestValidationError{
+				errors = append(errors, CreateRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -92,7 +92,7 @@ func (m *AppVersionCreateRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, AppVersionCreateRequestValidationError{
+				errors = append(errors, CreateRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -101,7 +101,7 @@ func (m *AppVersionCreateRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetData()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return AppVersionCreateRequestValidationError{
+			return CreateRequestValidationError{
 				field:  "Data",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -110,19 +110,19 @@ func (m *AppVersionCreateRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppVersionCreateRequestMultiError(errors)
+		return CreateRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppVersionCreateRequestMultiError is an error wrapping multiple validation
-// errors returned by AppVersionCreateRequest.ValidateAll() if the designated
-// constraints aren't met.
-type AppVersionCreateRequestMultiError []error
+// CreateRequestMultiError is an error wrapping multiple validation errors
+// returned by CreateRequest.ValidateAll() if the designated constraints
+// aren't met.
+type CreateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppVersionCreateRequestMultiError) Error() string {
+func (m CreateRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -131,11 +131,11 @@ func (m AppVersionCreateRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppVersionCreateRequestMultiError) AllErrors() []error { return m }
+func (m CreateRequestMultiError) AllErrors() []error { return m }
 
-// AppVersionCreateRequestValidationError is the validation error returned by
-// AppVersionCreateRequest.Validate if the designated constraints aren't met.
-type AppVersionCreateRequestValidationError struct {
+// CreateRequestValidationError is the validation error returned by
+// CreateRequest.Validate if the designated constraints aren't met.
+type CreateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -143,24 +143,22 @@ type AppVersionCreateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppVersionCreateRequestValidationError) Field() string { return e.field }
+func (e CreateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppVersionCreateRequestValidationError) Reason() string { return e.reason }
+func (e CreateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppVersionCreateRequestValidationError) Cause() error { return e.cause }
+func (e CreateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppVersionCreateRequestValidationError) Key() bool { return e.key }
+func (e CreateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppVersionCreateRequestValidationError) ErrorName() string {
-	return "AppVersionCreateRequestValidationError"
-}
+func (e CreateRequestValidationError) ErrorName() string { return "CreateRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppVersionCreateRequestValidationError) Error() string {
+func (e CreateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -172,14 +170,14 @@ func (e AppVersionCreateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppVersionCreateRequest.%s: %s%s",
+		"invalid %sCreateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppVersionCreateRequestValidationError{}
+var _ error = CreateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -187,24 +185,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppVersionCreateRequestValidationError{}
+} = CreateRequestValidationError{}
 
-// Validate checks the field values on AppVersionFormData with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AppVersionFormData) Validate() error {
+// Validate checks the field values on CreateForm with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreateForm) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppVersionFormData with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppVersionFormDataMultiError, or nil if none found.
-func (m *AppVersionFormData) ValidateAll() error {
+// ValidateAll checks the field values on CreateForm with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateFormMultiError, or
+// nil if none found.
+func (m *CreateForm) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppVersionFormData) validate(all bool) error {
+func (m *CreateForm) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -212,7 +210,7 @@ func (m *AppVersionFormData) validate(all bool) error {
 	var errors []error
 
 	if l := utf8.RuneCountInString(m.GetTitle()); l < 1 || l > 100 {
-		err := AppVersionFormDataValidationError{
+		err := CreateFormValidationError{
 			field:  "Title",
 			reason: "value length must be between 1 and 100 runes, inclusive",
 		}
@@ -223,7 +221,7 @@ func (m *AppVersionFormData) validate(all bool) error {
 	}
 
 	if l := utf8.RuneCountInString(m.GetDescription()); l < 0 || l > 255 {
-		err := AppVersionFormDataValidationError{
+		err := CreateFormValidationError{
 			field:  "Description",
 			reason: "value length must be between 0 and 255 runes, inclusive",
 		}
@@ -234,7 +232,7 @@ func (m *AppVersionFormData) validate(all bool) error {
 	}
 
 	if l := utf8.RuneCountInString(m.GetVersion()); l < 5 || l > 20 {
-		err := AppVersionFormDataValidationError{
+		err := CreateFormValidationError{
 			field:  "Version",
 			reason: "value length must be between 5 and 20 runes, inclusive",
 		}
@@ -245,7 +243,7 @@ func (m *AppVersionFormData) validate(all bool) error {
 	}
 
 	if m.GetVersionNum() <= 0 {
-		err := AppVersionFormDataValidationError{
+		err := CreateFormValidationError{
 			field:  "VersionNum",
 			reason: "value must be greater than 0",
 		}
@@ -260,7 +258,7 @@ func (m *AppVersionFormData) validate(all bool) error {
 	if m.GetUrl() != "" {
 
 		if l := utf8.RuneCountInString(m.GetUrl()); l < 1 || l > 255 {
-			err := AppVersionFormDataValidationError{
+			err := CreateFormValidationError{
 				field:  "Url",
 				reason: "value length must be between 1 and 255 runes, inclusive",
 			}
@@ -273,19 +271,18 @@ func (m *AppVersionFormData) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppVersionFormDataMultiError(errors)
+		return CreateFormMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppVersionFormDataMultiError is an error wrapping multiple validation errors
-// returned by AppVersionFormData.ValidateAll() if the designated constraints
-// aren't met.
-type AppVersionFormDataMultiError []error
+// CreateFormMultiError is an error wrapping multiple validation errors
+// returned by CreateForm.ValidateAll() if the designated constraints aren't met.
+type CreateFormMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppVersionFormDataMultiError) Error() string {
+func (m CreateFormMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -294,11 +291,11 @@ func (m AppVersionFormDataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppVersionFormDataMultiError) AllErrors() []error { return m }
+func (m CreateFormMultiError) AllErrors() []error { return m }
 
-// AppVersionFormDataValidationError is the validation error returned by
-// AppVersionFormData.Validate if the designated constraints aren't met.
-type AppVersionFormDataValidationError struct {
+// CreateFormValidationError is the validation error returned by
+// CreateForm.Validate if the designated constraints aren't met.
+type CreateFormValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -306,24 +303,22 @@ type AppVersionFormDataValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppVersionFormDataValidationError) Field() string { return e.field }
+func (e CreateFormValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppVersionFormDataValidationError) Reason() string { return e.reason }
+func (e CreateFormValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppVersionFormDataValidationError) Cause() error { return e.cause }
+func (e CreateFormValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppVersionFormDataValidationError) Key() bool { return e.key }
+func (e CreateFormValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppVersionFormDataValidationError) ErrorName() string {
-	return "AppVersionFormDataValidationError"
-}
+func (e CreateFormValidationError) ErrorName() string { return "CreateFormValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppVersionFormDataValidationError) Error() string {
+func (e CreateFormValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -335,14 +330,14 @@ func (e AppVersionFormDataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppVersionFormData.%s: %s%s",
+		"invalid %sCreateForm.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppVersionFormDataValidationError{}
+var _ error = CreateFormValidationError{}
 
 var _ interface {
 	Field() string
@@ -350,24 +345,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppVersionFormDataValidationError{}
+} = CreateFormValidationError{}
 
-// Validate checks the field values on AppVersionUpdateRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AppVersionUpdateRequest) Validate() error {
+// Validate checks the field values on UpdateRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UpdateRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppVersionUpdateRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppVersionUpdateRequestMultiError, or nil if none found.
-func (m *AppVersionUpdateRequest) ValidateAll() error {
+// ValidateAll checks the field values on UpdateRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UpdateRequestMultiError, or
+// nil if none found.
+func (m *UpdateRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppVersionUpdateRequest) validate(all bool) error {
+func (m *UpdateRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -375,7 +370,7 @@ func (m *AppVersionUpdateRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetAppId()) != 24 {
-		err := AppVersionUpdateRequestValidationError{
+		err := UpdateRequestValidationError{
 			field:  "AppId",
 			reason: "value length must be 24 runes",
 		}
@@ -387,7 +382,7 @@ func (m *AppVersionUpdateRequest) validate(all bool) error {
 	}
 
 	if m.GetId() <= 0 {
-		err := AppVersionUpdateRequestValidationError{
+		err := UpdateRequestValidationError{
 			field:  "Id",
 			reason: "value must be greater than 0",
 		}
@@ -398,7 +393,7 @@ func (m *AppVersionUpdateRequest) validate(all bool) error {
 	}
 
 	if m.GetData() == nil {
-		err := AppVersionUpdateRequestValidationError{
+		err := UpdateRequestValidationError{
 			field:  "Data",
 			reason: "value is required",
 		}
@@ -412,7 +407,7 @@ func (m *AppVersionUpdateRequest) validate(all bool) error {
 		switch v := interface{}(m.GetData()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AppVersionUpdateRequestValidationError{
+				errors = append(errors, UpdateRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -420,7 +415,7 @@ func (m *AppVersionUpdateRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, AppVersionUpdateRequestValidationError{
+				errors = append(errors, UpdateRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -429,7 +424,7 @@ func (m *AppVersionUpdateRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetData()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return AppVersionUpdateRequestValidationError{
+			return UpdateRequestValidationError{
 				field:  "Data",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -438,19 +433,19 @@ func (m *AppVersionUpdateRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppVersionUpdateRequestMultiError(errors)
+		return UpdateRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppVersionUpdateRequestMultiError is an error wrapping multiple validation
-// errors returned by AppVersionUpdateRequest.ValidateAll() if the designated
-// constraints aren't met.
-type AppVersionUpdateRequestMultiError []error
+// UpdateRequestMultiError is an error wrapping multiple validation errors
+// returned by UpdateRequest.ValidateAll() if the designated constraints
+// aren't met.
+type UpdateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppVersionUpdateRequestMultiError) Error() string {
+func (m UpdateRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -459,11 +454,11 @@ func (m AppVersionUpdateRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppVersionUpdateRequestMultiError) AllErrors() []error { return m }
+func (m UpdateRequestMultiError) AllErrors() []error { return m }
 
-// AppVersionUpdateRequestValidationError is the validation error returned by
-// AppVersionUpdateRequest.Validate if the designated constraints aren't met.
-type AppVersionUpdateRequestValidationError struct {
+// UpdateRequestValidationError is the validation error returned by
+// UpdateRequest.Validate if the designated constraints aren't met.
+type UpdateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -471,24 +466,22 @@ type AppVersionUpdateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppVersionUpdateRequestValidationError) Field() string { return e.field }
+func (e UpdateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppVersionUpdateRequestValidationError) Reason() string { return e.reason }
+func (e UpdateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppVersionUpdateRequestValidationError) Cause() error { return e.cause }
+func (e UpdateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppVersionUpdateRequestValidationError) Key() bool { return e.key }
+func (e UpdateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppVersionUpdateRequestValidationError) ErrorName() string {
-	return "AppVersionUpdateRequestValidationError"
-}
+func (e UpdateRequestValidationError) ErrorName() string { return "UpdateRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppVersionUpdateRequestValidationError) Error() string {
+func (e UpdateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -500,14 +493,14 @@ func (e AppVersionUpdateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppVersionUpdateRequest.%s: %s%s",
+		"invalid %sUpdateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppVersionUpdateRequestValidationError{}
+var _ error = UpdateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -515,72 +508,109 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppVersionUpdateRequestValidationError{}
+} = UpdateRequestValidationError{}
 
-// Validate checks the field values on AppVersionUpdateData with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AppVersionUpdateData) Validate() error {
+// Validate checks the field values on UpdateForm with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UpdateForm) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppVersionUpdateData with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppVersionUpdateDataMultiError, or nil if none found.
-func (m *AppVersionUpdateData) ValidateAll() error {
+// ValidateAll checks the field values on UpdateForm with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UpdateFormMultiError, or
+// nil if none found.
+func (m *UpdateForm) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppVersionUpdateData) validate(all bool) error {
+func (m *UpdateForm) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if m.GetData() == nil {
-		err := AppVersionUpdateDataValidationError{
-			field:  "Data",
-			reason: "value is required",
+	if m.GetTitle() != "" {
+
+		if l := utf8.RuneCountInString(m.GetTitle()); l < 1 || l > 100 {
+			err := UpdateFormValidationError{
+				field:  "Title",
+				reason: "value length must be between 1 and 100 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
+
 	}
 
-	if all {
-		switch v := interface{}(m.GetData()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AppVersionUpdateDataValidationError{
-					field:  "Data",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
+	if m.GetDescription() != "" {
+
+		if l := utf8.RuneCountInString(m.GetDescription()); l < 0 || l > 255 {
+			err := UpdateFormValidationError{
+				field:  "Description",
+				reason: "value length must be between 0 and 255 runes, inclusive",
 			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, AppVersionUpdateDataValidationError{
-					field:  "Data",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
+			if !all {
+				return err
 			}
+			errors = append(errors, err)
 		}
-	} else if v, ok := interface{}(m.GetData()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return AppVersionUpdateDataValidationError{
-				field:  "Data",
-				reason: "embedded message failed validation",
-				cause:  err,
+
+	}
+
+	if m.GetVersion() != "" {
+
+		if l := utf8.RuneCountInString(m.GetVersion()); l < 5 || l > 20 {
+			err := UpdateFormValidationError{
+				field:  "Version",
+				reason: "value length must be between 5 and 20 runes, inclusive",
 			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
+
+	}
+
+	if m.GetVersionNum() != 0 {
+
+		if m.GetVersionNum() <= 0 {
+			err := UpdateFormValidationError{
+				field:  "VersionNum",
+				reason: "value must be greater than 0",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	// no validation rules for Force
+
+	if m.GetUrl() != "" {
+
+		if l := utf8.RuneCountInString(m.GetUrl()); l < 1 || l > 255 {
+			err := UpdateFormValidationError{
+				field:  "Url",
+				reason: "value length must be between 1 and 255 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
 	if m.GetConflict() == nil {
-		err := AppVersionUpdateDataValidationError{
+		err := UpdateFormValidationError{
 			field:  "Conflict",
 			reason: "value is required",
 		}
@@ -594,7 +624,7 @@ func (m *AppVersionUpdateData) validate(all bool) error {
 		switch v := interface{}(m.GetConflict()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AppVersionUpdateDataValidationError{
+				errors = append(errors, UpdateFormValidationError{
 					field:  "Conflict",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -602,7 +632,7 @@ func (m *AppVersionUpdateData) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, AppVersionUpdateDataValidationError{
+				errors = append(errors, UpdateFormValidationError{
 					field:  "Conflict",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -611,7 +641,7 @@ func (m *AppVersionUpdateData) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetConflict()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return AppVersionUpdateDataValidationError{
+			return UpdateFormValidationError{
 				field:  "Conflict",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -620,19 +650,18 @@ func (m *AppVersionUpdateData) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppVersionUpdateDataMultiError(errors)
+		return UpdateFormMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppVersionUpdateDataMultiError is an error wrapping multiple validation
-// errors returned by AppVersionUpdateData.ValidateAll() if the designated
-// constraints aren't met.
-type AppVersionUpdateDataMultiError []error
+// UpdateFormMultiError is an error wrapping multiple validation errors
+// returned by UpdateForm.ValidateAll() if the designated constraints aren't met.
+type UpdateFormMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppVersionUpdateDataMultiError) Error() string {
+func (m UpdateFormMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -641,11 +670,11 @@ func (m AppVersionUpdateDataMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppVersionUpdateDataMultiError) AllErrors() []error { return m }
+func (m UpdateFormMultiError) AllErrors() []error { return m }
 
-// AppVersionUpdateDataValidationError is the validation error returned by
-// AppVersionUpdateData.Validate if the designated constraints aren't met.
-type AppVersionUpdateDataValidationError struct {
+// UpdateFormValidationError is the validation error returned by
+// UpdateForm.Validate if the designated constraints aren't met.
+type UpdateFormValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -653,24 +682,22 @@ type AppVersionUpdateDataValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppVersionUpdateDataValidationError) Field() string { return e.field }
+func (e UpdateFormValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppVersionUpdateDataValidationError) Reason() string { return e.reason }
+func (e UpdateFormValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppVersionUpdateDataValidationError) Cause() error { return e.cause }
+func (e UpdateFormValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppVersionUpdateDataValidationError) Key() bool { return e.key }
+func (e UpdateFormValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppVersionUpdateDataValidationError) ErrorName() string {
-	return "AppVersionUpdateDataValidationError"
-}
+func (e UpdateFormValidationError) ErrorName() string { return "UpdateFormValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppVersionUpdateDataValidationError) Error() string {
+func (e UpdateFormValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -682,14 +709,14 @@ func (e AppVersionUpdateDataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppVersionUpdateData.%s: %s%s",
+		"invalid %sUpdateForm.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppVersionUpdateDataValidationError{}
+var _ error = UpdateFormValidationError{}
 
 var _ interface {
 	Field() string
@@ -697,24 +724,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppVersionUpdateDataValidationError{}
+} = UpdateFormValidationError{}
 
-// Validate checks the field values on AppVersionDeleteRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AppVersionDeleteRequest) Validate() error {
+// Validate checks the field values on DeleteRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *DeleteRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppVersionDeleteRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppVersionDeleteRequestMultiError, or nil if none found.
-func (m *AppVersionDeleteRequest) ValidateAll() error {
+// ValidateAll checks the field values on DeleteRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in DeleteRequestMultiError, or
+// nil if none found.
+func (m *DeleteRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppVersionDeleteRequest) validate(all bool) error {
+func (m *DeleteRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -722,7 +749,7 @@ func (m *AppVersionDeleteRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetAppId()) != 24 {
-		err := AppVersionDeleteRequestValidationError{
+		err := DeleteRequestValidationError{
 			field:  "AppId",
 			reason: "value length must be 24 runes",
 		}
@@ -734,7 +761,7 @@ func (m *AppVersionDeleteRequest) validate(all bool) error {
 	}
 
 	if m.GetId() <= 0 {
-		err := AppVersionDeleteRequestValidationError{
+		err := DeleteRequestValidationError{
 			field:  "Id",
 			reason: "value must be greater than 0",
 		}
@@ -745,19 +772,19 @@ func (m *AppVersionDeleteRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppVersionDeleteRequestMultiError(errors)
+		return DeleteRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppVersionDeleteRequestMultiError is an error wrapping multiple validation
-// errors returned by AppVersionDeleteRequest.ValidateAll() if the designated
-// constraints aren't met.
-type AppVersionDeleteRequestMultiError []error
+// DeleteRequestMultiError is an error wrapping multiple validation errors
+// returned by DeleteRequest.ValidateAll() if the designated constraints
+// aren't met.
+type DeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppVersionDeleteRequestMultiError) Error() string {
+func (m DeleteRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -766,11 +793,11 @@ func (m AppVersionDeleteRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppVersionDeleteRequestMultiError) AllErrors() []error { return m }
+func (m DeleteRequestMultiError) AllErrors() []error { return m }
 
-// AppVersionDeleteRequestValidationError is the validation error returned by
-// AppVersionDeleteRequest.Validate if the designated constraints aren't met.
-type AppVersionDeleteRequestValidationError struct {
+// DeleteRequestValidationError is the validation error returned by
+// DeleteRequest.Validate if the designated constraints aren't met.
+type DeleteRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -778,24 +805,22 @@ type AppVersionDeleteRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppVersionDeleteRequestValidationError) Field() string { return e.field }
+func (e DeleteRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppVersionDeleteRequestValidationError) Reason() string { return e.reason }
+func (e DeleteRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppVersionDeleteRequestValidationError) Cause() error { return e.cause }
+func (e DeleteRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppVersionDeleteRequestValidationError) Key() bool { return e.key }
+func (e DeleteRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppVersionDeleteRequestValidationError) ErrorName() string {
-	return "AppVersionDeleteRequestValidationError"
-}
+func (e DeleteRequestValidationError) ErrorName() string { return "DeleteRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppVersionDeleteRequestValidationError) Error() string {
+func (e DeleteRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -807,14 +832,14 @@ func (e AppVersionDeleteRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppVersionDeleteRequest.%s: %s%s",
+		"invalid %sDeleteRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppVersionDeleteRequestValidationError{}
+var _ error = DeleteRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -822,4 +847,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppVersionDeleteRequestValidationError{}
+} = DeleteRequestValidationError{}

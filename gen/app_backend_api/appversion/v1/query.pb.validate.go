@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on AppVersionPaginateRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AppVersionPaginateRequest) Validate() error {
+// Validate checks the field values on PaginateRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PaginateRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppVersionPaginateRequest with the
-// rules defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on PaginateRequest with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// AppVersionPaginateRequestMultiError, or nil if none found.
-func (m *AppVersionPaginateRequest) ValidateAll() error {
+// PaginateRequestMultiError, or nil if none found.
+func (m *PaginateRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppVersionPaginateRequest) validate(all bool) error {
+func (m *PaginateRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -58,7 +58,7 @@ func (m *AppVersionPaginateRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetAppId()) != 24 {
-		err := AppVersionPaginateRequestValidationError{
+		err := PaginateRequestValidationError{
 			field:  "AppId",
 			reason: "value length must be 24 runes",
 		}
@@ -70,7 +70,7 @@ func (m *AppVersionPaginateRequest) validate(all bool) error {
 	}
 
 	if m.GetPage() < 0 {
-		err := AppVersionPaginateRequestValidationError{
+		err := PaginateRequestValidationError{
 			field:  "Page",
 			reason: "value must be greater than or equal to 0",
 		}
@@ -81,7 +81,7 @@ func (m *AppVersionPaginateRequest) validate(all bool) error {
 	}
 
 	if m.GetLimit() < 0 {
-		err := AppVersionPaginateRequestValidationError{
+		err := PaginateRequestValidationError{
 			field:  "Limit",
 			reason: "value must be greater than or equal to 0",
 		}
@@ -96,19 +96,19 @@ func (m *AppVersionPaginateRequest) validate(all bool) error {
 	// no validation rules for Sort
 
 	if len(errors) > 0 {
-		return AppVersionPaginateRequestMultiError(errors)
+		return PaginateRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppVersionPaginateRequestMultiError is an error wrapping multiple validation
-// errors returned by AppVersionPaginateRequest.ValidateAll() if the
-// designated constraints aren't met.
-type AppVersionPaginateRequestMultiError []error
+// PaginateRequestMultiError is an error wrapping multiple validation errors
+// returned by PaginateRequest.ValidateAll() if the designated constraints
+// aren't met.
+type PaginateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppVersionPaginateRequestMultiError) Error() string {
+func (m PaginateRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -117,11 +117,11 @@ func (m AppVersionPaginateRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppVersionPaginateRequestMultiError) AllErrors() []error { return m }
+func (m PaginateRequestMultiError) AllErrors() []error { return m }
 
-// AppVersionPaginateRequestValidationError is the validation error returned by
-// AppVersionPaginateRequest.Validate if the designated constraints aren't met.
-type AppVersionPaginateRequestValidationError struct {
+// PaginateRequestValidationError is the validation error returned by
+// PaginateRequest.Validate if the designated constraints aren't met.
+type PaginateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -129,24 +129,22 @@ type AppVersionPaginateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppVersionPaginateRequestValidationError) Field() string { return e.field }
+func (e PaginateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppVersionPaginateRequestValidationError) Reason() string { return e.reason }
+func (e PaginateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppVersionPaginateRequestValidationError) Cause() error { return e.cause }
+func (e PaginateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppVersionPaginateRequestValidationError) Key() bool { return e.key }
+func (e PaginateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppVersionPaginateRequestValidationError) ErrorName() string {
-	return "AppVersionPaginateRequestValidationError"
-}
+func (e PaginateRequestValidationError) ErrorName() string { return "PaginateRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppVersionPaginateRequestValidationError) Error() string {
+func (e PaginateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -158,14 +156,14 @@ func (e AppVersionPaginateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppVersionPaginateRequest.%s: %s%s",
+		"invalid %sPaginateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppVersionPaginateRequestValidationError{}
+var _ error = PaginateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -173,24 +171,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppVersionPaginateRequestValidationError{}
+} = PaginateRequestValidationError{}
 
-// Validate checks the field values on AppVersionDetailRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AppVersionDetailRequest) Validate() error {
+// Validate checks the field values on DetailRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *DetailRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppVersionDetailRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppVersionDetailRequestMultiError, or nil if none found.
-func (m *AppVersionDetailRequest) ValidateAll() error {
+// ValidateAll checks the field values on DetailRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in DetailRequestMultiError, or
+// nil if none found.
+func (m *DetailRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppVersionDetailRequest) validate(all bool) error {
+func (m *DetailRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -198,7 +196,7 @@ func (m *AppVersionDetailRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetAppId()) != 24 {
-		err := AppVersionDetailRequestValidationError{
+		err := DetailRequestValidationError{
 			field:  "AppId",
 			reason: "value length must be 24 runes",
 		}
@@ -210,7 +208,7 @@ func (m *AppVersionDetailRequest) validate(all bool) error {
 	}
 
 	if m.GetId() <= 0 {
-		err := AppVersionDetailRequestValidationError{
+		err := DetailRequestValidationError{
 			field:  "Id",
 			reason: "value must be greater than 0",
 		}
@@ -221,19 +219,19 @@ func (m *AppVersionDetailRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppVersionDetailRequestMultiError(errors)
+		return DetailRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppVersionDetailRequestMultiError is an error wrapping multiple validation
-// errors returned by AppVersionDetailRequest.ValidateAll() if the designated
-// constraints aren't met.
-type AppVersionDetailRequestMultiError []error
+// DetailRequestMultiError is an error wrapping multiple validation errors
+// returned by DetailRequest.ValidateAll() if the designated constraints
+// aren't met.
+type DetailRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppVersionDetailRequestMultiError) Error() string {
+func (m DetailRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -242,11 +240,11 @@ func (m AppVersionDetailRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppVersionDetailRequestMultiError) AllErrors() []error { return m }
+func (m DetailRequestMultiError) AllErrors() []error { return m }
 
-// AppVersionDetailRequestValidationError is the validation error returned by
-// AppVersionDetailRequest.Validate if the designated constraints aren't met.
-type AppVersionDetailRequestValidationError struct {
+// DetailRequestValidationError is the validation error returned by
+// DetailRequest.Validate if the designated constraints aren't met.
+type DetailRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -254,24 +252,22 @@ type AppVersionDetailRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppVersionDetailRequestValidationError) Field() string { return e.field }
+func (e DetailRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppVersionDetailRequestValidationError) Reason() string { return e.reason }
+func (e DetailRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppVersionDetailRequestValidationError) Cause() error { return e.cause }
+func (e DetailRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppVersionDetailRequestValidationError) Key() bool { return e.key }
+func (e DetailRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppVersionDetailRequestValidationError) ErrorName() string {
-	return "AppVersionDetailRequestValidationError"
-}
+func (e DetailRequestValidationError) ErrorName() string { return "DetailRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppVersionDetailRequestValidationError) Error() string {
+func (e DetailRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -283,14 +279,14 @@ func (e AppVersionDetailRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppVersionDetailRequest.%s: %s%s",
+		"invalid %sDetailRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppVersionDetailRequestValidationError{}
+var _ error = DetailRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -298,4 +294,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppVersionDetailRequestValidationError{}
+} = DetailRequestValidationError{}

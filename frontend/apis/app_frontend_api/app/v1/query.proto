@@ -18,7 +18,7 @@ service AppQueryService {
       get: "/v1/applications";
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "可选列表";
+      summary: "列表";
       security:{
         security_requirement:{
           key:"AppId"
@@ -35,13 +35,13 @@ service AppQueryService {
       }
     };
   }
-  // 配置
+  // 详情
   rpc Detail (DetailRequest) returns (App) {
     option (google.api.http) = {
       get: "/v1/applications/current"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "当前";
+      summary: "详情";
       security:{
         security_requirement:{
           key:"AppId"
@@ -55,7 +55,7 @@ service AppQueryService {
       }
     };
   }
-  // 验证后的详情
+  // 经过验证的详情
   rpc ValidApp(ValidAppRequest)returns(ValidAppResponse);
 }
 
@@ -77,6 +77,7 @@ message ValidAppRequest{
   ];
 }
 message ValidAppResponse{
+  option (validate.ignored) = true;
   string error = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"invalid信息"
   }];

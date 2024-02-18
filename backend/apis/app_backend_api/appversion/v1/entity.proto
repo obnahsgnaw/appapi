@@ -6,28 +6,6 @@ import "app_backend_api/common/v1/obj.proto";
 import "validate/validate.proto";
 import "google/protobuf/timestamp.proto";
 
-// 分页版本对象
-message PaginateAppVersion {
-  option (validate.ignored) = true;
-  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description:"ID"
-  }];
-  string title = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description:"标题"
-  }];
-  string version = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description:"版本号, 包含了数字版本号和字符串版本号 如 0.0.1(101)"
-  }];
-  bool force = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description:"是否强制更新"
-  }];
-  google.protobuf.Timestamp created_at = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description:"创建时间";
-  }];
-  google.protobuf.Timestamp published_at = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description:"发布时间";
-  }];
-}
 // 全属性对象
 message AppVersion {
   option (validate.ignored) = true;
@@ -60,5 +38,27 @@ message AppVersion {
   }];
   common.v1.Conflict conflict = 10[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description:"冲突检测";
+  }];
+}
+// 分页版本对象
+message PaginateAppVersion {
+  option (validate.ignored) = true;
+  uint32 id = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"ID"
+  }];
+  string title = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"标题"
+  }];
+  string version = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"版本号, 包含了数字版本号和字符串版本号 如 0.0.1(101)"
+  }];
+  bool force = 4[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"是否强制更新"
+  }];
+  google.protobuf.Timestamp created_at = 5[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"创建时间";
+  }];
+  google.protobuf.Timestamp published_at = 6[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description:"发布时间";
   }];
 }

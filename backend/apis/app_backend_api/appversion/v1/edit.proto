@@ -15,7 +15,7 @@ service AppVersionEditService{
     description: "5.版本编辑服务";
   };
   // 创建
-  rpc Create (AppVersionCreateRequest) returns (AppVersion) {
+  rpc Create (CreateRequest) returns (AppVersion) {
     option (google.api.http) = {
       post: "/v1/applications/{app_id}/versions";
       body: "data";
@@ -39,7 +39,7 @@ service AppVersionEditService{
     };
   }
   // 修改
-  rpc Update (AppVersionUpdateRequest) returns (AppVersion) {
+  rpc Update (UpdateRequest) returns (AppVersion) {
     option (google.api.http) = {
       put: "/v1/applications/{app_id}/versions/{id}"
       body: "data"
@@ -63,7 +63,7 @@ service AppVersionEditService{
     };
   }
   // 删除
-  rpc Delete (AppVersionDeleteRequest) returns (google.protobuf.Empty) {
+  rpc Delete (DeleteRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/applications/{app_id}/versions/{id}"
     };
@@ -87,14 +87,14 @@ service AppVersionEditService{
   }
 }
 
-message AppVersionCreateRequest {
+message CreateRequest {
   string app_id =1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       description: 'app_id'
     },
     (validate.rules).string={ignore_empty:false,len:24}
   ];
-  AppVersionFormData data = 2[
+  CreateForm data = 2[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:["data"]
       description:'创建应用版本信息'
@@ -102,7 +102,7 @@ message AppVersionCreateRequest {
     (validate.rules).message = {required :true}
   ];
 }
-message AppVersionFormData {
+message CreateForm {
   string title = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       description:'名称'
@@ -139,7 +139,7 @@ message AppVersionFormData {
     (validate.rules).string = {ignore_empty:true,min_len:1,max_len:255}
   ];
 }
-message AppVersionUpdateRequest {
+message UpdateRequest {
   string app_id =1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       description: 'app_id'
@@ -153,7 +153,7 @@ message AppVersionUpdateRequest {
     },
     (validate.rules).uint32 = {ignore_empty: false, gt:0}
   ];
-  AppVersionUpdateData data = 3[
+  UpdateForm data = 3[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:["data"]
       description:'data'
@@ -161,15 +161,43 @@ message AppVersionUpdateRequest {
     (validate.rules).message = {required :true}
   ];
 }
-message AppVersionUpdateData {
-  AppVersionFormData data = 1[
+message UpdateForm {
+  string title = 1[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      required:['data']
-      description:'更新的数据'
+      description:'名称'
     },
-    (validate.rules).message = {required:true}
+    (validate.rules).string = {ignore_empty:true,min_len:1,max_len:100}
   ];
-  common.v1.Conflict conflict = 2[
+  string description = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'更行内容'
+    },
+    (validate.rules).string = {ignore_empty:true,min_len:0,max_len:255}
+  ];
+  string version = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'版本号'
+    },
+    (validate.rules).string = {ignore_empty:true,min_len:5,max_len:20}
+  ];
+  uint32 version_num = 4[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'版本号数值'
+    },
+    (validate.rules).uint32 = {ignore_empty:true,gt:0}
+  ];
+  bool force = 5[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'是否强制更新'
+    }
+  ];
+  string url = 6[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description:'文件路径'
+    },
+    (validate.rules).string = {ignore_empty:true,min_len:1,max_len:255}
+  ];
+  common.v1.Conflict conflict = 7[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required:["conflict"]
       description:'检测冲突'
@@ -177,7 +205,7 @@ message AppVersionUpdateData {
     (validate.rules).message = {required :true}
   ];
 }
-message AppVersionDeleteRequest {
+message DeleteRequest {
   string app_id =1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description: 'app_id'
   },

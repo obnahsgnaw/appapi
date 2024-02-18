@@ -36,7 +36,7 @@ var (
 )
 
 func request_AppVersionQueryService_Paginate_0(ctx context.Context, marshaler runtime.Marshaler, client AppVersionQueryServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppVersionPaginateRequest
+	var protoReq PaginateRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -69,7 +69,7 @@ func request_AppVersionQueryService_Paginate_0(ctx context.Context, marshaler ru
 }
 
 func local_request_AppVersionQueryService_Paginate_0(ctx context.Context, marshaler runtime.Marshaler, server AppVersionQueryServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppVersionPaginateRequest
+	var protoReq PaginateRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -102,7 +102,7 @@ func local_request_AppVersionQueryService_Paginate_0(ctx context.Context, marsha
 }
 
 func request_AppVersionQueryService_Detail_0(ctx context.Context, marshaler runtime.Marshaler, client AppVersionQueryServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppVersionDetailRequest
+	var protoReq DetailRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -138,7 +138,7 @@ func request_AppVersionQueryService_Detail_0(ctx context.Context, marshaler runt
 }
 
 func local_request_AppVersionQueryService_Detail_0(ctx context.Context, marshaler runtime.Marshaler, server AppVersionQueryServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AppVersionDetailRequest
+	var protoReq DetailRequest
 	var metadata runtime.ServerMetadata
 
 	var (

@@ -12,7 +12,7 @@ service AppVersionQueryService {
     description: "2.版本服务";
   };
   // 列表
-  rpc Paginate(common.v1.PaginateRequest) returns (AppVersionPaginateResponse){
+  rpc Paginate(common.v1.PaginateRequest) returns (PaginateResponse){
     option(google.api.http) = {
       get: "/v1/versions";
     };
@@ -59,7 +59,7 @@ service AppVersionQueryService {
   }
 }
 
-message AppVersionPaginateResponse {
+message PaginateResponse {
   option (validate.ignored) = true;
   common.v1.PaginateMeta meta = 1;
   repeated AppVersion list =2;

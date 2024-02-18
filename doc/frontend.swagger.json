@@ -43,7 +43,7 @@
   "paths": {
     "/v1/applications": {
       "get": {
-        "summary": "可选列表",
+        "summary": "列表",
         "operationId": "AppQueryService_Paginate",
         "responses": {
           "200": {
@@ -154,7 +154,7 @@
     },
     "/v1/applications/current": {
       "get": {
-        "summary": "当前",
+        "summary": "详情",
         "operationId": "AppQueryService_Detail",
         "responses": {
           "200": {
@@ -373,7 +373,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1AppVersionPaginateResponse"
+              "$ref": "#/definitions/v1PaginateResponse"
             }
           },
           "201": {
@@ -631,22 +631,7 @@
         "publishAt": {
           "type": "string",
           "format": "date-time",
-          "description": "时间"
-        }
-      }
-    },
-    "v1AppVersionPaginateResponse": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/v1PaginateMeta"
-        },
-        "list": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1AppVersion"
-          }
+          "description": "发布时间"
         }
       }
     },
@@ -764,6 +749,21 @@
         }
       },
       "title": "分页元数据"
+    },
+    "v1PaginateResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1PaginateMeta"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1AppVersion"
+          }
+        }
+      }
     },
     "v1PaginateStringOptionResponse": {
       "type": "object",

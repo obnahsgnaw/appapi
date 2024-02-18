@@ -35,41 +35,30 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on AppVersionPublishRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AppVersionPublishRequest) Validate() error {
+// Validate checks the field values on PublishRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PublishRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AppVersionPublishRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AppVersionPublishRequestMultiError, or nil if none found.
-func (m *AppVersionPublishRequest) ValidateAll() error {
+// ValidateAll checks the field values on PublishRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PublishRequestMultiError,
+// or nil if none found.
+func (m *PublishRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AppVersionPublishRequest) validate(all bool) error {
+func (m *PublishRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if m.GetId() <= 0 {
-		err := AppVersionPublishRequestValidationError{
-			field:  "Id",
-			reason: "value must be greater than 0",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if utf8.RuneCountInString(m.GetAppId()) != 24 {
-		err := AppVersionPublishRequestValidationError{
+		err := PublishRequestValidationError{
 			field:  "AppId",
 			reason: "value length must be 24 runes",
 		}
@@ -80,8 +69,19 @@ func (m *AppVersionPublishRequest) validate(all bool) error {
 
 	}
 
+	if m.GetId() <= 0 {
+		err := PublishRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if m.GetData() == nil {
-		err := AppVersionPublishRequestValidationError{
+		err := PublishRequestValidationError{
 			field:  "Data",
 			reason: "value is required",
 		}
@@ -95,7 +95,7 @@ func (m *AppVersionPublishRequest) validate(all bool) error {
 		switch v := interface{}(m.GetData()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AppVersionPublishRequestValidationError{
+				errors = append(errors, PublishRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -103,7 +103,7 @@ func (m *AppVersionPublishRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, AppVersionPublishRequestValidationError{
+				errors = append(errors, PublishRequestValidationError{
 					field:  "Data",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -112,7 +112,7 @@ func (m *AppVersionPublishRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetData()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return AppVersionPublishRequestValidationError{
+			return PublishRequestValidationError{
 				field:  "Data",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -121,19 +121,19 @@ func (m *AppVersionPublishRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return AppVersionPublishRequestMultiError(errors)
+		return PublishRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AppVersionPublishRequestMultiError is an error wrapping multiple validation
-// errors returned by AppVersionPublishRequest.ValidateAll() if the designated
-// constraints aren't met.
-type AppVersionPublishRequestMultiError []error
+// PublishRequestMultiError is an error wrapping multiple validation errors
+// returned by PublishRequest.ValidateAll() if the designated constraints
+// aren't met.
+type PublishRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AppVersionPublishRequestMultiError) Error() string {
+func (m PublishRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -142,11 +142,11 @@ func (m AppVersionPublishRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AppVersionPublishRequestMultiError) AllErrors() []error { return m }
+func (m PublishRequestMultiError) AllErrors() []error { return m }
 
-// AppVersionPublishRequestValidationError is the validation error returned by
-// AppVersionPublishRequest.Validate if the designated constraints aren't met.
-type AppVersionPublishRequestValidationError struct {
+// PublishRequestValidationError is the validation error returned by
+// PublishRequest.Validate if the designated constraints aren't met.
+type PublishRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -154,24 +154,22 @@ type AppVersionPublishRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AppVersionPublishRequestValidationError) Field() string { return e.field }
+func (e PublishRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AppVersionPublishRequestValidationError) Reason() string { return e.reason }
+func (e PublishRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AppVersionPublishRequestValidationError) Cause() error { return e.cause }
+func (e PublishRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AppVersionPublishRequestValidationError) Key() bool { return e.key }
+func (e PublishRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AppVersionPublishRequestValidationError) ErrorName() string {
-	return "AppVersionPublishRequestValidationError"
-}
+func (e PublishRequestValidationError) ErrorName() string { return "PublishRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AppVersionPublishRequestValidationError) Error() string {
+func (e PublishRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -183,14 +181,14 @@ func (e AppVersionPublishRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAppVersionPublishRequest.%s: %s%s",
+		"invalid %sPublishRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AppVersionPublishRequestValidationError{}
+var _ error = PublishRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -198,4 +196,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AppVersionPublishRequestValidationError{}
+} = PublishRequestValidationError{}

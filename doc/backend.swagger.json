@@ -69,7 +69,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1AppPaginateResponse"
+              "$ref": "#/definitions/app_backend_apiappv1PaginateResponse"
             }
           },
           "201": {
@@ -229,7 +229,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1AppFormData",
+              "$ref": "#/definitions/v1AppCreateForm",
               "description": "data",
               "required": [
                 "data"
@@ -257,7 +257,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1AppVersionPaginateResponse"
+              "$ref": "#/definitions/app_backend_apiappversionv1PaginateResponse"
             }
           },
           "201": {
@@ -431,7 +431,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1AppVersionFormData",
+              "$ref": "#/definitions/v1CreateForm",
               "description": "创建应用版本信息",
               "required": [
                 "data"
@@ -707,7 +707,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1AppVersionUpdateData",
+              "$ref": "#/definitions/v1UpdateForm",
               "description": "data",
               "required": [
                 "data"
@@ -1062,7 +1062,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1AppUpdateData",
+              "$ref": "#/definitions/v1AppUpdateForm",
               "description": "data",
               "required": [
                 "data"
@@ -1640,6 +1640,36 @@
     }
   },
   "definitions": {
+    "app_backend_apiappv1PaginateResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1PaginateMeta"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1PaginateApp"
+          }
+        }
+      }
+    },
+    "app_backend_apiappversionv1PaginateResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1PaginateMeta"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1PaginateAppVersion"
+          }
+        }
+      }
+    },
     "v1App": {
       "type": "object",
       "properties": {
@@ -1705,7 +1735,7 @@
       },
       "title": "应用全属性对象"
     },
-    "v1AppFormData": {
+    "v1AppCreateForm": {
       "type": "object",
       "properties": {
         "name": {
@@ -1748,21 +1778,6 @@
         }
       }
     },
-    "v1AppPaginateResponse": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/v1PaginateMeta"
-        },
-        "list": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1PaginateApp"
-          }
-        }
-      }
-    },
     "v1AppType": {
       "type": "string",
       "enum": [
@@ -1772,12 +1787,46 @@
       "default": "Backend",
       "title": "类型"
     },
-    "v1AppUpdateData": {
+    "v1AppUpdateForm": {
       "type": "object",
       "properties": {
-        "data": {
-          "$ref": "#/definitions/v1AppFormData",
-          "description": "data"
+        "name": {
+          "type": "string",
+          "description": "应用名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "应用描述"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "作用范围"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AppType",
+          "description": "类型"
+        },
+        "package": {
+          "type": "string",
+          "description": "包名"
+        },
+        "project": {
+          "type": "string",
+          "description": "项目标识"
+        },
+        "manage": {
+          "type": "boolean",
+          "description": "是否管理型应用"
+        },
+        "attrs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "应用属性"
         },
         "conflict": {
           "$ref": "#/definitions/v1Conflict",
@@ -1785,7 +1834,6 @@
         }
       },
       "required": [
-        "data",
         "conflict"
       ]
     },
@@ -1837,68 +1885,6 @@
         }
       },
       "title": "全属性对象"
-    },
-    "v1AppVersionFormData": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string",
-          "description": "名称"
-        },
-        "description": {
-          "type": "string",
-          "description": "更行内容"
-        },
-        "version": {
-          "type": "string",
-          "description": "版本号"
-        },
-        "versionNum": {
-          "type": "integer",
-          "format": "int64",
-          "description": "版本号数值"
-        },
-        "force": {
-          "type": "boolean",
-          "description": "是否强制更新"
-        },
-        "url": {
-          "type": "string",
-          "description": "文件路径"
-        }
-      }
-    },
-    "v1AppVersionPaginateResponse": {
-      "type": "object",
-      "properties": {
-        "meta": {
-          "$ref": "#/definitions/v1PaginateMeta"
-        },
-        "list": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1PaginateAppVersion"
-          }
-        }
-      }
-    },
-    "v1AppVersionUpdateData": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "$ref": "#/definitions/v1AppVersionFormData",
-          "description": "更新的数据"
-        },
-        "conflict": {
-          "$ref": "#/definitions/v1Conflict",
-          "description": "检测冲突"
-        }
-      },
-      "required": [
-        "data",
-        "conflict"
-      ]
     },
     "v1Config": {
       "type": "object",
@@ -1973,6 +1959,36 @@
       "required": [
         "conflict"
       ]
+    },
+    "v1CreateForm": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "更行内容"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "versionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本号数值"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "是否强制更新"
+        },
+        "url": {
+          "type": "string",
+          "description": "文件路径"
+        }
+      }
     },
     "v1EnableState": {
       "type": "string",
@@ -2259,6 +2275,43 @@
         }
       },
       "title": "key name 响应"
+    },
+    "v1UpdateForm": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "名称"
+        },
+        "description": {
+          "type": "string",
+          "description": "更行内容"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "versionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本号数值"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "是否强制更新"
+        },
+        "url": {
+          "type": "string",
+          "description": "文件路径"
+        },
+        "conflict": {
+          "$ref": "#/definitions/v1Conflict",
+          "description": "检测冲突"
+        }
+      },
+      "required": [
+        "conflict"
+      ]
     },
     "v1ValidAppResponse": {
       "type": "object",
