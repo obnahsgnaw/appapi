@@ -169,6 +169,8 @@ func (m *ValidAppRequest) validate(all bool) error {
 
 	}
 
+	// no validation rules for IgnoreEndtype
+
 	if len(errors) > 0 {
 		return ValidAppRequestMultiError(errors)
 	}

@@ -75,6 +75,11 @@ message ValidAppRequest{
     },
     (validate.rules).string = {ignore_empty: false}
   ];
+  bool ignore_endtype = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "ignore_endtype";
+    }
+  ];
 }
 message ValidAppResponse{
   option (validate.ignored) = true;
