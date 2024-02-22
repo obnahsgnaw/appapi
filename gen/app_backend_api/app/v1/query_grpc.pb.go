@@ -28,6 +28,7 @@ const (
 	AppQueryService_IdsDetail_FullMethodName = "/app_backend_api.app.v1.AppQueryService/IdsDetail"
 	AppQueryService_IdsSimple_FullMethodName = "/app_backend_api.app.v1.AppQueryService/IdsSimple"
 	AppQueryService_ValidApp_FullMethodName  = "/app_backend_api.app.v1.AppQueryService/ValidApp"
+	AppQueryService_UcuApp_FullMethodName    = "/app_backend_api.app.v1.AppQueryService/UcuApp"
 	AppQueryService_Config_FullMethodName    = "/app_backend_api.app.v1.AppQueryService/Config"
 )
 
@@ -51,6 +52,8 @@ type AppQueryServiceClient interface {
 	IdsSimple(ctx context.Context, in *IdsRequest, opts ...grpc.CallOption) (*IdsSimpleResponse, error)
 	// 验证后的详情
 	ValidApp(ctx context.Context, in *ValidAppRequest, opts ...grpc.CallOption) (*ValidAppResponse, error)
+	// ucu 特定app
+	UcuApp(ctx context.Context, in *UcuAppRequest, opts ...grpc.CallOption) (*SimpleApp, error)
 	// 属性配置
 	Config(ctx context.Context, in *ConfigRequest, opts ...grpc.CallOption) (*ConfigResponse, error)
 }
@@ -135,6 +138,15 @@ func (c *appQueryServiceClient) ValidApp(ctx context.Context, in *ValidAppReques
 	return out, nil
 }
 
+func (c *appQueryServiceClient) UcuApp(ctx context.Context, in *UcuAppRequest, opts ...grpc.CallOption) (*SimpleApp, error) {
+	out := new(SimpleApp)
+	err := c.cc.Invoke(ctx, AppQueryService_UcuApp_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *appQueryServiceClient) Config(ctx context.Context, in *ConfigRequest, opts ...grpc.CallOption) (*ConfigResponse, error) {
 	out := new(ConfigResponse)
 	err := c.cc.Invoke(ctx, AppQueryService_Config_FullMethodName, in, out, opts...)
@@ -164,6 +176,8 @@ type AppQueryServiceServer interface {
 	IdsSimple(context.Context, *IdsRequest) (*IdsSimpleResponse, error)
 	// 验证后的详情
 	ValidApp(context.Context, *ValidAppRequest) (*ValidAppResponse, error)
+	// ucu 特定app
+	UcuApp(context.Context, *UcuAppRequest) (*SimpleApp, error)
 	// 属性配置
 	Config(context.Context, *ConfigRequest) (*ConfigResponse, error)
 }
@@ -195,6 +209,9 @@ func (UnimplementedAppQueryServiceServer) IdsSimple(context.Context, *IdsRequest
 }
 func (UnimplementedAppQueryServiceServer) ValidApp(context.Context, *ValidAppRequest) (*ValidAppResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidApp not implemented")
+}
+func (UnimplementedAppQueryServiceServer) UcuApp(context.Context, *UcuAppRequest) (*SimpleApp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UcuApp not implemented")
 }
 func (UnimplementedAppQueryServiceServer) Config(context.Context, *ConfigRequest) (*ConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Config not implemented")
@@ -355,6 +372,24 @@ func _AppQueryService_ValidApp_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AppQueryService_UcuApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UcuAppRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AppQueryServiceServer).UcuApp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AppQueryService_UcuApp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AppQueryServiceServer).UcuApp(ctx, req.(*UcuAppRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AppQueryService_Config_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ConfigRequest)
 	if err := dec(in); err != nil {
@@ -411,6 +446,10 @@ var AppQueryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ValidApp",
 			Handler:    _AppQueryService_ValidApp_Handler,
+		},
+		{
+			MethodName: "UcuApp",
+			Handler:    _AppQueryService_UcuApp_Handler,
 		},
 		{
 			MethodName: "Config",

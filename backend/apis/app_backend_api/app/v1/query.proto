@@ -71,6 +71,8 @@ service AppQueryService{
   rpc IdsSimple (IdsRequest) returns (IdsSimpleResponse);
   // 验证后的详情
   rpc ValidApp(ValidAppRequest)returns(ValidAppResponse);
+  // ucu 特定app
+  rpc UcuApp(UcuAppRequest)returns(SimpleApp);
   // 属性配置
   rpc Config(ConfigRequest) returns(ConfigResponse){
     option (google.api.http) = {
@@ -243,3 +245,4 @@ message ConfigItem{
     (validate.rules).string = {ignore_empty: false}
   ];
 }
+message UcuAppRequest{}
