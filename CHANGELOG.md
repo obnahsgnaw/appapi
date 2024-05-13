@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 <a name="v0.11.5"></a>
 ## [v0.11.5](https://8.140.161.172/wangsb/wgateway/compare/v0.11.4...v0.11.5) (2024-02-22)
 
@@ -77,10 +78,19 @@
 
 <a name="v0.7.1"></a>
 ## [v0.7.1](https://8.140.161.172/wangsb/wgateway/compare/v0.7.0...v0.7.1) (2024-01-26)
+=======
+<a name="v0.2.7"></a>
+## [v0.2.7](https://8.140.161.172/wangsb/wgateway/compare/v0.7.0...v0.2.7) (2024-02-24)
+
+
+<a name="v0.7.0"></a>
+## [v0.7.0](https://8.140.161.172/wangsb/wgateway/compare/v0.2.6...v0.7.0) (2024-02-24)
+>>>>>>> framework-v1
 
 ### Bug Fixes
 
 * **cmd:** fix gen.go
+<<<<<<< HEAD
 * **x:** x
 
 
@@ -91,13 +101,24 @@
 
 * **map.proto:** fix map app response
 * **map.proto:** fix map app proto
+=======
+* **upload:** fix upload
+* **x:** x
+* **x:** x
+* **x:** x
+* **x:** x
+>>>>>>> framework-v1
 * **x:** x
 * **x:** x
 * **x:** x
 
 ### Features
 
+<<<<<<< HEAD
 * **proto:** added backend map app
+=======
+* **template:** added template for proto
+>>>>>>> framework-v1
 
 
 <a name="v0.2.6"></a>
@@ -105,7 +126,11 @@
 
 
 <a name="v0.2.5"></a>
+<<<<<<< HEAD
 ## [v0.2.5](https://8.140.161.172/wangsb/wgateway/compare/v0.6.0...v0.2.5) (2023-11-27)
+=======
+## [v0.2.5](https://8.140.161.172/wangsb/wgateway/compare/v0.2.4...v0.2.5) (2023-11-27)
+>>>>>>> framework-v1
 
 ### Bug Fixes
 
@@ -117,6 +142,7 @@
 * **common obj:** page meta add paginate config
 
 
+<<<<<<< HEAD
 <a name="v0.6.0"></a>
 ## [v0.6.0](https://8.140.161.172/wangsb/wgateway/compare/v0.2.4...v0.6.0) (2023-11-13)
 
@@ -130,6 +156,8 @@
 * **proto:** added backend map app
 
 
+=======
+>>>>>>> framework-v1
 <a name="v0.2.4"></a>
 ## [v0.2.4](https://8.140.161.172/wangsb/wgateway/compare/v0.2.3...v0.2.4) (2023-11-11)
 
@@ -159,13 +187,18 @@
 
 
 <a name="v0.1.1+1.339189e"></a>
+<<<<<<< HEAD
 ## [v0.1.1+1.339189e](https://8.140.161.172/wangsb/wgateway/compare/v0.5.2...v0.1.1+1.339189e) (2023-11-11)
+=======
+## [v0.1.1+1.339189e](https://8.140.161.172/wangsb/wgateway/compare/v0.4.1...v0.1.1+1.339189e) (2023-11-11)
+>>>>>>> framework-v1
 
 ### Features
 
 * **proto:** added attrconfig proto
 
 
+<<<<<<< HEAD
 <a name="v0.5.2"></a>
 ## [v0.5.2](https://8.140.161.172/wangsb/wgateway/compare/v0.5.1...v0.5.2) (2023-11-07)
 
@@ -208,6 +241,42 @@
 
 <a name="v0.3.0"></a>
 ## [v0.3.0](https://8.140.161.172/wangsb/wgateway/compare/v0.2.0...v0.3.0) (2023-09-19)
+=======
+<a name="v0.4.1"></a>
+## [v0.4.1](https://8.140.161.172/wangsb/wgateway/compare/v0.6.1...v0.4.1) (2023-11-07)
+
+
+<a name="v0.6.1"></a>
+## [v0.6.1](https://8.140.161.172/wangsb/wgateway/compare/v0.6.0...v0.6.1) (2023-10-20)
+
+
+<a name="v0.6.0"></a>
+## [v0.6.0](https://8.140.161.172/wangsb/wgateway/compare/v0.1.1...v0.6.0) (2023-10-06)
+
+
+<a name="v0.1.1"></a>
+## [v0.1.1](https://8.140.161.172/wangsb/wgateway/compare/v0.1.0+2.e5f9bb9...v0.1.1) (2023-10-05)
+
+
+<a name="v0.1.0+2.e5f9bb9"></a>
+## [v0.1.0+2.e5f9bb9](https://8.140.161.172/wangsb/wgateway/compare/v0.4.0...v0.1.0+2.e5f9bb9) (2023-10-05)
+
+
+<a name="v0.4.0"></a>
+## [v0.4.0](https://8.140.161.172/wangsb/wgateway/compare/v0.3.1...v0.4.0) (2023-10-05)
+
+
+<a name="v0.3.1"></a>
+## [v0.3.1](https://8.140.161.172/wangsb/wgateway/compare/v0.5.0...v0.3.1) (2023-09-26)
+
+
+<a name="v0.5.0"></a>
+## [v0.5.0](https://8.140.161.172/wangsb/wgateway/compare/v0.3.0...v0.5.0) (2023-09-24)
+
+
+<a name="v0.3.0"></a>
+## [v0.3.0](https://8.140.161.172/wangsb/wgateway/compare/v0.2.0...v0.3.0) (2023-09-22)
+>>>>>>> framework-v1
 
 
 <a name="v0.2.0"></a>

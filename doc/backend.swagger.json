@@ -1280,7 +1280,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1ConfigResponse"
+              "$ref": "#/definitions/app_backend_apiappv1ConfigResponse"
             }
           },
           "201": {
@@ -1640,6 +1640,22 @@
     }
   },
   "definitions": {
+    "app_backend_apiappv1ConfigResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ConfigItem",
+            "required": [
+              "items"
+            ]
+          },
+          "description": "属性"
+        }
+      }
+    },
     "app_backend_apiappv1CreateForm": {
       "type": "object",
       "properties": {
@@ -1983,22 +1999,6 @@
         "title",
         "desc"
       ]
-    },
-    "v1ConfigResponse": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1ConfigItem",
-            "required": [
-              "items"
-            ]
-          },
-          "description": "属性"
-        }
-      }
     },
     "v1Conflict": {
       "type": "object",
