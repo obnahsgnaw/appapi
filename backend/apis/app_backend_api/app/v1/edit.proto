@@ -12,7 +12,7 @@ import "google/protobuf/empty.proto";
 service AppEditService{
   // 服务swagger描述定义
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
-    description: "2.应用编辑服务";
+    description: "3.应用编辑服务";
   };
   // 创建
   rpc Create (CreateRequest) returns (App) {
@@ -128,9 +128,9 @@ message CreateForm {
   ];
   string project = 6[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      description:'项目标识'
+      description:'项目标识,前台应用必须'
     },
-    (validate.rules).string = {ignore_empty:false, min_len:1,max_len:100}
+    (validate.rules).string = {ignore_empty:true, min_len:1,max_len:100}
   ];
   bool manage = 7[
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {

@@ -33,7 +33,7 @@ type AppQueryServiceClient interface {
 	Paginate(ctx context.Context, in *v1.PaginateAllRequest, opts ...grpc.CallOption) (*v1.PaginateStringOptionResponse, error)
 	// 详情
 	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*App, error)
-	// 经过验证的详情
+	// 经过验证的详情 主要用于前台访问验证的rpc调用
 	ValidApp(ctx context.Context, in *ValidAppRequest, opts ...grpc.CallOption) (*ValidAppResponse, error)
 }
 
@@ -80,7 +80,7 @@ type AppQueryServiceServer interface {
 	Paginate(context.Context, *v1.PaginateAllRequest) (*v1.PaginateStringOptionResponse, error)
 	// 详情
 	Detail(context.Context, *DetailRequest) (*App, error)
-	// 经过验证的详情
+	// 经过验证的详情 主要用于前台访问验证的rpc调用
 	ValidApp(context.Context, *ValidAppRequest) (*ValidAppResponse, error)
 }
 

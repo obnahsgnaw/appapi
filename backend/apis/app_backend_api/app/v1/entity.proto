@@ -13,6 +13,7 @@ enum AppType{
 }
 // 简单属性对象
 message SimpleApp{
+  option (validate.ignored) = true;
   uint32 id = 1;
   string app_id = 2;
   string name = 3;

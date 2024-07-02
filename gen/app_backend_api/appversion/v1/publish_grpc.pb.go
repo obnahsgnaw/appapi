@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AppVersionPublishService_Publish_FullMethodName = "/app_backend_api.appversion.v1.AppVersionPublishService/Publish"
+	AppVersionPublishService_Publish_FullMethodName   = "/app_backend_api.appversion.v1.AppVersionPublishService/Publish"
+	AppVersionPublishService_Unpublish_FullMethodName = "/app_backend_api.appversion.v1.AppVersionPublishService/Unpublish"
 )
 
 // AppVersionPublishServiceClient is the client API for AppVersionPublishService service.
@@ -28,6 +29,8 @@ const (
 type AppVersionPublishServiceClient interface {
 	// 发布
 	Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*AppVersion, error)
+	// 撤销发布
+	Unpublish(ctx context.Context, in *UnpublishRequest, opts ...grpc.CallOption) (*AppVersion, error)
 }
 
 type appVersionPublishServiceClient struct {
@@ -47,12 +50,23 @@ func (c *appVersionPublishServiceClient) Publish(ctx context.Context, in *Publis
 	return out, nil
 }
 
+func (c *appVersionPublishServiceClient) Unpublish(ctx context.Context, in *UnpublishRequest, opts ...grpc.CallOption) (*AppVersion, error) {
+	out := new(AppVersion)
+	err := c.cc.Invoke(ctx, AppVersionPublishService_Unpublish_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AppVersionPublishServiceServer is the server API for AppVersionPublishService service.
 // All implementations should embed UnimplementedAppVersionPublishServiceServer
 // for forward compatibility
 type AppVersionPublishServiceServer interface {
 	// 发布
 	Publish(context.Context, *PublishRequest) (*AppVersion, error)
+	// 撤销发布
+	Unpublish(context.Context, *UnpublishRequest) (*AppVersion, error)
 }
 
 // UnimplementedAppVersionPublishServiceServer should be embedded to have forward compatible implementations.
@@ -61,6 +75,9 @@ type UnimplementedAppVersionPublishServiceServer struct {
 
 func (UnimplementedAppVersionPublishServiceServer) Publish(context.Context, *PublishRequest) (*AppVersion, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Publish not implemented")
+}
+func (UnimplementedAppVersionPublishServiceServer) Unpublish(context.Context, *UnpublishRequest) (*AppVersion, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Unpublish not implemented")
 }
 
 // UnsafeAppVersionPublishServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -92,6 +109,24 @@ func _AppVersionPublishService_Publish_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AppVersionPublishService_Unpublish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnpublishRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AppVersionPublishServiceServer).Unpublish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AppVersionPublishService_Unpublish_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AppVersionPublishServiceServer).Unpublish(ctx, req.(*UnpublishRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AppVersionPublishService_ServiceDesc is the grpc.ServiceDesc for AppVersionPublishService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +137,10 @@ var AppVersionPublishService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Publish",
 			Handler:    _AppVersionPublishService_Publish_Handler,
+		},
+		{
+			MethodName: "Unpublish",
+			Handler:    _AppVersionPublishService_Unpublish_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

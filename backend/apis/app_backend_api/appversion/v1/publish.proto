@@ -10,7 +10,7 @@ import "validate/validate.proto";
 service AppVersionPublishService{
   // 服务swagger描述定义
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
-    description: "6.版本发布服务";
+    description: "8.版本发布服务";
   };
   // 发布
   rpc Publish (PublishRequest) returns (AppVersion){
@@ -36,9 +36,57 @@ service AppVersionPublishService{
       }
     };
   }
+  // 撤销发布
+  rpc Unpublish (UnpublishRequest) returns (AppVersion){
+    option (google.api.http) = {
+      put :'/v1/applications/{app_id}/versions/{id}/unpublish-state'
+      body:'data'
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "撤销发布";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 1
+        }
+      }
+    };
+  }
 }
 
 message PublishRequest {
+  string app_id =1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: 'app_id'
+  },
+    (validate.rules).string={ignore_empty:false,len:24}
+  ];
+  uint32 id = 2[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["id"];
+      title: "ID";
+      description: "ID";
+    },
+    (validate.rules).uint32 = {ignore_empty: false, gt:0}
+  ];
+  common.v1.ConflictData data = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ["data"];
+      title: "data";
+      description: "data";
+    },
+    (validate.rules).message = {required:true}
+  ];
+}
+
+message UnpublishRequest {
   string app_id =1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description: 'app_id'
   },

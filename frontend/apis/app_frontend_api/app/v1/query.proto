@@ -55,7 +55,7 @@ service AppQueryService {
       }
     };
   }
-  // 经过验证的详情
+  // 经过验证的详情 主要用于前台访问验证的rpc调用
   rpc ValidApp(ValidAppRequest)returns(ValidAppResponse);
 }
 

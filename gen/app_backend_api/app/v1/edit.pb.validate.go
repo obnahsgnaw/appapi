@@ -276,15 +276,19 @@ func (m *CreateForm) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetProject()); l < 1 || l > 100 {
-		err := CreateFormValidationError{
-			field:  "Project",
-			reason: "value length must be between 1 and 100 runes, inclusive",
+	if m.GetProject() != "" {
+
+		if l := utf8.RuneCountInString(m.GetProject()); l < 1 || l > 100 {
+			err := CreateFormValidationError{
+				field:  "Project",
+				reason: "value length must be between 1 and 100 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
+
 	}
 
 	// no validation rules for Manage

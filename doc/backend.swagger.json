@@ -21,11 +21,19 @@
     },
     {
       "name": "AppEditService",
-      "description": "2.应用编辑服务"
+      "description": "3.应用编辑服务"
+    },
+    {
+      "name": "EnabledAppQueryService",
+      "description": "5.已启用的应用查询服务"
     },
     {
       "name": "AppEnableDisableService",
-      "description": "3.应用启用服务"
+      "description": "4.应用启用服务"
+    },
+    {
+      "name": "AppProjectQueryService",
+      "description": "2.应用项目服务"
     },
     {
       "name": "AppQueryService",
@@ -33,15 +41,15 @@
     },
     {
       "name": "AppVersionEditService",
-      "description": "5.版本编辑服务"
+      "description": "7.版本编辑服务"
     },
     {
       "name": "AppVersionPublishService",
-      "description": "6.版本发布服务"
+      "description": "8.版本发布服务"
     },
     {
       "name": "AppVersionQueryService",
-      "description": "4.版本查询服务"
+      "description": "6.版本查询服务"
     },
     {
       "name": "ConfigService",
@@ -61,6 +69,118 @@
     "application/octet-stream"
   ],
   "paths": {
+    "/v1/application-projects": {
+      "get": {
+        "summary": "项目列表",
+        "description": "主要用于一些下拉选择，应用创建后才有不用于应用创建时的选择",
+        "operationId": "AppProjectQueryService_Paginate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PaginateStringOptionResponse"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "all",
+            "description": "All resource records, no paginate if support",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "page",
+            "description": "Page number, default=1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "Page size, default=10",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "keyword",
+            "description": "Keyword search, like:keyword=xx，keyword=id=1|name=xxx",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort list, like: sort=+a,-b,+c,-d",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AppProjectQueryService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 1
+      }
+    },
     "/v1/applications": {
       "get": {
         "summary": "列表",
@@ -830,6 +950,109 @@
         "x-order": 1
       }
     },
+    "/v1/applications/{appId}/versions/{id}/unpublish-state": {
+      "put": {
+        "summary": "撤销发布",
+        "operationId": "AppVersionPublishService_Unpublish",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AppVersion"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "description": "app_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "ID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "data",
+            "description": "data\n\ndata",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ConflictData",
+              "description": "data",
+              "title": "data",
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "AppVersionPublishService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 1
+      }
+    },
     "/v1/applications/{id}": {
       "get": {
         "summary": "详情",
@@ -1496,6 +1719,117 @@
         ]
       }
     },
+    "/v1/enabled-applications": {
+      "get": {
+        "summary": "已启用的应用列表",
+        "operationId": "EnabledAppQueryService_Paginate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1EnabledAppPaginateResponse"
+            }
+          },
+          "201": {
+            "description": "Returned when the resource created success.",
+            "schema": {}
+          },
+          "204": {
+            "description": "Returned when the resource deleted success.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Returned when the request data validate failed.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not authentication.",
+            "schema": {}
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource not found.",
+            "schema": {}
+          },
+          "409": {
+            "description": "Returned when request update conflict.",
+            "schema": {}
+          },
+          "423": {
+            "description": "Returned when resource locked.",
+            "schema": {}
+          },
+          "429": {
+            "description": "Returned when request too many in a unit time.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {}
+          },
+          "default": {
+            "description": "Unexpect error.",
+            "schema": {
+              "$ref": "#/definitions/v1ErrorsObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "all",
+            "description": "All resource records, no paginate if support",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "page",
+            "description": "Page number, default=1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "Page size, default=10",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "keyword",
+            "description": "Keyword search, like:keyword=xx，keyword=id=1|name=xxx",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort list, like: sort=+a,-b,+c,-d",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EnabledAppQueryService"
+        ],
+        "security": [
+          {
+            "AppId": [],
+            "BearerToken": []
+          }
+        ],
+        "x-order": 1
+      }
+    },
     "/v1/options": {
       "get": {
         "summary": "选项",
@@ -1684,7 +2018,7 @@
         },
         "project": {
           "type": "string",
-          "description": "项目标识"
+          "description": "项目标识,前台应用必须"
         },
         "manage": {
           "type": "boolean",
@@ -2037,6 +2371,21 @@
       "default": "Disabled",
       "title": "启用 禁用"
     },
+    "v1EnabledAppPaginateResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1PaginateMeta"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SimpleApp"
+          }
+        }
+      }
+    },
     "v1ErrorObject": {
       "type": "object",
       "properties": {
@@ -2282,6 +2631,22 @@
         }
       },
       "title": "分页元数据"
+    },
+    "v1PaginateStringOptionResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1PaginateMeta"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1StringOption"
+          }
+        }
+      },
+      "title": "通用分页字符串option选项响应"
     },
     "v1SimpleApp": {
       "type": "object",

@@ -197,3 +197,166 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PublishRequestValidationError{}
+
+// Validate checks the field values on UnpublishRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *UnpublishRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UnpublishRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UnpublishRequestMultiError, or nil if none found.
+func (m *UnpublishRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UnpublishRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetAppId()) != 24 {
+		err := UnpublishRequestValidationError{
+			field:  "AppId",
+			reason: "value length must be 24 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+
+	}
+
+	if m.GetId() <= 0 {
+		err := UnpublishRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetData() == nil {
+		err := UnpublishRequestValidationError{
+			field:  "Data",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetData()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UnpublishRequestValidationError{
+					field:  "Data",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UnpublishRequestValidationError{
+					field:  "Data",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetData()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UnpublishRequestValidationError{
+				field:  "Data",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UnpublishRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UnpublishRequestMultiError is an error wrapping multiple validation errors
+// returned by UnpublishRequest.ValidateAll() if the designated constraints
+// aren't met.
+type UnpublishRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UnpublishRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UnpublishRequestMultiError) AllErrors() []error { return m }
+
+// UnpublishRequestValidationError is the validation error returned by
+// UnpublishRequest.Validate if the designated constraints aren't met.
+type UnpublishRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UnpublishRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UnpublishRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UnpublishRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UnpublishRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UnpublishRequestValidationError) ErrorName() string { return "UnpublishRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UnpublishRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUnpublishRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UnpublishRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UnpublishRequestValidationError{}

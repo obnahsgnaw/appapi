@@ -5,7 +5,7 @@ CREATE TABLE `app_applications`
     `name`        varchar(100) NOT NULL COMMENT '名称',
     `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     `scope`       varchar(255) NOT NULL COMMENT '作用域范围',
-    `type`        tinyint(2)   NOT NULL COMMENT '类型：0=管理端,1=用户端,2=混合端',
+    `type`        tinyint(2)   NOT NULL COMMENT '类型：0=管理端,1=用户端',
     `public_key`  text         NOT NULL COMMENT '公钥',
     `private_key` text         NOT NULL COMMENT '私钥',
     `package`     varchar(100) NOT NULL COMMENT '包名',
@@ -16,9 +16,9 @@ CREATE TABLE `app_applications`
     `deleted_at`  datetime(3)  NULL COMMENT '删除时间',
     `enabled`     tinyint(2)   NOT NULL COMMENT '状态：-1-未启用=默认，0-禁用，1-启用',
     PRIMARY KEY (`id`),
-    UNIQUE INDEX `app_idx_appid` (`app_id`),
-    UNIQUE INDEX `app_idx_name` (`name`),
-    UNIQUE INDEX `app_idx_package` (`package`)
+    UNIQUE INDEX `app_udx_appid` (`app_id`),
+    UNIQUE INDEX `app_udx_name` (`name`),
+    UNIQUE INDEX `app_udx_package` (`package`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='应用';
 

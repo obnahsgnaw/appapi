@@ -1,0 +1,38 @@
+syntax = "proto3";
+package app_backend_api.app.v1;
+option go_package = "app_backend_api/app/v1";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/api/annotations.proto";
+import "app_backend_api/common/v1/obj.proto";
+
+// 应用项目查询服务
+service AppProjectQueryService{
+  // 服务swagger描述定义
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "2.应用项目服务";
+  };
+  // 下拉列表
+  rpc Paginate(common.v1.PaginateAllRequest) returns (common.v1.PaginateStringOptionResponse){
+    option(google.api.http) = {
+      get: "/v1/application-projects";
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "项目列表";
+      description:"主要用于一些下拉选择，应用创建后才有不用于应用创建时的选择";
+      security:{
+        security_requirement:{
+          key:"AppId"
+        }
+        security_requirement:{
+          key:"BearerToken"
+        }
+      }
+      extensions:{
+        key: "x-order";
+        value: {
+          number_value: 1
+        }
+      }
+    };
+  }
+}
